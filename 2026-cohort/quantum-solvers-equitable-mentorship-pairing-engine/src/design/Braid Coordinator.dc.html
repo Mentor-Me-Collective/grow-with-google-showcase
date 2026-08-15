@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f%5B%5D=switzer@400,500,600&f%5B%5D=gambetta@500&display=swap">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
+  <style>
+    body { margin:0; background:#F7F1E9; -webkit-font-smoothing:antialiased; }
+    a { color:#A11550; text-decoration:none; }
+    a:hover { color:#6B0C34; }
+    @keyframes braid-shimmer { 0% { opacity:.55 } 50% { opacity:1 } 100% { opacity:.55 } }
+  </style>
+</helmet>
+
+<div style="font-family:Switzer,system-ui,sans-serif;color:#241733;background:#F7F1E9;padding:64px 48px 96px;display:flex;flex-direction:column;gap:96px;align-items:flex-start">
+
+  <header style="display:flex;flex-direction:column;gap:8px;max-width:600px">
+    <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Screen 07</span>
+    <h1 style="font-size:28px;line-height:36px;font-weight:600;margin:0">Coordinator dashboard</h1>
+    <p style="font-size:15px;line-height:24px;color:#574A3F;margin:0;text-wrap:pretty">Desktop only, 1280. Program health, then the list of things that need a human. Every item links to the page that resolves it.</p>
+  </header>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Populated</span>
+    <div style="width:1280px;background:#FFFCF7;border:1px solid #E8DFD6;border-radius:16px;overflow:hidden;display:flex;align-items:stretch">
+
+      <nav style="width:240px;flex:none;border-right:1px solid #E8DFD6;background:#FFFCF7;display:flex;flex-direction:column;gap:24px;padding:16px 12px">
+        <div style="display:flex;align-items:center;gap:0;padding:0 8px">
+          <dc-import name="WeaveMark" size="{{ 36 }}" hint-size="36px,36px"></dc-import>
+          <span style="font-family:Gambetta,Georgia,serif;font-weight:500;font-size:22px;line-height:1;letter-spacing:-0.02em;margin-left:-1px">Braid</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C;padding:0 8px">Program</span>
+          <button style="height:44px;padding:0 12px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;font-family:Switzer;text-align:left;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="border-color:#6B5580">
+            <span style="display:flex;flex-direction:column;min-width:0">
+              <span style="font-size:13px;line-height:20px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Women in Engineering</span>
+              <span style="font-size:12px;line-height:18px;color:#8A7A6C">2026 round</span>
+            </span>
+            <span style="width:8px;height:8px;border-right:1.5px solid #574A3F;border-bottom:1.5px solid #574A3F;transform:rotate(45deg);margin-bottom:4px;display:block;flex:none"></span>
+          </button>
+        </div>
+
+        <sc-for list="{{ nav }}" as="g" hint-placeholder-count="6">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C;padding:8px">{{ g.group }}</span>
+            <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3">
+              <span style="height:36px;padding:0 8px;border-radius:6px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;line-height:20px;color:{{ it.fg }};font-weight:{{ it.weight }};background:{{ it.bg }};cursor:pointer">
+                <span>{{ it.label }}</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px;line-height:20px;color:#8A7A6C">{{ it.count }}</span>
+              </span>
+            </sc-for>
+          </div>
+        </sc-for>
+      </nav>
+
+      <main style="flex:1;min-width:0;background:#FFFCF7;display:flex;flex-direction:column">
+        <div style="height:72px;padding:0 32px;border-bottom:1px solid #E8DFD6;display:flex;align-items:center;justify-content:space-between;gap:24px">
+          <div style="display:flex;flex-direction:column">
+            <h2 style="font-size:22px;line-height:30px;font-weight:600;margin:0">Overview</h2>
+            <span style="font-size:12px;line-height:18px;color:#8A7A6C">Friday, 7 August · matching runs in 38 days</span>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center">
+            <button style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #C4B7AA;background:transparent;color:#241733;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="border-color:#6B5580">Export roster</button>
+            <button style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:background 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#A11550">Run matching</button>
+          </div>
+        </div>
+
+        <div style="padding:32px;display:flex;flex-direction:column;gap:32px">
+
+          <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;overflow:hidden">
+            <div style="padding:16px 24px;border-bottom:1px solid #E8DFD6;display:flex;align-items:baseline;justify-content:space-between;gap:24px">
+              <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Signups against goal</span>
+              <span style="font-size:13px;line-height:20px;color:#574A3F"><span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;color:#241733">218</span> of <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;color:#241733">300</span> · closes 14 September</span>
+            </div>
+            <div style="padding:24px">
+              <div style="height:8px;border-radius:6px;background:#F7F1E9;overflow:hidden;display:flex">
+                <span style="width:73%;background:#241733;display:block"></span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding-top:8px">
+                <span style="font-size:12px;line-height:18px;color:#8A7A6C">On track. Last year you closed at 284.</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px;color:#241733">82 to go</span>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #E8DFD6">
+              <sc-for list="{{ health }}" as="h" hint-placeholder-count="6">
+                <div style="padding:20px 24px;border-right:1px solid #E8DFD6;border-bottom:1px solid #E8DFD6;display:flex;flex-direction:column;gap:4px">
+                  <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">{{ h.label }}</span>
+                  <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:22px;line-height:30px;font-variant-numeric:tabular-nums;color:#241733">{{ h.value }}</span>
+                  <span style="font-size:13px;line-height:20px;color:#574A3F">{{ h.note }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px">
+              <h3 style="font-size:22px;line-height:30px;font-weight:600;margin:0">Needs a human</h3>
+              <span style="font-size:13px;line-height:20px;color:#8A7A6C"><span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;color:#241733">5</span> items</span>
+            </div>
+            <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;overflow:hidden">
+              <sc-for list="{{ attention }}" as="a" hint-placeholder-count="5">
+                <div style="display:grid;grid-template-columns:64px 1fr auto;gap:24px;align-items:center;padding:0 24px;height:72px;border-bottom:1px solid #E8DFD6;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1);cursor:pointer" style-hover="border-color:#C4B7AA">
+                  <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:22px;line-height:30px;font-variant-numeric:tabular-nums;color:{{ a.numFg }}">{{ a.count }}</span>
+                  <span style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                    <span style="font-size:15px;line-height:24px;font-weight:{{ a.weight }}">{{ a.title }}</span>
+                    <span style="font-size:13px;line-height:20px;color:#574A3F">{{ a.detail }}</span>
+                  </span>
+                  <span style="height:32px;padding:0 12px;border-radius:10px;border:1px solid #C4B7AA;background:transparent;color:#241733;font-size:13px;line-height:20px;font-weight:500;display:inline-flex;align-items:center;flex:none">{{ a.action }}</span>
+                </div>
+              </sc-for>
+              <div style="padding:12px 24px">
+                <span style="font-size:12px;line-height:18px;color:#8A7A6C">Items leave this list when they are resolved. Nothing here expires on its own.</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <h3 style="font-size:22px;line-height:30px;font-weight:600;margin:0">Next milestone</h3>
+            <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-size:18px;line-height:26px;font-weight:600">Applications close</span>
+                <span style="font-size:13px;line-height:20px;color:#574A3F">After this you review, then matching runs on 21 September.</span>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:12px;flex:none">
+                <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:28px;line-height:36px;font-variant-numeric:tabular-nums">14 Sep</span>
+                <span style="font-size:13px;line-height:20px;color:#8A7A6C">in 38 days</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Loading and clear</span>
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap">
+
+      <div style="width:608px;border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;overflow:hidden">
+        <div style="padding:16px 24px;border-bottom:1px solid #E8DFD6">
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Needs a human</span>
+        </div>
+        <sc-for list="{{ skeletons }}" as="w" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:64px 1fr 88px;gap:24px;align-items:center;padding:0 24px;height:72px;border-bottom:1px solid #E8DFD6;animation:braid-shimmer 1200ms ease-in-out infinite">
+            <span style="height:20px;width:36px;border-radius:6px;background:#E8DFD6;display:block"></span>
+            <span style="display:flex;flex-direction:column;gap:8px">
+              <span style="height:12px;border-radius:6px;background:#E8DFD6;display:block;width:{{ w }}%"></span>
+              <span style="height:10px;width:40%;border-radius:6px;background:#F7F1E9;display:block"></span>
+            </span>
+            <span style="height:32px;border-radius:10px;background:#F7F1E9;display:block"></span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="width:608px;border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;overflow:hidden">
+        <div style="padding:16px 24px;border-bottom:1px solid #E8DFD6">
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Needs a human</span>
+        </div>
+        <div style="padding:64px 32px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
+          <dc-import name="WeaveMark" size="{{ 48 }}" mono="{{ true }}" tone="#C4B7AA" hint-size="48px,48px"></dc-import>
+          <span style="font-size:22px;line-height:30px;font-weight:600">Nothing needs you this morning</span>
+          <p style="font-size:15px;line-height:24px;color:#574A3F;margin:0;max-width:44ch;text-wrap:pretty">Every application has been reviewed and no strand has gone quiet. The next thing to do is close applications on 14 September.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const ACTIVE_BG = '#F7F1E9';
+
+class Component extends DCLogic {
+  renderVals() {
+    const item = (label, count, active) => ({
+      label, count,
+      fg: active ? '#241733' : '#574A3F',
+      weight: active ? 600 : 400,
+      bg: active ? ACTIVE_BG : 'transparent'
+    });
+    return {
+      skeletons: [70, 55, 80, 62],
+      nav: [
+        {group: 'Overview', items: [item('Program health', '', true)]},
+        {group: 'Setup', items: [item('Application form', ''), item('Matching rules', ''), item('Milestones', '')]},
+        {group: 'People', items: [item('Applications', '14'), item('Mentors', '61'), item('Mentees', '157')]},
+        {group: 'Matching', items: [item('Runs', '2'), item('Requests', '9')]},
+        {group: 'Running', items: [item('Strands', '42'), item('Sessions', '118')]},
+        {group: 'Insight', items: [item('Report', '')]}
+      ],
+      health: [
+        {label: 'Mentee to mentor', value: '2.6 : 1', note: 'Above the 2:1 you set. Recruit mentors or widen capacity.'},
+        {label: 'Matched', value: '84 of 157', note: '73 mentees still unmatched.'},
+        {label: 'Strands', value: '42 active', note: '6 quiet. None older than four weeks.'},
+        {label: 'Sessions this week', value: '31', note: 'Logged by 27 strands.'},
+        {label: 'Profiles complete', value: '141 of 157', note: '16 cannot be matched until they finish.'},
+        {label: 'Mentors at capacity', value: '18 of 61', note: 'Shown as full in the directory.'}
+      ],
+      attention: [
+        {count: '14', title: 'Applications awaiting review', detail: 'Oldest has waited four days.', action: 'Review', weight: 600, numFg: '#241733'},
+        {count: '9', title: 'Requests pending over seven days', detail: 'Mentors have not answered. Nudge or reassign.', action: 'Open requests', weight: 600, numFg: '#241733'},
+        {count: '6', title: 'Strands with no message in fourteen days', detail: 'Quiet, not broken. A note from you usually restarts them.', action: 'See strands', weight: 400, numFg: '#574A3F'},
+        {count: '3', title: 'Mentors over capacity', detail: 'Amara Okonkwo, Halima Yusuf, Chidi Nwosu.', action: 'Adjust load', weight: 600, numFg: '#241733'},
+        {count: '16', title: 'Profiles too incomplete to match', detail: 'They will be left out of the 21 September run.', action: 'Send reminder', weight: 600, numFg: '#241733'}
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

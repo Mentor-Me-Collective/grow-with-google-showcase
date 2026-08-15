@@ -1,0 +1,51 @@
+[project]
+name = "braid-api"
+version = "0.1.0"
+description = "Braid — equitable mentorship pairing engine. FastAPI backend."
+requires-python = ">=3.12"
+
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "sqlalchemy>=2.0.36",
+    "alembic>=1.14",
+    # psycopg 3. The binary extra avoids needing libpq headers at build time.
+    "psycopg[binary]>=3.2",
+    "pydantic>=2.10",
+    "pydantic-settings>=2.6",
+    # pydantic's EmailStr needs this, and the contract uses format: email
+    # in enough places that it is not optional.
+    "email-validator>=2.2",
+    "scipy>=1.14",
+    "numpy>=2.1",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.8",
+    "httpx>=0.28",
+    "pytest>=8.3",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.flake8-bugbear]
+# B008 warns about function calls in argument defaults, which is exactly how
+# FastAPI declares dependencies and query parameters. These are evaluated once
+# and never mutated, so the rule does not apply to them.
+extend-immutable-calls = [
+    "fastapi.Query",
+    "fastapi.Path",
+    "fastapi.Body",
+    "fastapi.Cookie",
+    "fastapi.Header",
+    "fastapi.Depends",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

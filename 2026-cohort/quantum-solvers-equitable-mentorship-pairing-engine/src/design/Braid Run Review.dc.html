@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f%5B%5D=switzer@400,500,600&f%5B%5D=gambetta@500&display=swap">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
+  <style>
+    body { margin:0; background:#F7F1E9; -webkit-font-smoothing:antialiased; }
+    a { color:#A11550; text-decoration:none; }
+    a:hover { color:#6B0C34; }
+    @keyframes braid-run { from { transform: scaleX(0.12); } to { transform: scaleX(0.86); } }
+  </style>
+</helmet>
+
+<div style="font-family:Switzer,system-ui,sans-serif;color:#241733;background:#F7F1E9;padding:64px 48px 96px;display:flex;flex-direction:column;gap:96px;align-items:flex-start">
+
+  <header style="display:flex;flex-direction:column;gap:8px;max-width:640px">
+    <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Screen 08</span>
+    <h1 style="font-size:28px;line-height:36px;font-weight:600;margin:0">Run review</h1>
+    <p style="font-size:15px;line-height:24px;color:#574A3F;margin:0;text-wrap:pretty">Desktop only, 1280. The fairness summary sits above the pair list, full width, always. She sees the distribution before she sees a single name.</p>
+  </header>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Draft run · ready to review</span>
+    <div style="width:1280px;background:#FFFCF7;border:1px solid #E8DFD6;border-radius:16px;overflow:hidden;display:flex;align-items:stretch">
+
+      <nav style="width:240px;flex:none;border-right:1px solid #E8DFD6;display:flex;flex-direction:column;gap:24px;padding:16px 12px">
+        <div style="display:flex;align-items:center;gap:0;padding:0 8px">
+          <dc-import name="WeaveMark" size="{{ 36 }}" hint-size="36px,36px"></dc-import>
+          <span style="font-family:Gambetta,Georgia,serif;font-weight:500;font-size:22px;line-height:1;letter-spacing:-0.02em;margin-left:-1px">Braid</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C;padding:0 8px">Program</span>
+          <button style="height:44px;padding:0 12px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;font-family:Switzer;text-align:left">
+            <span style="display:flex;flex-direction:column;min-width:0">
+              <span style="font-size:13px;line-height:20px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Women in Engineering</span>
+              <span style="font-size:12px;line-height:18px;color:#8A7A6C">2026 round</span>
+            </span>
+            <span style="width:8px;height:8px;border-right:1.5px solid #574A3F;border-bottom:1.5px solid #574A3F;transform:rotate(45deg);margin-bottom:4px;display:block;flex:none"></span>
+          </button>
+        </div>
+        <sc-for list="{{ nav }}" as="g" hint-placeholder-count="6">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C;padding:8px">{{ g.group }}</span>
+            <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2">
+              <span style="height:36px;padding:0 8px;border-radius:6px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;line-height:20px;color:{{ it.fg }};font-weight:{{ it.weight }};background:{{ it.bg }};cursor:pointer">
+                <span>{{ it.label }}</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px;line-height:20px;color:#8A7A6C">{{ it.count }}</span>
+              </span>
+            </sc-for>
+          </div>
+        </sc-for>
+      </nav>
+
+      <main style="flex:1;min-width:0;display:flex;flex-direction:column">
+        <div style="padding:16px 32px;border-bottom:1px solid #E8DFD6;display:flex;align-items:center;justify-content:space-between;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <h2 style="font-size:22px;line-height:30px;font-weight:600;margin:0">Run <span style="font-family:'JetBrains Mono',monospace;font-weight:500">R-014</span> · draft</h2>
+            <span style="font-size:12px;line-height:18px;color:#8A7A6C">Built 7 August 09:12 · weights: field 40, availability 30, priority 20, language 10</span>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center">
+            <button style="height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;background:transparent;color:#241733;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:background 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#F7F1E9">Discard run</button>
+            <button style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #C4B7AA;background:transparent;color:#241733;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="border-color:#6B5580">Re-run with new weights</button>
+            <button style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:background 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#A11550">Publish 42 strands</button>
+          </div>
+        </div>
+
+        <div style="padding:32px;display:flex;flex-direction:column;gap:32px">
+
+          <section style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px">
+              <h3 style="font-size:22px;line-height:30px;font-weight:600;margin:0">Fairness</h3>
+              <span style="font-size:12px;line-height:18px;color:#8A7A6C">Read this before you read a single name.</span>
+            </div>
+
+            <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;overflow:hidden">
+              <div style="display:grid;grid-template-columns:repeat(3,1fr)">
+
+                <div style="padding:24px;border-right:1px solid #E8DFD6;display:flex;flex-direction:column;gap:16px">
+                  <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Coverage</span>
+                  <div style="display:flex;align-items:baseline;gap:12px">
+                    <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:40px;line-height:46px;letter-spacing:-0.015em;font-variant-numeric:tabular-nums">73%</span>
+                    <span style="font-size:13px;line-height:20px;color:#574A3F">42 of 57 mentees</span>
+                  </div>
+                  <div style="height:8px;border-radius:6px;background:#F7F1E9;overflow:hidden;display:flex">
+                    <span style="width:73%;background:#241733;display:block"></span>
+                  </div>
+                  <span style="font-size:13px;line-height:20px;color:#574A3F;text-wrap:pretty">15 mentees are left over. Twelve of them asked for energy, where you have two mentors.</span>
+                </div>
+
+                <div style="padding:24px;border-right:1px solid #E8DFD6;display:flex;flex-direction:column;gap:16px">
+                  <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Mentor load</span>
+                  <div style="display:flex;flex-direction:column;gap:8px">
+                    <sc-for list="{{ load }}" as="l" hint-placeholder-count="4">
+                      <div style="display:flex;align-items:center;gap:12px">
+                        <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px;line-height:20px;color:#574A3F;width:80px;flex:none;white-space:nowrap">{{ l.label }}</span>
+                        <span style="height:12px;border-radius:6px;background:#402C57;display:block;width:{{ l.w }}%"></span>
+                        <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px;line-height:20px;color:#241733">{{ l.count }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <span style="font-size:13px;line-height:20px;color:#574A3F;text-wrap:pretty">Three mentors carry four mentees each. You capped them at three.</span>
+                </div>
+
+                <div style="padding:24px;display:flex;flex-direction:column;gap:16px">
+                  <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Score distribution</span>
+                  <div style="display:flex;align-items:flex-end;gap:6px;height:96px">
+                    <sc-for list="{{ dist }}" as="d" hint-placeholder-count="8">
+                      <span style="flex:1;border-radius:6px;background:#B9AAC6;display:block;height:{{ d.h }}%"></span>
+                    </sc-for>
+                  </div>
+                  <div style="display:flex;justify-content:space-between">
+                    <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px;line-height:20px;color:#8A7A6C">0.40</span>
+                    <span style="font-size:13px;line-height:20px;color:#574A3F">median <span style="font-family:'JetBrains Mono',monospace;font-weight:500;color:#241733">0.78</span></span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px;line-height:20px;color:#8A7A6C">1.00</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="border-top:1px solid #E8DFD6">
+                <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1.6fr;gap:24px;padding:0 24px;height:44px;align-items:center;background:#F7F1E9;border-bottom:1px solid #E8DFD6">
+                  <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Priority band</span>
+                  <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F;text-align:right">Matched</span>
+                  <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F;text-align:right">Median score</span>
+                  <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Gap to standard</span>
+                </div>
+                <sc-for list="{{ bands }}" as="b" hint-placeholder-count="3">
+                  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1.6fr;gap:24px;padding:0 24px;height:48px;align-items:center;border-bottom:1px solid #E8DFD6">
+                    <span style="font-size:13px;line-height:20px;font-weight:{{ b.weight }}">{{ b.name }}</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px;text-align:right;font-variant-numeric:tabular-nums">{{ b.matched }}</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px;text-align:right;font-variant-numeric:tabular-nums">{{ b.median }}</span>
+                    <span style="font-size:13px;line-height:20px;color:{{ b.gapFg }}">{{ b.gap }}</span>
+                  </div>
+                </sc-for>
+                <div style="padding:16px 24px">
+                  <span style="font-size:13px;line-height:20px;color:#241733;text-wrap:pretty">High-priority mentees are matched at a median <span style="font-family:'JetBrains Mono',monospace;font-weight:500">0.11</span> below standard-band mentees. That is the widest gap in four runs. Re-run with priority weighted higher before you publish.</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px">
+              <h3 style="font-size:22px;line-height:30px;font-weight:600;margin:0">Draft pairs</h3>
+              <span style="font-size:13px;line-height:20px;color:#8A7A6C"><span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;color:#241733">42</span> pairs · <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;color:#241733">3</span> locked</span>
+            </div>
+
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+              <span style="height:32px;padding:0 12px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;font-size:13px;line-height:20px;display:inline-flex;align-items:center;gap:8px">Band: Priority<span style="color:#8A7A6C">×</span></span>
+              <span style="height:32px;padding:0 12px;border-radius:6px;border:1px dashed #C4B7AA;color:#574A3F;font-size:13px;line-height:20px;display:inline-flex;align-items:center">Add filter</span>
+            </div>
+
+            <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;overflow:hidden">
+              <div style="display:grid;grid-template-columns:40px 1.4fr 1.4fr 96px 120px 200px;gap:16px;padding:0 16px;height:44px;align-items:center;background:#F7F1E9;border-bottom:1px solid #E8DFD6">
+                <span style="width:16px;height:16px;border-radius:6px;border:1px solid #C4B7AA;display:block"></span>
+                <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Mentee</span>
+                <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Mentor</span>
+                <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F;text-align:right">Score</span>
+                <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Band</span>
+                <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Actions</span>
+              </div>
+              <sc-for list="{{ pairs }}" as="p" hint-placeholder-count="6">
+                <div style="display:grid;grid-template-columns:40px 1.4fr 1.4fr 96px 120px 200px;gap:16px;padding:0 16px;height:48px;align-items:center;border-bottom:1px solid #E8DFD6;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1);cursor:pointer" style-hover="border-color:#C4B7AA">
+                  <span style="width:16px;height:16px;border-radius:6px;border:1px solid #C4B7AA;display:block"></span>
+                  <span style="font-size:13px;line-height:20px;display:flex;align-items:center;gap:8px">{{ p.mentee }}<span style="font-size:12px;line-height:18px;color:#8A7A6C">{{ p.lock }}</span></span>
+                  <span style="font-size:13px;line-height:20px;color:#574A3F">{{ p.mentor }}</span>
+                  <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px;text-align:right;font-variant-numeric:tabular-nums;color:{{ p.scoreFg }}">{{ p.score }}</span>
+                  <span style="font-size:13px;line-height:20px;color:#574A3F">{{ p.band }}</span>
+                  <span style="display:flex;gap:12px">
+                    <span style="font-size:13px;line-height:20px;font-weight:500;color:#241733">Open</span>
+                    <span style="font-size:13px;line-height:20px;font-weight:500;color:#241733">Swap</span>
+                    <span style="font-size:13px;line-height:20px;font-weight:500;color:#241733">{{ p.lockAction }}</span>
+                    <span style="font-size:13px;line-height:20px;font-weight:500;color:#574A3F">Reject</span>
+                  </span>
+                </div>
+              </sc-for>
+              <div style="padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:24px">
+                <span style="font-size:12px;line-height:18px;color:#8A7A6C">Showing <span style="font-family:'JetBrains Mono',monospace;font-weight:500">6</span> of <span style="font-family:'JetBrains Mono',monospace;font-weight:500">42</span> pairs</span>
+                <span style="font-size:13px;line-height:20px;color:#574A3F"><span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;color:#241733">15</span> mentees unmatched · <a href="#queue">open the queue</a></span>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Selection, running, and the publish confirmation</span>
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap">
+
+      <div style="width:608px;display:flex;flex-direction:column;gap:8px">
+        <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;overflow:hidden">
+          <div style="display:flex;align-items:center;gap:16px;padding:0 16px;height:44px;background:#241733">
+            <span style="font-size:13px;line-height:20px;color:#FFFCF7"><span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px">4</span> selected</span>
+            <span style="flex:1"></span>
+            <span style="height:32px;padding:0 12px;border-radius:10px;border:1px solid #6B5580;color:#FFFCF7;font-size:13px;line-height:20px;font-weight:500;display:inline-flex;align-items:center">Lock</span>
+            <span style="height:32px;padding:0 12px;border-radius:10px;border:1px solid #6B5580;color:#FFFCF7;font-size:13px;line-height:20px;font-weight:500;display:inline-flex;align-items:center">Reject to queue</span>
+            <span style="height:32px;padding:0 12px;border-radius:10px;border:1px solid #6B5580;color:#FFFCF7;font-size:13px;line-height:20px;font-weight:500;display:inline-flex;align-items:center">Publish selected</span>
+            <span style="height:32px;padding:0 12px;border-radius:10px;color:#DDD5E4;font-size:13px;line-height:20px;font-weight:500;display:inline-flex;align-items:center">Clear</span>
+          </div>
+          <sc-for list="{{ selectedPairs }}" as="p" hint-placeholder-count="4">
+            <div style="display:grid;grid-template-columns:40px 1.4fr 1.4fr 80px;gap:16px;padding:0 16px;height:48px;align-items:center;border-bottom:1px solid #E8DFD6;background:#FDEBF2">
+              <span style="width:16px;height:16px;border-radius:6px;background:#D6246E;display:block"></span>
+              <span style="font-size:13px;line-height:20px">{{ p.mentee }}</span>
+              <span style="font-size:13px;line-height:20px;color:#574A3F">{{ p.mentor }}</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px;text-align:right;font-variant-numeric:tabular-nums">{{ p.score }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">On bulk select the header row is replaced by the action bar.</span>
+      </div>
+
+      <div style="width:608px;display:flex;flex-direction:column;gap:8px">
+        <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;padding:24px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px">
+            <span style="font-size:18px;line-height:26px;font-weight:600">Matching 157 mentees against 61 mentors</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px;color:#574A3F">R-015</span>
+          </div>
+          <div style="height:8px;border-radius:6px;background:#F7F1E9;overflow:hidden">
+            <span style="display:block;height:100%;background:#241733;transform-origin:left center;animation:braid-run 2400ms cubic-bezier(0.65,0,0.35,1) infinite alternate"></span>
+          </div>
+          <span style="font-size:13px;line-height:20px;color:#574A3F">This takes about a minute. You can leave the page; we will hold the run.</span>
+        </div>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">The run progress bar is one of two things that animate on the coordinator side.</span>
+
+        <div style="position:relative;margin-top:24px;border-radius:16px;background:#FFFFFF;box-shadow:0 8px 32px rgba(36,23,51,0.12);padding:24px;display:flex;flex-direction:column;gap:16px">
+          <span style="font-size:22px;line-height:30px;font-weight:600">Publish 42 strands</span>
+          <p style="font-size:15px;line-height:24px;color:#574A3F;margin:0;text-wrap:pretty">This writes 42 strands and sends 84 people an email tonight. 15 mentees stay in the queue and are not told anything. Publishing cannot be undone.</p>
+          <div style="border:1px solid #E8DFD6;border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between"><span style="font-size:13px;line-height:20px;color:#574A3F">Strands created</span><span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px">42</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:13px;line-height:20px;color:#574A3F">People notified</span><span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px">84</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:13px;line-height:20px;color:#574A3F">Mentees left in the queue</span><span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px">15</span></div>
+          </div>
+          <div style="display:flex;gap:12px;justify-content:flex-end">
+            <button style="height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;background:transparent;color:#241733;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer" style-hover="background:#F7F1E9">Keep reviewing</button>
+            <button style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer" style-hover="background:#A11550">Publish 42 strands</button>
+          </div>
+        </div>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Publishing is the only irreversible action here, so the counts are spelled out. The verb on the button is the verb in the toast: Published.</span>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const item = (label, count, active) => ({
+      label, count,
+      fg: active ? '#241733' : '#574A3F',
+      weight: active ? 600 : 400,
+      bg: active ? '#F7F1E9' : 'transparent'
+    });
+    return {
+      nav: [
+        {group: 'Overview', items: [item('Program health', '')]},
+        {group: 'Setup', items: [item('Application form', ''), item('Matching rules', '')]},
+        {group: 'People', items: [item('Applications', '14'), item('Mentors', '61'), item('Mentees', '157')]},
+        {group: 'Matching', items: [item('Runs', '2', true), item('Requests', '9')]},
+        {group: 'Running', items: [item('Strands', '42'), item('Sessions', '118')]},
+        {group: 'Insight', items: [item('Report', '')]}
+      ],
+      load: [
+        {label: '1 mentee', count: '19', w: 62},
+        {label: '2 mentees', count: '12', w: 39},
+        {label: '3 mentees', count: '8', w: 26},
+        {label: '4 mentees', count: '3', w: 10}
+      ],
+      dist: [{h:8},{h:14},{h:26},{h:44},{h:72},{h:100},{h:64},{h:22}],
+      bands: [
+        {name: 'Priority', matched: '18 of 26', median: '0.71', gap: '0.11 below standard. Widest in four runs.', weight: 600, gapFg: '#241733'},
+        {name: 'Standard', matched: '21 of 27', median: '0.82', gap: '—', weight: 400, gapFg: '#8A7A6C'},
+        {name: 'Returning', matched: '3 of 4', median: '0.80', gap: '0.02 below standard.', weight: 400, gapFg: '#574A3F'}
+      ],
+      pairs: [
+        {mentee: 'Ifeoma Obi', mentor: 'Amara Okonkwo', score: '0.91', band: 'Priority', lock: '', lockAction: 'Lock', scoreFg: '#241733'},
+        {mentee: 'Zainab Sule', mentor: 'Halima Yusuf', score: '0.88', band: 'Standard', lock: 'locked', lockAction: 'Unlock', scoreFg: '#241733'},
+        {mentee: 'Chinaza Udo', mentor: 'Chidi Nwosu', score: '0.79', band: 'Priority', lock: '', lockAction: 'Lock', scoreFg: '#241733'},
+        {mentee: 'Aisha Bello', mentor: 'Ngozi Eze', score: '0.74', band: 'Returning', lock: '', lockAction: 'Lock', scoreFg: '#241733'},
+        {mentee: 'Funmi Adeyemi', mentor: 'Amara Okonkwo', score: '0.58', band: 'Priority', lock: '', lockAction: 'Lock', scoreFg: '#574A3F'},
+        {mentee: 'Blessing Eke', mentor: 'Tunde Bello', score: '0.47', band: 'Priority', lock: '', lockAction: 'Lock', scoreFg: '#574A3F'}
+      ],
+      selectedPairs: [
+        {mentee: 'Ifeoma Obi', mentor: 'Amara Okonkwo', score: '0.91'},
+        {mentee: 'Zainab Sule', mentor: 'Halima Yusuf', score: '0.88'},
+        {mentee: 'Chinaza Udo', mentor: 'Chidi Nwosu', score: '0.79'},
+        {mentee: 'Aisha Bello', mentor: 'Ngozi Eze', score: '0.74'}
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

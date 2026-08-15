@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f%5B%5D=switzer@400,500,600&f%5B%5D=gambetta@500&display=swap">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
+  <style>
+    body { margin:0; background:#FFFCF7; -webkit-font-smoothing:antialiased; }
+    a { color:#A11550; text-decoration:none; }
+    a:hover { color:#6B0C34; }
+    @keyframes braid-spin { to { transform: rotate(360deg); } }
+    @keyframes braid-shimmer { 0% { opacity:.55 } 50% { opacity:1 } 100% { opacity:.55 } }
+  </style>
+</helmet>
+
+<div style="font-family:Switzer,system-ui,sans-serif;color:#241733;background:#FFFCF7;padding:64px 48px 96px">
+<div style="max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:96px">
+
+  <header style="display:flex;flex-direction:column;gap:8px;max-width:600px">
+    <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Components</span>
+    <h1 style="font-size:28px;line-height:36px;font-weight:600;margin:0">Six components, every state</h1>
+    <p style="font-size:15px;line-height:24px;color:#574A3F;margin:0;text-wrap:pretty">Default, hover, focus, active, disabled, loading, error and empty are shown side by side. Nothing here is an afterthought state.</p>
+  </header>
+
+  <section style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #E8DFD6;padding-bottom:12px">
+      <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">01</span>
+      <h2 style="font-size:22px;line-height:30px;font-weight:600;margin:0">Button</h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Primary</span>
+      <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <button style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:background 90ms cubic-bezier(0.22,1,0.36,1),border-color 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#A11550;border-color:#A11550" style-active="background:#6B0C34;border-color:#6B0C34">Publish 42 strands</button>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Default · live</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <span style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #A11550;background:#A11550;color:#FFFFFF;font-size:15px;line-height:24px;font-weight:500;display:inline-flex;align-items:center">Publish 42 strands</span>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Hover</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <span style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;font-size:15px;line-height:24px;font-weight:500;display:inline-flex;align-items:center;box-shadow:0 0 0 2px #FFFCF7, 0 0 0 4px #D6246E">Publish 42 strands</span>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Focus · 2px ring, 2px offset</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <span style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #6B0C34;background:#6B0C34;color:#FFFFFF;font-size:15px;line-height:24px;font-weight:500;display:inline-flex;align-items:center">Publish 42 strands</span>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Active</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <span style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #E8DFD6;background:#F7F1E9;color:#8A7A6C;font-size:15px;line-height:24px;font-weight:500;display:inline-flex;align-items:center;cursor:not-allowed">Publish 42 strands</span>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Disabled</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <span style="height:40px;width:164px;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center">
+            <span style="width:16px;height:16px;border-radius:999px;border:2px solid rgba(255,255,255,0.35);border-top-color:#FFFFFF;animation:braid-spin 720ms linear infinite;display:block"></span>
+          </span>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Loading · width preserved</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Secondary, ghost, danger</span>
+      <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <button style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #C4B7AA;background:transparent;color:#241733;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="border-color:#6B5580" style-active="border-color:#241733">Save draft</button>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Secondary · live</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <span style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #6B5580;background:transparent;color:#241733;font-size:15px;line-height:24px;font-weight:500;display:inline-flex;align-items:center">Save draft</span>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Hover</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <span style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #C4B7AA;background:transparent;color:#241733;font-size:15px;line-height:24px;font-weight:500;display:inline-flex;align-items:center;box-shadow:0 0 0 2px #FFFCF7, 0 0 0 4px #D6246E">Save draft</span>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Focus</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <span style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #E8DFD6;background:transparent;color:#C4B7AA;font-size:15px;line-height:24px;font-weight:500;display:inline-flex;align-items:center;cursor:not-allowed">Save draft</span>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Disabled</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <button style="height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;background:transparent;color:#241733;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:background 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#F7F1E9" style-active="background:#E8DFD6">Cancel</button>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Ghost · live</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <span style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #C42B1C;background:#C42B1C;color:#FFFFFF;font-size:15px;line-height:24px;font-weight:500;display:inline-flex;align-items:center">Delete run</span>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Danger · confirmation dialogs only</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Sizes</span>
+      <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <span style="height:32px;padding:0 12px;border-radius:10px;background:#D6246E;color:#FFFFFF;font-size:13px;line-height:20px;font-weight:500;display:inline-flex;align-items:center">Add mentor</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px;line-height:20px;color:#8A7A6C">32 / pad 12</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <span style="height:40px;padding:0 16px;border-radius:10px;background:#D6246E;color:#FFFFFF;font-size:15px;line-height:24px;font-weight:500;display:inline-flex;align-items:center">Add mentor</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px;line-height:20px;color:#8A7A6C">40 / pad 16</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <span style="height:48px;padding:0 20px;border-radius:10px;background:#D6246E;color:#FFFFFF;font-size:15px;line-height:24px;font-weight:500;display:inline-flex;align-items:center">Say hello</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px;line-height:20px;color:#8A7A6C">48 / pad 20 · mobile CTA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #E8DFD6;padding-bottom:12px">
+      <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">02</span>
+      <h2 style="font-size:22px;line-height:30px;font-weight:600;margin:0">Form field</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600" for="f-default">First session date</label>
+        <input id="f-default" type="text" placeholder="DD / MM / YYYY" style="height:44px;padding:0 12px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;color:#241733;outline:none;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1),box-shadow 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="border-color:#6B5580" style-focus="border-color:#D6246E;box-shadow:0 0 0 3px #FDEBF2">
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Pick any weekday in the first fortnight.</span>
+        <span style="font-size:12px;line-height:18px;color:#C4B7AA">Default · live, click to focus</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600">First session date</span>
+        <span style="height:44px;padding:0 12px;border-radius:6px;border:1px solid #D6246E;background:#FFFFFF;font-size:15px;line-height:24px;color:#241733;display:flex;align-items:center;box-shadow:0 0 0 3px #FDEBF2">18 / 09 / 2026</span>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Pick any weekday in the first fortnight.</span>
+        <span style="font-size:12px;line-height:18px;color:#C4B7AA">Focus · fuchsia-600 border, 3px fuchsia-50 ring</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600">First session date</span>
+        <span style="height:44px;padding:0 12px;border-radius:6px;border:1px solid #C42B1C;background:#FFFFFF;font-size:15px;line-height:24px;color:#241733;display:flex;align-items:center">02 / 09 / 2026</span>
+        <span style="font-size:12px;line-height:18px;color:#C42B1C">Enter a date after 14 September.</span>
+        <span style="font-size:12px;line-height:18px;color:#C4B7AA">Error · the message says what to do</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">First session date</span>
+        <span style="height:44px;padding:0 12px;border-radius:6px;border:1px solid #E8DFD6;background:#F7F1E9;font-size:15px;line-height:24px;color:#8A7A6C;display:flex;align-items:center">18 / 09 / 2026</span>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Set when the run is published. Ask Ngozi to change it.</span>
+        <span style="font-size:12px;line-height:18px;color:#C4B7AA">Disabled</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600">Second language <span style="color:#8A7A6C;font-weight:400">optional</span></span>
+        <span style="height:44px;padding:0 12px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;font-size:15px;line-height:24px;color:#8A7A6C;display:flex;align-items:center;justify-content:space-between">
+          <span>Choose a language</span>
+          <span style="width:8px;height:8px;border-right:1.5px solid #574A3F;border-bottom:1.5px solid #574A3F;transform:rotate(45deg);margin-bottom:4px;display:block"></span>
+        </span>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Most sessions here run in English or Yoruba.</span>
+        <span style="font-size:12px;line-height:18px;color:#C4B7AA">Mark whichever is rarer, required or optional. Never both.</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600">Programme</span>
+        <span style="height:44px;padding:0 12px;border-radius:6px;border:1px solid #E8DFD6;background:#F7F1E9;display:flex;align-items:center;animation:braid-shimmer 1200ms ease-in-out infinite">
+          <span style="height:12px;width:60%;border-radius:6px;background:#E8DFD6;display:block"></span>
+        </span>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Loading your programmes.</span>
+        <span style="font-size:12px;line-height:18px;color:#C4B7AA">Loading</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #E8DFD6;padding-bottom:12px">
+      <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">03</span>
+      <h2 style="font-size:22px;line-height:30px;font-weight:600;margin:0">Strand card</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="border:1px solid #E8DFD6;border-radius:10px;padding:16px;background:#FFFFFF;display:flex;gap:12px;align-items:flex-start;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1);cursor:pointer" style-hover="border-color:#C4B7AA">
+          <span style="width:40px;height:40px;border-radius:999px;background:#F9C4DA;color:#A11550;font-size:15px;line-height:24px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:none">AO</span>
+          <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:18px;line-height:26px;font-weight:600">Amara Okonkwo</span>
+              <span style="font-size:12px;line-height:18px;padding:0 8px;border-radius:6px;background:rgba(214,36,110,0.12);color:#A11550;font-weight:500">Mentor</span>
+            </div>
+            <span style="font-size:13px;line-height:20px;color:#574A3F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Send me the deck before Thursday and I'll mark it up.</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none">
+            <span style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#D6246E;color:#FFFFFF;font-family:'JetBrains Mono',monospace;font-weight:500;font-size:12px;line-height:20px;display:flex;align-items:center;justify-content:center">2</span>
+          </div>
+        </div>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Default and hover · border darkens to border-default, no lift</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="border:1px solid #E8DFD6;border-radius:10px;padding:16px;background:#FFFFFF;display:flex;gap:12px;align-items:flex-start">
+          <span style="width:40px;height:40px;border-radius:999px;background:#FFE5AC;color:#8F5F04;font-size:15px;line-height:24px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:none">TB</span>
+          <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:18px;line-height:26px;font-weight:600">Tunde Bello</span>
+              <span style="font-size:12px;line-height:18px;padding:0 8px;border-radius:6px;background:rgba(255,182,39,0.12);color:#8F5F04;font-weight:500">Mentee</span>
+            </div>
+            <span style="font-size:13px;line-height:20px;color:#574A3F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Thank you for yesterday. I have started the reading.</span>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px;color:#241733;flex:none">12 Aug</span>
+        </div>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Read · next session in data-m instead of an unread dot</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="border:1px solid #E8DFD6;border-radius:10px;padding:16px;background:#FFFFFF;display:flex;gap:12px;align-items:flex-start">
+          <span style="width:40px;height:40px;border-radius:999px;background:#A9E5D0;color:#0A7059;font-size:15px;line-height:24px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:none">NE</span>
+          <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:18px;line-height:26px;font-weight:600">Ngozi Eze</span>
+              <span style="font-size:12px;line-height:18px;padding:0 8px;border-radius:6px;background:rgba(15,163,127,0.12);color:#0A7059;font-weight:500">Mentor</span>
+            </div>
+            <span style="font-size:13px;line-height:20px;color:#8A7A6C;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Quiet for 3 weeks</span>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px;color:#8A7A6C;flex:none">18 Jul</span>
+        </div>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Quiet · muted ink and plain words. Not red, no alert icon</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="border:1px solid #E8DFD6;border-radius:10px;padding:16px;background:#FFFFFF;display:flex;gap:12px;align-items:flex-start;animation:braid-shimmer 1200ms ease-in-out infinite">
+          <span style="width:40px;height:40px;border-radius:999px;background:#E8DFD6;flex:none;display:block"></span>
+          <div style="display:flex;flex-direction:column;gap:8px;flex:1;padding-top:4px">
+            <span style="height:14px;width:45%;border-radius:6px;background:#E8DFD6;display:block"></span>
+            <span style="height:12px;width:75%;border-radius:6px;background:#F7F1E9;display:block"></span>
+          </div>
+        </div>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Loading</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="border:1px solid #E8DFD6;border-radius:10px;padding:16px;background:#FFFFFF;display:flex;gap:12px;align-items:flex-start">
+          <span style="width:40px;height:40px;border-radius:999px;background:#F7F1E9;border:1px solid #E8DFD6;flex:none;display:flex;align-items:center;justify-content:center">
+            <dc-import name="WeaveMark" size="{{ 26 }}" mono="{{ true }}" tone="#C4B7AA" hint-size="26px,26px"></dc-import>
+          </span>
+          <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1">
+            <span style="font-size:18px;line-height:26px;font-weight:600;color:#574A3F">Your second strand</span>
+            <span style="font-size:13px;line-height:20px;color:#8A7A6C">Opens when the October round is matched.</span>
+          </div>
+        </div>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Empty slot · says what will fill it and when</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="border:1px solid #C42B1C;border-radius:10px;padding:16px;background:#FFFFFF;display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:15px;line-height:24px;color:#241733">This strand did not load. Your messages are safe.</span>
+          <button style="height:32px;padding:0 12px;border-radius:10px;border:1px solid #C4B7AA;background:transparent;color:#241733;font-family:Switzer;font-size:13px;line-height:20px;font-weight:500;cursor:pointer;align-self:flex-start;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="border-color:#6B5580">Try again</button>
+        </div>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Error</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #E8DFD6;padding-bottom:12px">
+      <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">04</span>
+      <h2 style="font-size:22px;line-height:30px;font-weight:600;margin:0">Data table</h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+        <span style="height:32px;padding:0 12px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;font-size:13px;line-height:20px;display:inline-flex;align-items:center;gap:8px">Role: Mentor<span style="color:#8A7A6C">×</span></span>
+        <span style="height:32px;padding:0 12px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;font-size:13px;line-height:20px;display:inline-flex;align-items:center;gap:8px">Band: Priority<span style="color:#8A7A6C">×</span></span>
+        <span style="height:32px;padding:0 12px;border-radius:6px;border:1px dashed #C4B7AA;background:transparent;color:#574A3F;font-size:13px;line-height:20px;display:inline-flex;align-items:center">Add filter</span>
+      </div>
+
+      <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;overflow:hidden">
+        <div style="display:grid;grid-template-columns:40px 1.6fr 1.2fr 1fr 100px 110px;gap:16px;padding:0 16px;height:44px;align-items:center;background:#F7F1E9;border-bottom:1px solid #E8DFD6">
+          <span style="width:16px;height:16px;border-radius:6px;border:1px solid #C4B7AA;display:block"></span>
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Name</span>
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Programme</span>
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Status</span>
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F;text-align:right">Capacity</span>
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F;text-align:right">Applied</span>
+        </div>
+        <sc-for list="{{ rows }}" as="r" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:40px 1.6fr 1.2fr 1fr 100px 110px;gap:16px;padding:0 16px;height:48px;align-items:center;border-bottom:1px solid #E8DFD6;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="border-color:#C4B7AA">
+            <span style="width:16px;height:16px;border-radius:6px;border:1px solid #C4B7AA;display:block"></span>
+            <span style="font-size:13px;line-height:20px">{{ r.name }}</span>
+            <span style="font-size:13px;line-height:20px;color:#574A3F">{{ r.programme }}</span>
+            <span style="font-size:13px;line-height:20px;color:#574A3F">{{ r.status }}</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px;text-align:right;font-variant-numeric:tabular-nums">{{ r.capacity }}</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px;text-align:right;color:#574A3F;font-variant-numeric:tabular-nums">{{ r.applied }}</span>
+          </div>
+        </sc-for>
+        <div style="padding:12px 16px">
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Showing <span style="font-family:'JetBrains Mono',monospace;font-weight:500">5</span> of <span style="font-family:'JetBrains Mono',monospace;font-weight:500">218</span> people</span>
+        </div>
+      </div>
+      <span style="font-size:12px;line-height:18px;color:#8A7A6C">Default · row 48, hairline borders, no zebra. Numbers right-aligned in data-m</span>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Bulk select</span>
+      <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:16px;padding:0 16px;height:44px;background:#241733;border-bottom:1px solid #E8DFD6">
+          <span style="font-size:13px;line-height:20px;color:#FFFCF7"><span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px">3</span> selected</span>
+          <span style="flex:1"></span>
+          <span style="height:32px;padding:0 12px;border-radius:10px;border:1px solid #6B5580;color:#FFFCF7;font-size:13px;line-height:20px;font-weight:500;display:inline-flex;align-items:center">Move to programme</span>
+          <span style="height:32px;padding:0 12px;border-radius:10px;border:1px solid #6B5580;color:#FFFCF7;font-size:13px;line-height:20px;font-weight:500;display:inline-flex;align-items:center">Send reminder</span>
+          <span style="height:32px;padding:0 12px;border-radius:10px;color:#DDD5E4;font-size:13px;line-height:20px;font-weight:500;display:inline-flex;align-items:center">Clear</span>
+        </div>
+        <sc-for list="{{ selectedRows }}" as="r" hint-placeholder-count="3">
+          <div style="display:grid;grid-template-columns:40px 1.6fr 1.2fr 1fr 100px 110px;gap:16px;padding:0 16px;height:48px;align-items:center;border-bottom:1px solid #E8DFD6;background:#FDEBF2">
+            <span style="width:16px;height:16px;border-radius:6px;background:#D6246E;display:block"></span>
+            <span style="font-size:13px;line-height:20px">{{ r.name }}</span>
+            <span style="font-size:13px;line-height:20px;color:#574A3F">{{ r.programme }}</span>
+            <span style="font-size:13px;line-height:20px;color:#574A3F">{{ r.status }}</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px;text-align:right;font-variant-numeric:tabular-nums">{{ r.capacity }}</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px;text-align:right;color:#574A3F;font-variant-numeric:tabular-nums">{{ r.applied }}</span>
+          </div>
+        </sc-for>
+        <div style="padding:12px 16px">
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Showing <span style="font-family:'JetBrains Mono',monospace;font-weight:500">3</span> of <span style="font-family:'JetBrains Mono',monospace;font-weight:500">218</span> people</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Loading</span>
+        <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;overflow:hidden">
+          <div style="display:grid;grid-template-columns:40px 1.6fr 1fr 110px;gap:16px;padding:0 16px;height:44px;align-items:center;background:#F7F1E9;border-bottom:1px solid #E8DFD6">
+            <span style="width:16px;height:16px;border-radius:6px;border:1px solid #C4B7AA;display:block"></span>
+            <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Name</span>
+            <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Status</span>
+            <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F;text-align:right">Applied</span>
+          </div>
+          <sc-for list="{{ skeletons }}" as="w" hint-placeholder-count="4">
+            <div style="display:grid;grid-template-columns:40px 1.6fr 1fr 110px;gap:16px;padding:0 16px;height:48px;align-items:center;border-bottom:1px solid #E8DFD6;animation:braid-shimmer 1200ms ease-in-out infinite">
+              <span style="width:16px;height:16px;border-radius:6px;border:1px solid #E8DFD6;display:block"></span>
+              <span style="height:10px;border-radius:6px;background:#E8DFD6;display:block;width:{{ w }}%"></span>
+              <span style="height:10px;width:60%;border-radius:6px;background:#F7F1E9;display:block"></span>
+              <span style="height:10px;width:50%;border-radius:6px;background:#F7F1E9;display:block;justify-self:end"></span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">No results</span>
+        <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;overflow:hidden">
+          <div style="display:grid;grid-template-columns:40px 1.6fr 1fr 110px;gap:16px;padding:0 16px;height:44px;align-items:center;background:#F7F1E9;border-bottom:1px solid #E8DFD6">
+            <span style="width:16px;height:16px;border-radius:6px;border:1px solid #C4B7AA;display:block"></span>
+            <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Name</span>
+            <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Status</span>
+            <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F;text-align:right">Applied</span>
+          </div>
+          <div style="padding:48px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
+            <dc-import name="WeaveMark" size="{{ 48 }}" mono="{{ true }}" tone="#C4B7AA" hint-size="48px,48px"></dc-import>
+            <span style="font-size:15px;line-height:24px;color:#241733;max-width:44ch">No mentors match those two filters. Drop the priority band to see 38 more.</span>
+            <button style="height:32px;padding:0 12px;border-radius:10px;border:1px solid #C4B7AA;background:transparent;color:#241733;font-family:Switzer;font-size:13px;line-height:20px;font-weight:500;cursor:pointer;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="border-color:#6B5580">Clear filters</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #E8DFD6;padding-bottom:12px">
+      <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">05</span>
+      <h2 style="font-size:22px;line-height:30px;font-weight:600;margin:0">Empty state</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:24px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;padding:64px 32px;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center">
+          <dc-import name="WeaveMark" size="{{ 48 }}" mono="{{ true }}" tone="#C4B7AA" hint-size="48px,48px"></dc-import>
+          <div style="display:flex;flex-direction:column;gap:12px;align-items:center">
+            <span style="font-family:Gambetta,Georgia,serif;font-weight:500;font-size:40px;line-height:46px;letter-spacing:-0.015em">Matching opens 14 September</span>
+            <p style="font-size:15px;line-height:24px;color:#574A3F;margin:0;max-width:52ch;text-wrap:pretty">Twelve mentors have joined so far. Finish your profile before then and you'll be included in the first round.</p>
+          </div>
+          <button style="height:48px;padding:0 20px;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:background 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#A11550">Finish your profile</button>
+        </div>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">With an action</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="border:1px solid #E8DFD6;border-radius:10px;background:#FFFFFF;padding:64px 32px;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center">
+          <dc-import name="WeaveMark" size="{{ 48 }}" mono="{{ true }}" tone="#C4B7AA" hint-size="48px,48px"></dc-import>
+          <div style="display:flex;flex-direction:column;gap:12px;align-items:center">
+            <span style="font-family:Gambetta,Georgia,serif;font-weight:500;font-size:40px;line-height:46px;letter-spacing:-0.015em">Your report arrives in October</span>
+            <p style="font-size:15px;line-height:24px;color:#574A3F;margin:0;max-width:52ch;text-wrap:pretty">It is written after the last session of the round. There is nothing for you to do until then.</p>
+          </div>
+        </div>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Without an action · never an illustration of a faceless person, never "Nothing here yet"</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #E8DFD6;padding-bottom:12px">
+      <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">06</span>
+      <h2 style="font-size:22px;line-height:30px;font-weight:600;margin:0">Weave mark in use</h2>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-end">
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+        <dc-import name="WeaveMark" size="{{ 96 }}" hint-size="96px,96px"></dc-import>
+        <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px">96</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+        <dc-import name="WeaveMark" size="{{ 48 }}" hint-size="48px,48px"></dc-import>
+        <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px">48</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+        <dc-import name="WeaveMark" size="{{ 32 }}" hint-size="32px,32px"></dc-import>
+        <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px">32</span>
+      </div>
+      <div style="width:1px;align-self:stretch;background:#E8DFD6"></div>
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+        <dc-import name="WeaveMark" size="{{ 48 }}" mono="{{ true }}" tone="#C4B7AA" hint-size="48px,48px"></dc-import>
+        <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px">48 · border-default, empty states</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+        <dc-import name="WeaveMark" size="{{ 16 }}" mono="{{ true }}" hint-size="16px,16px"></dc-import>
+        <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;line-height:20px">16 · single colour</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      skeletons: [72, 58, 80, 64],
+      rows: [
+        {name:'Amara Okonkwo', programme:'Women in Engineering', status:'Full', capacity:'3 / 3', applied:'2 Aug'},
+        {name:'Tunde Bello', programme:'Women in Engineering', status:'Open', capacity:'1 / 3', applied:'3 Aug'},
+        {name:'Ngozi Eze', programme:'First Year Law', status:'Open', capacity:'0 / 2', applied:'3 Aug'},
+        {name:'Chidi Nwosu', programme:'First Year Law', status:'Awaiting reference', capacity:'0 / 2', applied:'5 Aug'},
+        {name:'Halima Yusuf', programme:'Women in Engineering', status:'Full', capacity:'4 / 4', applied:'6 Aug'}
+      ],
+      selectedRows: [
+        {name:'Amara Okonkwo', programme:'Women in Engineering', status:'Full', capacity:'3 / 3', applied:'2 Aug'},
+        {name:'Tunde Bello', programme:'Women in Engineering', status:'Open', capacity:'1 / 3', applied:'3 Aug'},
+        {name:'Halima Yusuf', programme:'Women in Engineering', status:'Full', capacity:'4 / 4', applied:'6 Aug'}
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

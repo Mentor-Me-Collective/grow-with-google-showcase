@@ -1,0 +1,52 @@
+# Local development for the whole stack. Production deploys the same three
+# services from this repo, each pointed at its own directory — see README.
+#
+# The api service is commented out until it exists. Until then, run the frontend
+# on its own with `cd web && npm run dev`, which serves its own mock backend and
+# needs nothing here.
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: braid
+      POSTGRES_PASSWORD: braid
+      POSTGRES_DB: braid
+    ports:
+      # Override when the host already runs Postgres on 5432:
+      #   DB_PORT=5433 docker compose up db
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - braid-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U braid"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # api:
+  #   build: ./api
+  #   environment:
+  #     DATABASE_URL: postgresql+psycopg://braid:braid@db:5432/braid
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ./api:/app
+  #     - ./openapi.yaml:/openapi.yaml:ro
+
+  # web:
+  #   build: ./web
+  #   environment:
+  #     # The api's address as seen from the browser, not from inside the network.
+  #     NEXT_PUBLIC_API_URL: http://localhost:8000/v1
+  #     NEXT_PUBLIC_API_MOCKING: disabled
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - api
+
+volumes:
+  braid-db:

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @keyframes braid-left-group { from { transform: translateX(-110px); } to { transform: translateX(-40px); } }
+    @keyframes braid-right-group { from { transform: translateX(110px); } to { transform: translateX(40px); } }
+    @keyframes braid-left-bar { from { transform: translateX(-110px) rotate(0deg); } to { transform: translateX(-40px) rotate(-14deg); } }
+    @keyframes braid-right-bar { from { transform: translateX(110px) rotate(0deg); } to { transform: translateX(40px) rotate(14deg); } }
+    @keyframes braid-settle { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes braid-fade { from { opacity: 0; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      [data-anim] { animation: braid-fade 160ms cubic-bezier(0.22, 1, 0.36, 1) both !important; }
+      [data-rm="lg"] { transform: translateX(-40px) !important; }
+      [data-rm="rg"] { transform: translateX(40px) !important; }
+      [data-rm="lb"] { transform: translateX(-40px) rotate(-14deg) !important; }
+      [data-rm="rb"] { transform: translateX(40px) rotate(14deg) !important; }
+    }
+  </style>
+</helmet>
+
+<div ref="{{ stageRef }}" style="position:relative;width:100%;height:100%;background:#FFFCF7;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:Switzer,system-ui,sans-serif;color:#241733">
+
+  <div style="width:{{ boxW }}px;height:{{ boxH }}px;flex:none;position:relative">
+  <div style="width:440px;height:620px;position:absolute;top:0;left:0;transform-origin:top left;display:flex;flex-direction:column;align-items:center;transform:scale({{ scale }})">
+
+    <div data-anim style="position:absolute;left:0;right:0;bottom:0;top:58%;border:1px solid #E8DFD6;border-radius:16px;background:#FFFFFF;animation:{{ animBehind }}"></div>
+
+    <div style="position:relative;width:100%;height:380px;flex:none">
+      <div data-anim data-rm="lg" style="position:absolute;top:0;left:50%;width:96px;margin-left:-48px;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:3;animation:{{ animLeftGroup }}">
+        <span style="width:56px;height:56px;border-radius:999px;background:#F9C4DA;color:#A11550;font-size:18px;line-height:26px;font-weight:600;display:flex;align-items:center;justify-content:center">IO</span>
+        <span style="font-size:15px;line-height:24px;font-weight:500">Ifeoma</span>
+      </div>
+      <div data-anim data-rm="rg" style="position:absolute;top:0;left:50%;width:96px;margin-left:-48px;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:3;animation:{{ animRightGroup }}">
+        <span style="width:56px;height:56px;border-radius:999px;background:#FFE5AC;color:#8F5F04;font-size:18px;line-height:26px;font-weight:600;display:flex;align-items:center;justify-content:center">AO</span>
+        <span style="font-size:15px;line-height:24px;font-weight:500">Amara</span>
+      </div>
+
+      <span data-anim data-rm="rb" style="position:absolute;top:104px;left:50%;margin-left:-8px;width:16px;height:260px;border-radius:999px;background:#FFB627;transform-origin:top center;z-index:1;display:block;animation:{{ animRightBar }}"></span>
+      <span data-anim data-rm="lb" style="position:absolute;top:104px;left:50%;margin-left:-8px;width:16px;height:260px;border-radius:999px;background:#D6246E;transform-origin:top center;z-index:2;display:block;animation:{{ animLeftBar }}"></span>
+    </div>
+
+    <div data-anim style="position:relative;z-index:4;text-align:center;padding:32px 24px 0;animation:{{ animHeadline }}">
+      <span style="font-family:Gambetta,Georgia,serif;font-weight:500;font-size:40px;line-height:46px;letter-spacing:-0.015em;display:block;max-width:16ch;margin:0 auto">You've been matched with Amara.</span>
+    </div>
+
+    <div data-anim style="position:relative;z-index:4;padding-top:24px;animation:{{ animAction }}">
+      <button style="height:48px;padding:0 20px;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:background 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#A11550">Say hello</button>
+    </div>
+  </div>
+  </div>
+
+  <sc-if value="{{ live }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;bottom:12px;right:12px;display:flex;gap:8px;z-index:5">
+      <button onClick="{{ skip }}" style="height:32px;padding:0 12px;border-radius:10px;border:1px solid #C4B7AA;background:#FFFCF7;color:#574A3F;font-family:Switzer;font-size:13px;line-height:20px;font-weight:500;cursor:pointer" style-hover="border-color:#6B5580">Skip</button>
+      <button onClick="{{ replay }}" style="height:32px;padding:0 12px;border-radius:10px;border:1px solid #C4B7AA;background:#FFFCF7;color:#574A3F;font-family:Switzer;font-size:13px;line-height:20px;font-weight:500;cursor:pointer" style-hover="border-color:#6B5580">Replay</button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:520,&quot;height&quot;:700},&quot;frozenAt&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:null,&quot;tsType&quot;:&quot;number&quot;,&quot;unit&quot;:&quot;ms&quot;,&quot;min&quot;:0,&quot;max&quot;:1400},&quot;scale&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0.5,&quot;max&quot;:1,&quot;step&quot;:0.01}}">
+const WEAVE = 'cubic-bezier(0.34, 0.9, 0.28, 1)';
+const OUT = 'cubic-bezier(0.22, 1, 0.36, 1)';
+
+class Component extends DCLogic {
+  constructor(p) { super(p); this.stageRef = React.createRef(); }
+
+  anim(name, delay, dur, ease) {
+    const at = this.props.frozenAt;
+    if (typeof at === 'number') {
+      return `${name} ${dur}ms ${ease} ${delay - at}ms both paused`;
+    }
+    return `${name} ${dur}ms ${ease} ${delay}ms both`;
+  }
+
+  restart(fn) {
+    const root = this.stageRef.current;
+    if (!root) return;
+    root.querySelectorAll('[data-anim]').forEach(el => {
+      const a = el.style.animation;
+      el.style.animation = 'none';
+      void el.offsetWidth;
+      el.style.animation = a;
+      if (fn) fn(el);
+    });
+  }
+
+  renderVals() {
+    const scale = this.props.scale ?? 1;
+    return {
+      stageRef: this.stageRef,
+      live: typeof this.props.frozenAt !== 'number',
+      scale,
+      boxW: Math.round(440 * scale),
+      boxH: Math.round(620 * scale),
+      animLeftGroup: this.anim('braid-left-group', 300, 600, WEAVE),
+      animRightGroup: this.anim('braid-right-group', 300, 600, WEAVE),
+      animLeftBar: this.anim('braid-left-bar', 300, 600, WEAVE),
+      animRightBar: this.anim('braid-right-bar', 300, 600, WEAVE),
+      animHeadline: this.anim('braid-settle', 900, 250, OUT),
+      animAction: this.anim('braid-settle', 1150, 250, OUT),
+      animBehind: this.anim('braid-settle', 1150, 250, OUT),
+      replay: () => this.restart(),
+      skip: () => this.restart(el => { el.style.animationDelay = '0ms'; el.style.animationDuration = '1ms'; })
+    };
+  }
+}
+</script>
+</body>
+</html>

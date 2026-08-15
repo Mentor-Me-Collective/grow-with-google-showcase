@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f%5B%5D=switzer@400,500,600&f%5B%5D=gambetta@500&display=swap">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
+  <style>
+    body { margin:0; background:#F7F1E9; -webkit-font-smoothing:antialiased; }
+    a { color:#A11550; text-decoration:none; }
+    a:hover { color:#6B0C34; }
+    @keyframes braid-spin { to { transform: rotate(360deg); } }
+  </style>
+</helmet>
+
+<div style="font-family:Switzer,system-ui,sans-serif;color:#241733;background:#F7F1E9;padding:64px 48px 96px;display:flex;flex-direction:column;gap:96px;align-items:flex-start">
+
+  <header style="display:flex;flex-direction:column;gap:8px;max-width:600px">
+    <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Screens 01–02</span>
+    <h1 style="font-size:28px;line-height:36px;font-weight:600;margin:0">Program landing and application form</h1>
+    <p style="font-size:15px;line-height:24px;color:#574A3F;margin:0;text-wrap:pretty">Public pages, max width 720. Shown at 1280 and 390.</p>
+  </header>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">01 · Program landing · 1280</span>
+    <div style="width:1280px;background:#FFFCF7;border:1px solid #E8DFD6;border-radius:16px;overflow:hidden">
+      <div style="height:72px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #E8DFD6">
+        <div style="display:flex;align-items:center;gap:0">
+          <dc-import name="WeaveMark" size="{{ 40 }}" hint-size="40px,40px"></dc-import>
+          <span style="font-family:Gambetta,Georgia,serif;font-weight:500;font-size:24px;line-height:1;letter-spacing:-0.02em;margin-left:-1px">Braid</span>
+        </div>
+        <span style="height:40px;padding:0 16px;border-radius:10px;font-size:15px;line-height:24px;font-weight:500;color:#241733;display:inline-flex;align-items:center">Sign in</span>
+      </div>
+
+      <div style="padding:96px 40px;display:flex;justify-content:center">
+        <div style="width:720px;display:flex;flex-direction:column;gap:48px">
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Women in Engineering · Lagos · 2026 round</span>
+
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:56px;line-height:60px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums">12</span>
+              <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Mentors joined</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:56px;line-height:60px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums">31</span>
+              <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Places remaining</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:56px;line-height:60px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums">38</span>
+              <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Days until applications close</span>
+            </div>
+          </div>
+
+          <div style="height:1px;background:#E8DFD6"></div>
+
+          <h2 style="font-family:Gambetta,Georgia,serif;font-weight:500;font-size:56px;line-height:60px;letter-spacing:-0.02em;margin:0;max-width:14ch">You are not the only one in the room.</h2>
+
+          <p style="font-size:17px;line-height:28px;color:#574A3F;margin:0;max-width:60ch;text-wrap:pretty">Twelve women who have done the work you are starting have signed up to walk it with you. Applications close on 14 September and matching runs the week after.</p>
+
+          <div style="display:flex;align-items:center;gap:24px">
+            <button style="height:48px;padding:0 20px;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:background 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#A11550" style-active="background:#6B0C34">Apply to be mentored</button>
+            <span style="font-size:15px;line-height:24px;color:#574A3F">Or <a href="#apply">join as a mentor</a>.</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #E8DFD6;padding:24px 40px;display:flex;justify-content:center">
+        <div style="width:720px;display:flex;gap:48px">
+          <span style="font-size:13px;line-height:20px;color:#8A7A6C">Run by the Lagos Chapter</span>
+          <span style="font-size:13px;line-height:20px;color:#8A7A6C">First sessions from 5 October</span>
+          <span style="font-size:13px;line-height:20px;color:#8A7A6C">Six sessions over four months</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">01 · Program landing · 390</span>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+      <div style="width:390px;background:#FFFCF7;border:1px solid #E8DFD6;border-radius:16px;overflow:hidden">
+        <div style="height:56px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #E8DFD6">
+          <div style="display:flex;align-items:center;gap:0">
+            <dc-import name="WeaveMark" size="{{ 32 }}" hint-size="32px,32px"></dc-import>
+            <span style="font-family:Gambetta,Georgia,serif;font-weight:500;font-size:19px;line-height:1;letter-spacing:-0.02em">Braid</span>
+          </div>
+          <span style="font-size:15px;line-height:24px;font-weight:500;color:#241733">Sign in</span>
+        </div>
+        <div style="padding:48px 16px;display:flex;flex-direction:column;gap:32px">
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Women in Engineering · Lagos</span>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;align-items:baseline;gap:12px">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:40px;line-height:46px;letter-spacing:-0.015em;font-variant-numeric:tabular-nums;width:64px">12</span>
+              <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Mentors joined</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:12px">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:40px;line-height:46px;letter-spacing:-0.015em;font-variant-numeric:tabular-nums;width:64px">31</span>
+              <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Places remaining</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:12px">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:40px;line-height:46px;letter-spacing:-0.015em;font-variant-numeric:tabular-nums;width:64px">38</span>
+              <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Days until close</span>
+            </div>
+          </div>
+          <div style="height:1px;background:#E8DFD6"></div>
+          <h2 style="font-family:Gambetta,Georgia,serif;font-weight:500;font-size:40px;line-height:46px;letter-spacing:-0.015em;margin:0">You are not the only one in the room.</h2>
+          <p style="font-size:15px;line-height:24px;color:#574A3F;margin:0;text-wrap:pretty">Twelve women who have done the work you are starting have signed up to walk it with you.</p>
+        </div>
+        <div style="position:sticky;bottom:0;padding:16px;border-top:1px solid #E8DFD6;background:#FFFCF7">
+          <button style="height:48px;width:100%;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer">Apply to be mentored</button>
+        </div>
+      </div>
+
+      <div style="width:390px;background:#FFFCF7;border:1px solid #E8DFD6;border-radius:16px;overflow:hidden">
+        <div style="height:56px;padding:0 16px;display:flex;align-items:center;border-bottom:1px solid #E8DFD6">
+          <div style="display:flex;align-items:center;gap:0">
+            <dc-import name="WeaveMark" size="{{ 32 }}" hint-size="32px,32px"></dc-import>
+            <span style="font-family:Gambetta,Georgia,serif;font-weight:500;font-size:19px;line-height:1;letter-spacing:-0.02em">Braid</span>
+          </div>
+        </div>
+        <div style="padding:48px 16px;display:flex;flex-direction:column;gap:32px">
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Women in Engineering · Lagos</span>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;align-items:baseline;gap:12px">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:40px;line-height:46px;font-variant-numeric:tabular-nums;width:64px">47</span>
+              <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#574A3F">Mentors joined</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:12px">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:40px;line-height:46px;font-variant-numeric:tabular-nums;width:64px;color:#8A7A6C">0</span>
+              <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Places remaining</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:12px">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:40px;line-height:46px;font-variant-numeric:tabular-nums;width:64px;color:#8A7A6C">0</span>
+              <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Days until close</span>
+            </div>
+          </div>
+          <div style="height:1px;background:#E8DFD6"></div>
+          <h2 style="font-family:Gambetta,Georgia,serif;font-weight:500;font-size:40px;line-height:46px;letter-spacing:-0.015em;margin:0">This round is full.</h2>
+          <p style="font-size:15px;line-height:24px;color:#574A3F;margin:0;text-wrap:pretty">Applications closed on 14 September. The next round opens in February and we will write to you the day it does.</p>
+        </div>
+        <div style="padding:16px;border-top:1px solid #E8DFD6">
+          <button style="height:48px;width:100%;border-radius:10px;border:1px solid #C4B7AA;background:transparent;color:#241733;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer">Tell me when it opens</button>
+        </div>
+      </div>
+    </div>
+    <span style="font-size:12px;line-height:18px;color:#8A7A6C">Left: open. Right: closed. Scarcity is shown, never hidden.</span>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">02 · Application form · 1280 · one section per view</span>
+    <div style="width:1280px;background:#FFFCF7;border:1px solid #E8DFD6;border-radius:16px;overflow:hidden">
+      <div style="height:72px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #E8DFD6">
+        <div style="display:flex;align-items:center;gap:0">
+          <dc-import name="WeaveMark" size="{{ 40 }}" hint-size="40px,40px"></dc-import>
+          <span style="font-family:Gambetta,Georgia,serif;font-weight:500;font-size:24px;line-height:1;letter-spacing:-0.02em;margin-left:-1px">Braid</span>
+        </div>
+        <span style="font-size:12px;line-height:18px;color:#8A7A6C">Saved 14:32</span>
+      </div>
+
+      <div style="padding:64px 40px;display:flex;justify-content:center">
+        <div style="width:720px;display:flex;flex-direction:column;gap:48px">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Two sections done</span>
+            <div style="display:flex;gap:8px">
+              <span style="height:4px;flex:1;border-radius:6px;background:#241733;display:block"></span>
+              <span style="height:4px;flex:1;border-radius:6px;background:#241733;display:block"></span>
+              <span style="height:4px;flex:1;border-radius:6px;background:#C4B7AA;display:block"></span>
+              <span style="height:4px;flex:1;border-radius:6px;background:#E8DFD6;display:block"></span>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <h2 style="font-size:28px;line-height:36px;font-weight:600;margin:0">What you want from a mentor</h2>
+            <p style="font-size:15px;line-height:24px;color:#574A3F;margin:0;max-width:60ch;text-wrap:pretty">Your answers here decide who you are matched with. Amara and the other mentors read them.</p>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:32px">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600" for="a-goal">What do you want to be different in six months</label>
+              <textarea id="a-goal" rows="4" style="padding:12px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;color:#241733;outline:none;resize:vertical;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1),box-shadow 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="border-color:#6B5580" style-focus="border-color:#D6246E;box-shadow:0 0 0 3px #FDEBF2">I want to lead my first project without checking every decision twice.</textarea>
+              <span style="font-size:12px;line-height:18px;color:#8A7A6C">Two or three sentences is plenty.</span>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600" for="a-field">Which field are you working in</label>
+              <select id="a-field" style="height:44px;padding:0 12px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;color:#241733;outline:none;transition:border-color 90ms cubic-bezier(0.22,1,0.36,1),box-shadow 90ms cubic-bezier(0.22,1,0.36,1)" style-focus="border-color:#D6246E;box-shadow:0 0 0 3px #FDEBF2">
+                <option>Structural engineering</option>
+                <option>Software</option>
+                <option>Energy</option>
+              </select>
+              <span style="font-size:12px;line-height:18px;color:#8A7A6C">We match within a field first, then across if we must.</span>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600">How often can you meet</span>
+              <div style="display:flex;gap:12px">
+                <span style="height:44px;padding:0 16px;border-radius:6px;border:1px solid #241733;background:#FFFFFF;font-size:15px;line-height:24px;display:inline-flex;align-items:center;font-weight:500">Once a fortnight</span>
+                <span style="height:44px;padding:0 16px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;font-size:15px;line-height:24px;display:inline-flex;align-items:center;color:#574A3F">Once a month</span>
+                <span style="height:44px;padding:0 16px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;font-size:15px;line-height:24px;display:inline-flex;align-items:center;color:#574A3F">When we can</span>
+              </div>
+              <span style="font-size:12px;line-height:18px;color:#8A7A6C">Mentors see this before they accept.</span>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600" for="a-start">Earliest date you can start</label>
+              <input id="a-start" type="text" value="02 / 09 / 2026" style="height:44px;padding:0 12px;border-radius:6px;border:1px solid #C42B1C;background:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;color:#241733;outline:none;max-width:280px">
+              <span style="font-size:12px;line-height:18px;color:#C42B1C">Enter a date after 14 September.</span>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:16px;padding-top:8px;border-top:1px solid #E8DFD6">
+            <button style="height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;background:transparent;color:#241733;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:background 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#F7F1E9">Back</button>
+            <button style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer;transition:background 90ms cubic-bezier(0.22,1,0.36,1)" style-hover="background:#A11550">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">02 · Application form · 390 · one question per view</span>
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap">
+
+      <div style="width:390px;height:720px;background:#FFFCF7;border:1px solid #E8DFD6;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="height:56px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #E8DFD6">
+          <span style="font-size:15px;line-height:24px;font-weight:500;color:#241733">Back</span>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Saved 14:32</span>
+        </div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #E8DFD6">
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Two sections done</span>
+          <div style="display:flex;gap:8px">
+            <span style="height:4px;flex:1;border-radius:6px;background:#241733;display:block"></span>
+            <span style="height:4px;flex:1;border-radius:6px;background:#241733;display:block"></span>
+            <span style="height:4px;flex:1;border-radius:6px;background:#C4B7AA;display:block"></span>
+            <span style="height:4px;flex:1;border-radius:6px;background:#E8DFD6;display:block"></span>
+          </div>
+        </div>
+        <div style="padding:32px 16px;display:flex;flex-direction:column;gap:24px;flex:1">
+          <label style="font-size:22px;line-height:30px;font-weight:600" for="m-goal">What do you want to be different in six months?</label>
+          <textarea id="m-goal" rows="5" placeholder="Write it in your own words" style="padding:12px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;font-family:Switzer;font-size:17px;line-height:28px;color:#241733;outline:none;resize:none" style-focus="border-color:#D6246E;box-shadow:0 0 0 3px #FDEBF2"></textarea>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Two or three sentences is plenty. Amara will read it.</span>
+        </div>
+        <div style="padding:16px;border-top:1px solid #E8DFD6">
+          <button style="height:48px;width:100%;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer">Continue</button>
+        </div>
+      </div>
+
+      <div style="width:390px;height:720px;background:#FFFCF7;border:1px solid #E8DFD6;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="height:56px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #E8DFD6">
+          <span style="font-size:15px;line-height:24px;font-weight:500;color:#241733">Back</span>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Saved 14:36</span>
+        </div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #E8DFD6">
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Two sections done</span>
+          <div style="display:flex;gap:8px">
+            <span style="height:4px;flex:1;border-radius:6px;background:#241733;display:block"></span>
+            <span style="height:4px;flex:1;border-radius:6px;background:#241733;display:block"></span>
+            <span style="height:4px;flex:1;border-radius:6px;background:#C4B7AA;display:block"></span>
+            <span style="height:4px;flex:1;border-radius:6px;background:#E8DFD6;display:block"></span>
+          </div>
+        </div>
+        <div style="padding:32px 16px;display:flex;flex-direction:column;gap:24px;flex:1">
+          <label style="font-size:22px;line-height:30px;font-weight:600" for="m-start">Earliest date you can start</label>
+          <input id="m-start" type="text" value="02 / 09 / 2026" style="height:44px;padding:0 12px;border-radius:6px;border:1px solid #C42B1C;background:#FFFFFF;font-family:Switzer;font-size:17px;line-height:28px;color:#241733;outline:none">
+          <span style="font-size:15px;line-height:24px;color:#C42B1C">Enter a date after 14 September.</span>
+        </div>
+        <div style="padding:16px;border-top:1px solid #E8DFD6">
+          <button style="height:48px;width:100%;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;font-family:Switzer;font-size:15px;line-height:24px;font-weight:500;cursor:pointer">Continue</button>
+        </div>
+      </div>
+
+      <div style="width:390px;height:720px;background:#FFFCF7;border:1px solid #E8DFD6;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="height:56px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #E8DFD6">
+          <span style="font-size:15px;line-height:24px;font-weight:500;color:#241733">Back</span>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Saving</span>
+        </div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #E8DFD6">
+          <span style="font-size:13px;line-height:16px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;color:#8A7A6C">Three sections done · two questions left</span>
+          <div style="display:flex;gap:8px">
+            <span style="height:4px;flex:1;border-radius:6px;background:#241733;display:block"></span>
+            <span style="height:4px;flex:1;border-radius:6px;background:#241733;display:block"></span>
+            <span style="height:4px;flex:1;border-radius:6px;background:#241733;display:block"></span>
+            <span style="height:4px;flex:1;border-radius:6px;background:#C4B7AA;display:block"></span>
+          </div>
+        </div>
+        <div style="padding:32px 16px;display:flex;flex-direction:column;gap:24px;flex:1">
+          <label style="font-size:22px;line-height:30px;font-weight:600" for="m-lang">Which language would you rather meet in?</label>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <span id="m-lang" style="height:48px;padding:0 16px;border-radius:6px;border:1px solid #241733;background:#FFFFFF;font-size:17px;line-height:28px;display:flex;align-items:center;font-weight:500">English</span>
+            <span style="height:48px;padding:0 16px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;font-size:17px;line-height:28px;display:flex;align-items:center;color:#574A3F">Yoruba</span>
+            <span style="height:48px;padding:0 16px;border-radius:6px;border:1px solid #C4B7AA;background:#FFFFFF;font-size:17px;line-height:28px;display:flex;align-items:center;color:#574A3F">Either is fine</span>
+          </div>
+          <span style="font-size:12px;line-height:18px;color:#8A7A6C">Only now, on the last section, do we say how many are left.</span>
+        </div>
+        <div style="padding:16px;border-top:1px solid #E8DFD6">
+          <button style="height:48px;width:100%;border-radius:10px;border:1px solid #D6246E;background:#D6246E;color:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:default">
+            <span style="width:18px;height:18px;border-radius:999px;border:2px solid rgba(255,255,255,0.35);border-top-color:#FFFFFF;animation:braid-spin 720ms linear infinite;display:block"></span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <span style="font-size:12px;line-height:18px;color:#8A7A6C">Progress counts sections, never a percentage. Autosave is a timestamp, not a spinner. The question count stays hidden until the last section.</span>
+  </section>
+
+</div>
+</x-dc>
+</body>
+</html>
