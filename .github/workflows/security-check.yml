@@ -1,0 +1,43 @@
+name: Security Audit
+
+on:
+  push:
+    branches: [ "main", "team-nexus-collaborative" ]
+  pull_request:
+    branches: [ "main", "team-nexus-collaborative" ]
+  workflow_dispatch:
+
+jobs:
+  pip-audit:
+    name: Dependency vulnerability scan (pip-audit)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pip-audit
+        run: pip install pip-audit
+
+      - name: Run pip-audit against requirements.txt
+        run: pip-audit -r 2026-cohort/team-nexus-household-energy-optimizer/backend/requirements.txt
+
+  secret-scan:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

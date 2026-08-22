@@ -1,0 +1,12 @@
+Appliance,Avg_Watts,Default_Hours_Per_Day,Category
+Refrigerator,150,24,Kitchen
+Air Conditioner,1200,4,HVAC
+Washing Machine,500,1,Laundry
+Television,120,4,Entertainment
+Laptop,60,4,Office
+Gaming Console,160,2,Entertainment
+Microwave,1000,0.25,Kitchen
+Dishwasher,1200,1,Kitchen
+LED Lights,10,5,Lighting
+Clothes Dryer,3000,1,Laundry
+Router,10,24,Office

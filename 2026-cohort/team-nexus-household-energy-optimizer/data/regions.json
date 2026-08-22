@@ -1,0 +1,17 @@
+[
+  { "id": "us-national", "label": "United States, National average", "rate_per_kwh": 0.16, "carbon_lbs_per_kwh": 0.855, "currency": "USD", "locale": "en-US" },
+  { "id": "us-california", "label": "United States, California", "rate_per_kwh": 0.30, "carbon_lbs_per_kwh": 0.65, "currency": "USD", "locale": "en-US" },
+  { "id": "us-texas", "label": "United States, Texas", "rate_per_kwh": 0.14, "carbon_lbs_per_kwh": 1.1, "currency": "USD", "locale": "en-US" },
+  { "id": "us-new-york", "label": "United States, New York", "rate_per_kwh": 0.22, "carbon_lbs_per_kwh": 0.65, "currency": "USD", "locale": "en-US" },
+  { "id": "us-pacific-northwest", "label": "United States, Pacific Northwest (hydro-heavy)", "rate_per_kwh": 0.11, "carbon_lbs_per_kwh": 0.2, "currency": "USD", "locale": "en-US" },
+  { "id": "us-midwest", "label": "United States, Midwest (coal-heavy)", "rate_per_kwh": 0.13, "carbon_lbs_per_kwh": 1.4, "currency": "USD", "locale": "en-US" },
+  { "id": "canada", "label": "Canada", "rate_per_kwh": 0.13, "carbon_lbs_per_kwh": 0.3, "currency": "CAD", "locale": "en-CA" },
+  { "id": "brazil", "label": "Brazil (hydro-heavy)", "rate_per_kwh": 0.90, "carbon_lbs_per_kwh": 0.15, "currency": "BRL", "locale": "pt-BR" },
+  { "id": "south-africa", "label": "South Africa (coal-heavy)", "rate_per_kwh": 2.5, "carbon_lbs_per_kwh": 2.2, "currency": "ZAR", "locale": "en-ZA" },
+  { "id": "germany", "label": "Germany", "rate_per_kwh": 0.40, "carbon_lbs_per_kwh": 0.75, "currency": "EUR", "locale": "de-DE" },
+  { "id": "united-kingdom", "label": "United Kingdom", "rate_per_kwh": 0.28, "carbon_lbs_per_kwh": 0.45, "currency": "GBP", "locale": "en-GB" },
+  { "id": "norway", "label": "Norway (hydro-heavy)", "rate_per_kwh": 1.5, "carbon_lbs_per_kwh": 0.05, "currency": "NOK", "locale": "nb-NO" },
+  { "id": "india", "label": "India", "rate_per_kwh": 8, "carbon_lbs_per_kwh": 1.8, "currency": "INR", "locale": "en-IN" },
+  { "id": "japan", "label": "Japan", "rate_per_kwh": 35, "carbon_lbs_per_kwh": 0.9, "currency": "JPY", "locale": "ja-JP" },
+  { "id": "australia", "label": "Australia", "rate_per_kwh": 0.35, "carbon_lbs_per_kwh": 1.5, "currency": "AUD", "locale": "en-AU" }
+]

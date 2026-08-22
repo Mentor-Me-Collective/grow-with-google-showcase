@@ -1,0 +1,29 @@
+{
+  "1-Bed Apartment": {
+    "Refrigerator": 24,
+    "Air Conditioner": 4,
+    "Television": 4,
+    "Laptop": 4,
+    "LED Lights": 4,
+    "Router": 24
+  },
+  "2-Bed Apartment": {
+    "Refrigerator": 24,
+    "Air Conditioner": 6,
+    "Washing Machine": 1,
+    "Television": 4,
+    "Laptop": 4,
+    "LED Lights": 5,
+    "Router": 24
+  },
+  "3-Bed House": {
+    "Refrigerator": 24,
+    "Air Conditioner": 8,
+    "Clothes Dryer": 1,
+    "Washing Machine": 1,
+    "Television": 5,
+    "Gaming Console": 2,
+    "LED Lights": 6,
+    "Router": 24
+  }
+}

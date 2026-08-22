@@ -1,0 +1,155 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --gridline: #e1e0d9;
+  --baseline: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+
+  --series-blue: #2a78d6;
+  --series-green: #008300;
+  --series-magenta: #e87ba4;
+  --series-yellow: #eda100;
+  --series-aqua: #1baf7a;
+  --series-orange: #eb6834;
+  --series-violet: #4a3aa7;
+  --series-red: #e34948;
+
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+
+  --brand-purple: #863bff;
+
+  --radius-card: 16px;
+  --radius-control: 10px;
+  --shadow-card: 0 1px 2px rgba(11, 11, 11, 0.04), 0 4px 16px rgba(11, 11, 11, 0.04);
+
+  /* Accessibility text-size control. Overridden by a data-text-size attribute; see lib/textSize.ts. */
+  --a11y-zoom: 1.08;
+}
+
+:root[data-text-size="small"] {
+  --a11y-zoom: 0.95;
+}
+
+:root[data-text-size="large"] {
+  --a11y-zoom: 1.25;
+}
+
+:root[data-text-size="x-large"] {
+  --a11y-zoom: 1.4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted: #898781;
+    --gridline: #2c2c2a;
+    --baseline: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+
+    --series-blue: #3987e5;
+    --series-green: #008300;
+    --series-magenta: #d55181;
+    --series-yellow: #c98500;
+    --series-aqua: #199e70;
+    --series-orange: #d95926;
+    --series-violet: #9085e9;
+    --series-red: #e66767;
+
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2b7;
+  --text-muted: #898781;
+  --gridline: #2c2c2a;
+  --baseline: #383835;
+  --border: rgba(255, 255, 255, 0.1);
+
+  --series-blue: #3987e5;
+  --series-green: #008300;
+  --series-magenta: #d55181;
+  --series-yellow: #c98500;
+  --series-aqua: #199e70;
+  --series-orange: #d95926;
+  --series-violet: #9085e9;
+  --series-red: #e66767;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Warm, low-glare reading theme. Not OS-driven (no prefers-color-scheme
+   equivalent), only reachable via explicit selection. */
+:root[data-theme="sepia"] {
+  color-scheme: light;
+  --page: #ece0c4;
+  --surface: #f4ecd8;
+  --text-primary: #3b2f26;
+  --text-secondary: #6b5c4d;
+  --text-muted: #8a7a68;
+  --gridline: #e3d8bf;
+  --baseline: #cdbd9d;
+  --border: rgba(59, 47, 38, 0.15);
+
+  --series-blue: #2a78d6;
+  --series-green: #008300;
+  --series-magenta: #e87ba4;
+  --series-yellow: #eda100;
+  --series-aqua: #1baf7a;
+  --series-orange: #eb6834;
+  --series-violet: #4a3aa7;
+  --series-red: #e34948;
+
+  --shadow-card: 0 1px 2px rgba(59, 47, 38, 0.06), 0 4px 16px rgba(59, 47, 38, 0.06);
+}
+
+body {
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--page);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
