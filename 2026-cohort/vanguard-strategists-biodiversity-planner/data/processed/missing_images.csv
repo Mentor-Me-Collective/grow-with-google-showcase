@@ -1,0 +1,104 @@
+plant_id,scientific_name,common_name
+PLANT-00013,Acer saccharum subsp. grandidentatum,bigtooth maple
+PLANT-00014,Acer saccharum subsp. nigrum,black maple
+PLANT-00026,Aesculus parviflora var. serotina,bottlebrush buckeye
+PLANT-00044,Alnus incana subsp. rugosa,hazel alder
+PLANT-00057,Amsonia ciliata var. filifolia,blue star
+PLANT-00061,Amsonia tabernaemontana var. salicifolia,blue star
+PLANT-00072,Anisacanthus quadrifidus var. wrightii,"Flame Acanthus, Hummingbird Bush, Wright's Desert Honeysuckle, Wright Acanthus, Mexican Flame, Wright's Mexican Flame"
+PLANT-00080,Aquilegia chrysantha var. hinckleyana,columbine
+PLANT-00096,Aronia melanocarpa var. elata,black chokeberry
+PLANT-00128,Athyrium filix-femina var. angustum,northern lady fern
+PLANT-00132,Baptisia alba var. macrophylla,"Largeleaf Wild Indigo, White Wild Indigo"
+PLANT-00133,Baptisia australis,"Blue Wild Indigo, Wild Blue Indigo, Blue False Indigo"
+PLANT-00134,Baptisia australis var. minor,Blue Wild Indigo
+PLANT-00136,Baptisia bracteata var. leucophaea,"Longbract Wild Indigo, Cream False Indigo, Plains Wild Indigo, Cream Wild Indigo, Large-bracted Wild Indigo"
+PLANT-00156,Boltonia asteroides var. latisquama,"White Doll's Daisy, False Aster, Asterlike Boltonia"
+PLANT-00182,Campanula kemulariae,bellflower
+PLANT-00185,Campsis radicans f. flava,trumpetcreeper
+PLANT-00192,Carex bromoides,Bromelike Sedge
+PLANT-00228,Carya Ã— laneyi,hickory
+PLANT-00242,Cercis canadensis var. texensis,Texas Redbud
+PLANT-00253,Chelone obliqua var. speciosa,shellflower
+PLANT-00265,Clematis scottii,Scott's clematis
+PLANT-00288,Cornus amomum subsp. obliqua,swamp dogwood
+PLANT-00292,Cornus florida f. rubra,flowering dogwood
+PLANT-00302,Crataegus nitida,Glossy Hawthorn
+PLANT-00340,Drosera filiformis var. filiformis,thread-leaf sundew
+PLANT-00341,Dryopteris australis,woodfern
+PLANT-00422,Geranium maculatum f. albiflorum,wild geranium
+PLANT-00454,Heliopsis helianthoides var. scabra,Smooth Oxeye
+PLANT-00460,Heuchera parviflora var. puberula,littleflower alumroot
+PLANT-00469,Hibiscus moscheutos subsp. palustris,rose mallow
+PLANT-00470,Hibiscus striatus subsp. lambertianus,striped rosemallow
+PLANT-00483,Hypericum pyramidatum,great St. John's wort
+PLANT-00507,Iris virginica var. shrevei,southern blue flag
+PLANT-00533,Liatris mucronata,narrow-leaved gayfeather
+PLANT-00536,Liatris scariosa var. nieuwlandii,eastern blazingstar
+PLANT-00545,Lobelia Ã— speciosa,lobelia
+PLANT-00559,Magnolia virginiana var. australis,swamp magnolia
+PLANT-00569,Matteuccia struthiopteris subsp. pensylvanica,
+PLANT-00575,Mespilus canescens,Stern's medlar
+PLANT-00592,Napaea dioica,Glade Mallow
+PLANT-00603,Oenothera fruticosa subsp. glauca,sundrops
+PLANT-00609,Onosmodium molle subsp. occidentale,false gromwell
+PLANT-00615,Osmunda regalis var. spectabilis,Royal Fern
+PLANT-00636,Penstemon cobaea,"Prairie Penstemon, Prairie Beardtongue, Foxglove Penstemon, Foxglove Beardtongue, False Foxglove, Large-flowered Penstemon, Large-flowered Beardtongue, Cobaea Penstemon, Cobaea Beardtongue, Wild Foxglove"
+PLANT-00637,Penstemon cobaea var. purpureus,dew flower
+PLANT-00639,Penstemon grandiflorus,"Large Penstemon, Large Beardtongue, Large-flower Penstemon, Large-flower Beardtongue, Large-flowered Penstemon, Large-flowered Beardtongue"
+PLANT-00642,Peperomia obtusifolia,Baby Rubberplant
+PLANT-00650,Philadelphus pubescens var. verrucosus,mock orange
+PLANT-00653,Phlox divaricata subsp. laphamii,wild sweet William
+PLANT-00654,Phlox drummondii,"Annual Phlox, Drummond Phlox, Pride-of-Texas, Texas Pride"
+PLANT-00659,Phlox pilosa subsp. ozarkana,Ozark phlox
+PLANT-00669,Pinus banksiana,"Jack Pine, Gray Pine, Scrub Pine"
+PLANT-00684,Polygonatum biflorum var. commutatum,"Great Solomon's Seal, Giant Solomon's Seal"
+PLANT-00709,Pycnanthemum pilosum,American mountain mint
+PLANT-00718,Quercus falcata,"Southern Red Oak, Bottomland Red Oak, Three-lobed Red Oak, Spanish Oak"
+PLANT-00720,Quercus lyrata,"Overcup Oak, Swamp Post Oak, Water White Oak, Swamp White Oak"
+PLANT-00721,Quercus macrocarpa,"Bur Oak, Burr Oak, Savanna Oak, Overcup Oak, Prairie Oak, Mossy-cup Oak, Mossy-overcup Oak, Blue Oak"
+PLANT-00745,Rhododendron maximum,"Great Laurel, Wild Rhododendron, Rosebay Rhododendron, White Laurel, Rosebay"
+PLANT-00751,Rhus copallinum var. latifolia,dwarf sumac
+PLANT-00755,Ribes missouriense,Missouri Gooseberry
+PLANT-00756,Ribes odoratum,clove currant
+PLANT-00764,Rudbeckia fulgida,"Orange Coneflower, Orange Rudbeckia, Perennial Black-eyed Susan"
+PLANT-00765,Rudbeckia fulgida var. sullivantii,black-eyed Susan
+PLANT-00766,Rudbeckia fulgida var. umbrosa,Appalachian black-eyed Susan
+PLANT-00767,Rudbeckia hirta,"Black-eyed Susan, Common Black-eyed Susan, Brown-eyed Susan, Blackeyed Susan"
+PLANT-00770,Rudbeckia missouriensis,"Missouri Coneflower, Missouri Orange Coneflower"
+PLANT-00783,Salvia azurea var. grandiflora,blue sage
+PLANT-00785,Salvia penstemonoides,big red sage
+PLANT-00788,Sambucus racemosa,Red Elderberry
+PLANT-00789,Sanguinaria canadensis,Bloodroot
+PLANT-00790,Sanguisorba officinalis,"Burnet Bloodwort, Burnet-bloodwort, Great Burnet"
+PLANT-00791,Sapindus drummondii,western soapberry
+PLANT-00792,Sarracenia flava,"Yellow Pitcherplant, Trumpets, Yellow Pitcher Plant"
+PLANT-00793,Sarracenia flava var. rubricorpora,yellow trumpet pitcher plant
+PLANT-00794,Sarracenia leucophylla,"Crimson Pitcherplant, Crimson Pitcher-plant, Crimson Pitcher Plant"
+PLANT-00795,Sarracenia minor,"Hooded Pitcherplant, Hooded Pitcher-plant, Hooded Pitcher Plant"
+PLANT-00796,Sarracenia oreophila,green pitcherplant
+PLANT-00797,Sarracenia purpurea,"Purple Pitcherplant, Northern Pitcher-plant, Purple Pitcher Plant"
+PLANT-00798,Sarracenia purpurea subsp. purpurea,common pitcher plant
+PLANT-00799,Sarracenia purpurea subsp. venosa,purple pitcher plant
+PLANT-00800,Sarracenia rubra,"Sweet Pitcherplant, Sweet Pitcher Plant"
+PLANT-00801,Sarracenia rubra f. jonesii,sweet pitcher plant
+PLANT-00802,Sarracenia Ã— catesbaei,hybrid pitcher plant
+PLANT-00803,Sassafras albidum,"Sassafras, White Sassafras, Ague Tree, Cinnamon Wood, Mitten Tree, Saloop, Smelling Stick"
+PLANT-00817,Sequoia sempervirens,"Coast Redwood, California Redwood, Redwood"
+PLANT-00818,Sequoiadendron giganteum,"Giant Sequoia, Giant-sequoia, Giant Redwood, Sierra Redwood"
+PLANT-00819,Shepherdia argentea,"Silver Buffaloberry, Buffaloberry"
+PLANT-00831,Silphium terebinthinaceum var. pinnatifidum,prairie dock
+PLANT-00848,Solidago riddellii,Riddell's goldenrod
+PLANT-00849,Solidago rigida,goldenrod
+PLANT-00857,Sorghastrum nutans,"Indiangrass, Yellow Indiangrass, Indian Grass"
+PLANT-00882,Symphyotrichum oblongifolium,"Aromatic Aster, Aromatic American Aster, Fall Aster, Wild Blue Aster, Shale Aster"
+PLANT-00883,Symphyotrichum oolentangiense,"Skyblue Aster, Sky Blue American-aster, Azure Aster, Blue Devils"
+PLANT-00884,Symphyotrichum patens,Late Purple Aster
+PLANT-00885,Symphyotrichum pilosum,Hairy White Oldfield Aster
+PLANT-00892,Taxodium distichum var. distichum,bald cypress
+PLANT-00893,Taxodium distichum var. imbricarium,pond cypress
+PLANT-00905,Thalictrum thalictroides,"Rue Anemone, Rue-anemone"
+PLANT-00912,Tilia americana var. heterophylla,"American Basswood, White Basswood, Linden"
+PLANT-00966,Viburnum opulus var. americanum,"American Cranberry Bush, Highbush Cranberry, American Cranberrybush Viburnum, Cranberry Viburnum"
+PLANT-00974,Viola pubescens var. eriocarpa,smooth yellow violet
+PLANT-00984,Woodsia obtusa subsp. obtusa,blunt-lobed woodsia

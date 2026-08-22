@@ -1,0 +1,83 @@
+# Biodiversity & Native Planting Planner
+### Written Summary — Team Vanguard Strategists
+**UN SDG 15 — Life on Land**
+
+---
+
+## 1. Research & Data
+
+**Problem Grounding**
+Home gardeners and landscapers frequently select plants based on appearance alone, without regard to whether a species is native to their region. This drives continued use of non-native and invasive ornamentals, which degrades local ecosystems, reduces habitat and food sources for native pollinators and wildlife, and increases water and chemical inputs needed to keep non-adapted plants alive. At the same time, the information needed to choose native, ecologically appropriate plants is scattered across multiple specialist databases (botanical gardens, government plant registries, citizen-science platforms) and is not accessible in one place for a non-expert gardener. This is the gap our project addresses, in direct support of SDG 15's goal of protecting, restoring, and promoting sustainable use of terrestrial ecosystems and reversing biodiversity loss.
+
+**Data Sources**
+We grounded the project in four real-world data sources:
+- **Missouri Botanical Garden** — native plant distribution and species data
+- **Lady Bird Johnson Wildflower Center** — gardening and growing-condition characteristics
+- **USDA PLANTS Database** — authoritative U.S. native/introduced status and economic classification
+- **iNaturalist** — plant images and supplementary observation data
+
+**Data Pipeline**
+Raw data from these sources was consolidated and passed through a multi-stage pipeline:
+1. **Cleaning** — removing duplicate, malformed, and incomplete records
+2. **Transformation** — standardizing species names, units, and categorical fields across sources
+3. **Feature Engineering** — deriving usable app-facing fields (sunlight need, water need, pollinator value, bloom/plant type) from raw source fields
+4. **Coverage Validation** — cross-checking each record against source data to flag gaps
+5. **Master File Assembly** — merging validated records into a single authoritative dataset
+
+This produced four working datasets: `plants_master.csv` (the complete integrated reference dataset), `plants_app.csv` (the trimmed, recommendation-ready dataset the app queries directly), `plant_states.csv` (state-level native distribution mapping), and `data_quality_report.csv` (a validation summary documenting completeness and known gaps in the pipeline output).
+
+---
+
+## 2. Solution
+
+**Overview**
+The Biodiversity & Native Planting Planner is a data-driven web application that helps U.S. gardeners identify native plants suited to their specific growing conditions and ecological goals. Rather than browsing plant catalogs manually, users answer a short set of questions and receive a filtered, ranked list of native species matched to their situation.
+
+**How it works**
+Users select:
+- U.S. state
+- Sunlight availability (full sun / partial shade / full shade)
+- Water availability
+- Preferred pollinator support (bees, butterflies, birds, etc.)
+
+The recommendation engine filters `plants_app.csv` against these inputs, weighting matches by how closely a species' documented growing requirements and pollinator value align with the user's stated conditions, and returns a ranked shortlist with plant information (growing needs, native range, pollinator value) surfaced directly in the app.
+
+**Why this approach**
+We deliberately built the first version as a transparent, deterministic filtering/ranking engine rather than a black-box machine learning model. Given the data volume available in this cohort and the need for the recommendation logic to be explainable to a non-technical gardener ("this plant matched because it tolerates your sunlight and water conditions and supports your chosen pollinators"), a rule-based engine is more practical, easier to validate against the data quality report, and easier to extend as more species data is added — while leaving room for a future ML-based ranking model (see Implementation Plan).
+
+**Sustainability**
+The solution is sustainable in two senses: (1) it promotes ecologically sustainable gardening by steering users toward native, low-input, pollinator-supporting species, and (2) the underlying dataset and pipeline are structured so they can be extended with additional species, states, or data sources without redesigning the app.
+
+---
+
+## 3. Implementation Plan
+
+**Steps & Timeline**
+
+| Phase | Work | Status / Timing |
+|---|---|---|
+| Phase 1 — Data Foundation | Source, clean, and validate the master dataset (plants_master.csv) | Completed |
+| Phase 2 — Application Build | Build the Streamlit recommendation app, feature engineering, and app-facing dataset (plants_app.csv) | Completed |
+| Phase 3 — Deployment | Deploy the app publicly via Streamlit; document setup and local run instructions | Completed |
+| Phase 4 — Documentation & Submission | Finalize README, written summary, walkthrough video; open submission PR | Completed |
+| Phase 5 (Post-submission) — Expansion | Expand dataset coverage, add ML-based ranking, add mobile-responsive polish | Planned |
+
+**Resources Needed**
+- Public/open datasets (no licensing cost) from the four sources listed above
+- Python data-processing stack (Pandas, NumPy) and Streamlit for the front end
+- Team capacity across four disciplines (Data Analytics & UX/UI, Advanced Data Analytics, App Development & Automation, Cybersecurity) to cover data prep, app logic, deployment, and security review
+- Streamlit Community Cloud (or equivalent) for hosting the live application
+
+**Risks & Mitigations**
+
+| Risk | Mitigation |
+|---|---|
+| Incomplete or inconsistent source data (species missing key fields) | Data quality report tracks and flags gaps; dataset was scoped down to well-documented species rather than the full raw species list to keep coverage high |
+| Recommendations not matching real growing conditions in edge cases (e.g., microclimates) | Filtering logic is transparent and explainable so users can see why a plant was/wasn't recommended, and can be tuned as more data is validated |
+| App downtime / hosting limits on free-tier deployment | Local run instructions are documented in the README as a fallback to the hosted app |
+| Security exposure of a public-facing app (input handling, dependency vulnerabilities) | Dedicated cybersecurity review of the app's input handling and deployment configuration was built into the team workflow |
+| Scope creep beyond submission deadline | Feature set was deliberately limited to a rule-based recommendation engine for this submission, with ML-based ranking and expanded data coverage deferred to "What's Next" |
+
+---
+
+*Team Vanguard Strategists — Biodiversity & Native Planting Planner — MMC Grow with Google BUILD Project*
