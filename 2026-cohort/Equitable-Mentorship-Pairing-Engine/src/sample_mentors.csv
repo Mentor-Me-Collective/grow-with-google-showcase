@@ -1,0 +1,5 @@
+id,name,skills,seniority_level,gender,capacity
+N1,Grace,"python,data analysis,machine learning",5,woman,2
+N2,Chidi,"cybersecurity,networking,cloud",4,man,1
+N3,Wale,"design,ux research,product",5,man,1
+N4,Ifeoma,"python,sql,data engineering",4,woman,1
