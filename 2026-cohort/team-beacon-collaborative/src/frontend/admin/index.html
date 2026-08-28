@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | Nourish &amp; Share</title>
+  <!-- Google Fonts: Warm and Organic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+</head>
+<body>
+
+  <!-- Mobile Top Navigation Header (hidden on desktop) -->
+  <div class="mobile-admin-header">
+    <button class="mobile-menu-burger" id="mobile-menu-burger" aria-label="Open navigation menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="mobile-logo-text">Nourish &amp; Share Admin</div>
+  </div>
+
+  <!-- Sidebar Overlay for mobile screen collapse -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- ============ ADMIN SIDEBAR ============ -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-header">
+      <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="logo-wrap">
+        <svg class="logo-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="none" stroke="currentColor"></path>
+          <path d="M12 18C12 18 8 14.5 8 11.5C8 9.5 9.5 8 11.5 8C12 8 12 8 12 8C12 8 12 8 12.5 8C14.5 8 16 9.5 16 11.5C16 14.5 12 18 12 18Z" fill="none" stroke="currentColor"></path>
+          <path d="M12 14V10" stroke="currentColor"></path>
+          <path d="M12 11C12.5 10 14 9.5 14.5 10" stroke="currentColor"></path>
+          <path d="M12 11C11.5 10 10 9.5 9.5 10" stroke="currentColor"></path>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-title">Nourish &amp; Share</span>
+          <span class="brand-subtitle">Admin Panel</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <button class="menu-item active" data-screen="dashboard">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </button>
+
+      <button class="menu-item" data-screen="listings">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <span>Food Listings</span>
+      </button>
+
+      <button class="menu-item" data-screen="reservations">
+        <i class="fa-solid fa-bookmark"></i>
+        <span>Reservations</span>
+      </button>
+
+      <button class="menu-item" data-screen="pickups">
+        <i class="fa-solid fa-truck"></i>
+        <span>Pickups</span>
+      </button>
+
+      <!-- Collapsible Users Submenu -->
+      <div class="submenu-container" id="submenu-users-container">
+        <button class="menu-item submenu-trigger" id="menu-users-trigger">
+          <i class="fa-solid fa-users"></i>
+          <span>Users</span>
+          <i class="fa-solid fa-chevron-down arrow-icon"></i>
+        </button>
+        <div class="submenu-list" id="submenu-users-list">
+          <button class="menu-item submenu-item" data-screen="donors">
+            <i class="fa-solid fa-user"></i>
+            <span>Donors</span>
+          </button>
+          <button class="menu-item submenu-item" data-screen="recipients">
+            <i class="fa-solid fa-user"></i>
+            <span>Recipients</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="menu-item" data-screen="chat">
+        <i class="fa-solid fa-comment"></i>
+        <span>Chat</span>
+      </button>
+
+      <button class="menu-item" data-screen="settings">
+        <i class="fa-solid fa-gear"></i>
+        <span>Profile / Settings</span>
+      </button>
+
+      <div class="menu-divider"></div>
+
+      <button class="menu-item logout-btn" onclick="logoutAdmin()">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+      </button>
+    </nav>
+  </aside>
+
+  <!-- ============ MAIN CONTENT AREA ============ -->
+  <main class="admin-main">
+
+    <!-- Screen 1: Dashboard -->
+    <section class="admin-screen active" id="screen-dashboard">
+      <div class="dashboard-header">
+        <h1 class="welcome-title">Welcome, Admin! ðŸ‘‹</h1>
+        <p class="welcome-subtitle">Use the menu on the left to manage the platform and support our mission to reduce food waste.</p>
+      </div>
+
+      <div class="dashboard-illustration-container">
+        <img src="../private/Donor/truck_illustration.jpg" alt="Delivery Truck loaded with crates" class="truck-image">
+        <h2 class="tagline">Together, we can make a real difference.</h2>
+        <p class="sub-tagline">Thank you for helping build a stronger, healthier community.</p>
+      </div>
+    </section>
+
+    <section class="admin-screen" id="screen-listings">
+      <div class="admin-section-header">
+        <div>
+          <h2>Food Listings</h2>
+          <p>Review all food donations across the network.</p>
+        </div>
+      </div>
+      <div id="admin-listings-content" class="admin-data-panel"></div>
+    </section>
+
+    <section class="admin-screen" id="screen-reservations">
+      <div class="admin-section-header">
+        <div>
+          <h2>Reservations</h2>
+          <p>Monitor active and completed recipient reservations.</p>
+        </div>
+      </div>
+      <div id="admin-reservations-content" class="admin-data-panel"></div>
+    </section>
+
+    <section class="admin-screen" id="screen-pickups">
+      <div class="admin-section-header">
+        <div>
+          <h2>Pickups</h2>
+          <p>Track reserved food through final pickup.</p>
+        </div>
+      </div>
+      <div id="admin-pickups-content" class="admin-data-panel"></div>
+    </section>
+
+    <section class="admin-screen" id="screen-donors">
+      <div class="admin-section-header">
+        <div>
+          <h2>Donors Management</h2>
+          <p>Review donor organizations and account status.</p>
+        </div>
+      </div>
+      <div id="admin-donors-content" class="admin-data-panel"></div>
+    </section>
+
+    <section class="admin-screen" id="screen-recipients">
+      <div class="admin-section-header">
+        <div>
+          <h2>Recipients Management</h2>
+          <p>Review recipient organizations and account status.</p>
+        </div>
+      </div>
+      <div id="admin-recipients-content" class="admin-data-panel"></div>
+    </section>
+
+    <!-- Screen 7: Chat Panel -->
+    <section class="admin-screen" id="screen-chat">
+      <div class="sfrn-chat-layout">
+        <!-- Left Side: Conversation List -->
+        <aside class="chat-conversations-list" id="chat-conversations-list">
+          <div class="chat-search-container">
+            <input type="text" id="chat-convo-search" placeholder="Search conversations..." oninput="handleChatSearch()">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          </div>
+          <!-- Admin Filter tabs -->
+          <div class="chat-admin-filters" id="chat-admin-filters">
+            <button class="filter-tab active" data-role="all" onclick="filterAdminConversations('all')">All</button>
+            <button class="filter-tab" data-role="donors" onclick="filterAdminConversations('donors')">Donors</button>
+            <button class="filter-tab" data-role="recipients" onclick="filterAdminConversations('recipients')">Recipients</button>
+          </div>
+          <div class="conversations-deck" id="conversations-deck">
+            <!-- Generated dynamically -->
+          </div>
+        </aside>
+
+        <!-- Right Side: Active Chat Window -->
+        <main class="chat-active-window" id="chat-active-window">
+          <!-- Empty/No Conversation selected State -->
+          <div class="chat-empty-state" id="chat-empty-state">
+            <i class="fa-solid fa-comments"></i>
+            <h3>Your Messages</h3>
+            <p>Select a conversation from the left to start messaging.</p>
+          </div>
+
+          <!-- Chat Active Panel -->
+          <div class="chat-active-panel" id="chat-active-panel" style="display: none;">
+            <div class="chat-active-header">
+              <button class="mobile-chat-back-btn" onclick="goBackToConversations()">&larr; Back</button>
+              <div class="active-partner-avatar" id="active-partner-avatar"></div>
+              <div class="active-partner-info">
+                <h4 id="active-partner-name">-</h4>
+                <span id="active-partner-role" class="qty-badge"></span>
+                <span id="active-context" style="font-size: 0.75rem; color: var(--ink-soft); margin-left: 10px;"></span>
+              </div>
+            </div>
+
+            <!-- Messages List -->
+            <div class="chat-messages-scroll" id="chat-messages-scroll">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Input text footer -->
+            <form class="chat-input-bar" id="chat-input-bar" onsubmit="sendChatMessage(event); return false;">
+              <input type="text" id="chat-message-input" placeholder="Type a message..." required>
+              <button type="submit" class="btn-chat-send">
+                <span>Send</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <section class="admin-screen" id="screen-settings">
+      <div class="admin-section-header">
+        <div>
+          <h2>Admin Profile</h2>
+          <p>Authenticated Nourish &amp; Share administrator account.</p>
+        </div>
+      </div>
+      <div id="admin-profile-content" class="admin-data-panel"></div>
+    </section>
+
+  </main>
+
+  <script type="module" src="data-adapter.js?v=20260825a"></script>
+  <script src="script.js?v=20260825a"></script>
+</body>
+</html>

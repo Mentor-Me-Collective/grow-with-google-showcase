@@ -1,0 +1,233 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function currentUser() {
+      return get(
+        /databases/$(database)/documents/users/$(request.auth.uid)
+      );
+    }
+
+    function isActiveUser() {
+      return signedIn()
+        && currentUser().data.accountStatus == "active";
+    }
+
+    function isAdmin() {
+      return isActiveUser()
+        && currentUser().data.role == "admin";
+    }
+
+    function currentOrganizationId() {
+      return currentUser().data.organizationId;
+    }
+
+    function organizationIsApproved() {
+      return isActiveUser()
+        && exists(
+          /databases/$(database)/documents/organizations/$(currentOrganizationId())
+        )
+        && get(
+          /databases/$(database)/documents/organizations/$(currentOrganizationId())
+        ).data.verificationStatus == "approved";
+    }
+
+    function isApprovedDonor() {
+      return organizationIsApproved()
+        && currentUser().data.role == "donor"
+        && get(
+          /databases/$(database)/documents/organizations/$(currentOrganizationId())
+        ).data.type == "donor";
+    }
+
+    function isApprovedRecipient() {
+      return organizationIsApproved()
+        && currentUser().data.role == "recipient"
+        && get(
+          /databases/$(database)/documents/organizations/$(currentOrganizationId())
+        ).data.type == "recipient";
+    }
+
+    match /users/{userId} {
+      allow read: if isAdmin()
+        || (signedIn() && request.auth.uid == userId);
+
+      allow create: if signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.accountStatus == "active"
+        && request.resource.data.role in ["donor", "recipient"]
+        && (
+          !("organizationId" in request.resource.data)
+          || !exists(
+            /databases/$(database)/documents/organizations/$(request.resource.data.organizationId)
+          )
+          || (
+            get(
+              /databases/$(database)/documents/organizations/$(request.resource.data.organizationId)
+            ).data.createdBy == request.auth.uid
+            && get(
+              /databases/$(database)/documents/organizations/$(request.resource.data.organizationId)
+            ).data.verificationStatus != "approved"
+          )
+        );
+
+      allow update: if isAdmin()
+        || (
+          signedIn()
+          && request.auth.uid == userId
+          && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(["displayName", "profile"])
+        );
+
+      allow delete: if isAdmin();
+    }
+
+    match /organizations/{organizationId} {
+      allow read: if isActiveUser();
+
+      allow create: if signedIn()
+        && request.resource.data.createdBy == request.auth.uid
+        && request.resource.data.verificationStatus != "approved"
+        && request.resource.data.type in ["donor", "recipient"];
+
+      allow update, delete: if isAdmin();
+    }
+
+    match /donations/{donationId} {
+      allow read: if isAdmin()
+        || isApprovedDonor()
+        || isApprovedRecipient();
+
+      allow create: if isApprovedDonor()
+        && request.resource.data.organizationId == currentOrganizationId()
+        && request.resource.data.createdBy == request.auth.uid
+        && request.resource.data.status == "available";
+
+      allow update: if isAdmin()
+
+        // Donor may modify their own donation, but ownership
+        // fields must remain unchanged.
+        || (
+          isApprovedDonor()
+          && resource.data.organizationId == currentOrganizationId()
+          && resource.data.createdBy == request.auth.uid
+          && request.resource.data.organizationId == resource.data.organizationId
+          && request.resource.data.createdBy == resource.data.createdBy
+          && request.resource.data.status != "reserved"
+        )
+
+        // Recipient reservation must occur atomically with
+        // creation of the matching reservation document.
+        || (
+          isApprovedRecipient()
+          && resource.data.status == "available"
+          && request.resource.data.status == "reserved"
+          && request.resource.data.diff(resource.data)
+            .affectedKeys()
+            .hasOnly(["status"])
+          && existsAfter(
+            /databases/$(database)/documents/reservations/$(donationId)
+          )
+          && getAfter(
+            /databases/$(database)/documents/reservations/$(donationId)
+          ).data.donationId == donationId
+          && getAfter(
+            /databases/$(database)/documents/reservations/$(donationId)
+          ).data.recipientOrganizationId == currentOrganizationId()
+          && getAfter(
+            /databases/$(database)/documents/reservations/$(donationId)
+          ).data.createdBy == request.auth.uid
+          && getAfter(
+            /databases/$(database)/documents/reservations/$(donationId)
+          ).data.status == "active"
+        );
+
+      allow delete: if isAdmin()
+        || (
+          isApprovedDonor()
+          && resource.data.organizationId == currentOrganizationId()
+          && resource.data.createdBy == request.auth.uid
+        );
+    }
+
+    match /reservations/{reservationId} {
+      allow read: if isAdmin()
+        || (
+          isApprovedRecipient()
+          && resource.data.createdBy == request.auth.uid
+          && resource.data.recipientOrganizationId == currentOrganizationId()
+        );
+
+      allow create: if isApprovedRecipient()
+        && reservationId == request.resource.data.donationId
+        && request.resource.data.createdBy == request.auth.uid
+        && request.resource.data.recipientOrganizationId == currentOrganizationId()
+        && request.resource.data.status == "active"
+        && exists(
+          /databases/$(database)/documents/donations/$(reservationId)
+        )
+        && get(
+          /databases/$(database)/documents/donations/$(reservationId)
+        ).data.status == "available"
+        && existsAfter(
+          /databases/$(database)/documents/donations/$(reservationId)
+        )
+        && getAfter(
+          /databases/$(database)/documents/donations/$(reservationId)
+        ).data.status == "reserved";
+
+      allow update, delete: if isAdmin();
+    }
+
+    match /conversations/{conversationId} {
+      allow read: if signedIn()
+        && request.auth.uid in resource.data.participants;
+
+      allow create: if isApprovedRecipient()
+        && request.resource.data.donationId == conversationId
+        && request.resource.data.recipientUid == request.auth.uid
+        && exists(
+          /databases/$(database)/documents/donations/$(conversationId)
+        )
+        && request.resource.data.donorUid == get(
+          /databases/$(database)/documents/donations/$(conversationId)
+        ).data.createdBy
+        && request.resource.data.participants == [
+          request.resource.data.donorUid,
+          request.resource.data.recipientUid
+        ];
+
+      allow update, delete: if false;
+    }
+
+    match /messages/{messageId} {
+      allow read: if signedIn()
+        && exists(
+          /databases/$(database)/documents/conversations/$(resource.data.conversationId)
+        )
+        && request.auth.uid in get(
+          /databases/$(database)/documents/conversations/$(resource.data.conversationId)
+        ).data.participants;
+
+      allow create: if signedIn()
+        && request.resource.data.senderUid == request.auth.uid
+        && exists(
+          /databases/$(database)/documents/conversations/$(request.resource.data.conversationId)
+        )
+        && request.auth.uid in get(
+          /databases/$(database)/documents/conversations/$(request.resource.data.conversationId)
+        ).data.participants;
+
+      allow update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

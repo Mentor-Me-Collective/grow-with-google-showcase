@@ -1,0 +1,420 @@
+/* Stylesheet specifically for the How It Works page */
+:root {
+  --primary-color: #2c5e43;
+  --secondary-color: #e07a5f;
+  --cream-bg: #FAF6F0;
+  --text-color: #2d2d2a;
+  --accent-color: #56892f;
+  --wood-line: #b87c40;
+}
+
+/* Hero Section Styles */
+.how-hero {
+  padding: 100px 24px;
+  background-color: #f7eedb;
+  background-image: linear-gradient(135deg, #f7eedb 0%, #ecdcb9 100%);
+  text-align: center;
+  border-bottom: 4px solid var(--wood-line);
+}
+
+.hero-content-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-content-inner h1 {
+  font-family: 'Fredoka', cursive, sans-serif;
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  line-height: 1.1;
+  color: var(--primary-color);
+  margin: 15px 0;
+}
+
+.hero-content-inner p {
+  font-family: 'Quicksand', sans-serif;
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  line-height: 1.6;
+  color: #505c4d;
+}
+
+.badge-tag {
+  display: inline-block;
+  background: var(--accent-color);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Journey flow timeline section */
+.journey-section {
+  padding: 80px 24px;
+  text-align: center;
+  background-color: var(--cream-bg);
+}
+
+.journey-section h2 {
+  font-family: 'Fredoka', cursive;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  color: var(--primary-color);
+  margin-bottom: 45px;
+}
+
+.journey-map {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 15px;
+}
+
+.journey-step {
+  flex: 1 1 130px;
+  max-width: 170px;
+  padding: 15px;
+}
+
+.step-num {
+  width: 55px;
+  height: 55px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 10px rgba(44,94,67,0.25);
+  transition: transform 0.3s;
+}
+
+.journey-step:hover .step-num {
+  transform: scale(1.1);
+}
+
+.journey-step h4 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+  color: var(--text-color);
+}
+
+.journey-step p {
+  font-size: 0.85rem;
+  color: #62645e;
+}
+
+.journey-arrow {
+  color: var(--wood-line);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Visual Division: The Two Sides */
+.sides-intro {
+  padding: 60px 24px;
+  background-color: #fffdfb;
+}
+
+.sides-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.side-card {
+  padding: 45px 35px;
+  border-radius: 20px;
+  background: var(--cream-bg);
+  border: 1px solid #e9dbc5;
+  box-shadow: 0 10px 30px rgba(101,74,36,0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.side-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(101,74,36,0.12);
+}
+
+.side-card h2 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.85rem;
+  margin: 15px 0 5px;
+}
+
+.side-donor h2 {
+  color: var(--primary-color);
+}
+
+.side-recipient h2 {
+  color: var(--secondary-color);
+}
+
+.side-icon {
+  font-size: 3rem;
+  color: var(--primary-color);
+}
+
+.side-recipient .side-icon {
+  color: var(--secondary-color);
+}
+
+.side-card p {
+  line-height: 1.6;
+}
+
+.side-card .subtitle {
+  font-weight: 700;
+  color: #555c52;
+  margin-bottom: 15px;
+}
+
+.flow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 25px;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.side-recipient .flow-link {
+  color: var(--secondary-color);
+}
+
+/* Detailed Flow steps */
+.detailed-flow {
+  padding: 90px 24px;
+  background: var(--cream-bg);
+}
+
+.recipient-theme {
+  background: #fdfaf5;
+}
+
+.flow-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 55px;
+}
+
+.eyebrow {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: 12px;
+}
+
+.recipient-theme .eyebrow {
+  color: var(--secondary-color);
+}
+
+.flow-header h2 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(1.85rem, 3vw, 2.65rem);
+  color: var(--primary-color);
+}
+
+.recipient-theme .flow-header h2 {
+  color: var(--secondary-color);
+}
+
+.flow-steps {
+  max-width: 800px;
+  margin: 0 auto;
+  display: grid;
+  gap: 25px;
+  position: relative;
+}
+
+.flow-step-item {
+  display: flex;
+  gap: 25px;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid rgba(107,60,23,0.08);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.step-badge {
+  flex-shrink: 0;
+  width: 45px;
+  height: 45px;
+  background: var(--accent-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.recipient-theme .step-badge {
+  background: var(--secondary-color);
+}
+
+.step-body h3 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  color: var(--text-color);
+}
+
+.step-body p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #5a5c56;
+}
+
+/* Connection visualization section */
+.connection-section {
+  padding: 95px 24px;
+  background: #fff;
+  text-align: center;
+}
+
+.connection-section h2 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  margin-bottom: 50px;
+}
+
+.connection-viz {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.viz-node {
+  padding: 24px;
+  background: var(--cream-bg);
+  border: 2px solid var(--wood-line);
+  border-radius: 18px;
+  width: 180px;
+  box-shadow: 0 8px 25px rgba(184,124,64,0.1);
+}
+
+.viz-node i {
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  margin-bottom: 12px;
+}
+
+.viz-node h3 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.15rem;
+  margin-bottom: 4px;
+}
+
+.viz-node small {
+  color: #656760;
+  font-size: 0.8rem;
+}
+
+.center-node {
+  background: #eef4db;
+  border-color: var(--accent-color);
+}
+
+.center-node i {
+  color: var(--accent-color);
+}
+
+.viz-line {
+  font-size: 1.5rem;
+  color: var(--wood-line);
+  display: flex;
+  align-items: center;
+}
+
+.community-node {
+  width: 250px;
+  background: #fff8e8;
+  border-color: #d6983b;
+}
+
+.community-node i {
+  color: #d6983b;
+}
+
+/* Final CTA Section */
+.cta-section {
+  padding: 90px 24px;
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 15px;
+}
+
+.cta-section p {
+  font-size: 1.15rem;
+  max-width: 600px;
+  margin: 0 auto 35px;
+  opacity: 0.9;
+}
+
+.cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-lg {
+  padding: 16px 28px;
+  border-radius: 12px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .sides-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .journey-map {
+    flex-direction: column;
+    gap: 25px;
+  }
+  
+  .journey-arrow {
+    transform: rotate(90deg);
+  }
+  
+  .connection-viz {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .viz-line {
+    transform: rotate(90deg);
+  }
+}

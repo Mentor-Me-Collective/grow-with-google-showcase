@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Become a Recipient — Surplus Food Redistribution Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+  <!-- Chicago Food Access Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    .food-map-card {
+      background: var(--card);
+      border: 1px solid var(--kraft-line);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(40,55,45,.06);
+    }
+
+    .food-map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .food-map-title {
+      margin: 0 0 5px;
+      color: var(--green-dark);
+      font-size: 1.15rem;
+    }
+
+    .food-map-subtitle {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: .86rem;
+      line-height: 1.45;
+    }
+
+    .food-map-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .food-map-filter {
+      border: 1px solid var(--kraft-line);
+      background: var(--card);
+      color: var(--ink-soft);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font: inherit;
+      font-size: .78rem;
+      cursor: pointer;
+    }
+
+    .food-map-filter.active {
+      background: var(--green-dark);
+      color: white;
+      border-color: var(--green-dark);
+    }
+
+    #food-access-map {
+      width: 100%;
+      height: 430px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #eef2ec;
+    }
+
+    .food-map-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      color: var(--ink-soft);
+      font-size: .76rem;
+    }
+
+    .food-map-legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .food-map-key {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .food-map-dot {
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      border-radius: 50%;
+    }
+
+    .food-map-dot.live { background: #345d42; }
+    .food-map-dot.grocery { background: #d88a35; }
+    .food-map-dot.pantry { background: #4678a5; }
+
+    .food-map-live-marker {
+      background: transparent;
+      border: 0;
+    }
+
+    .food-map-live-pin {
+      width: 22px;
+      height: 22px;
+      display: block;
+      border-radius: 50%;
+      background: #345d42;
+      border: 3px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,.35);
+    }
+
+    .food-map-popup h3 {
+      margin: 0 0 5px;
+      font-size: .98rem;
+      color: #264733;
+    }
+
+    .food-map-popup p {
+      margin: 3px 0;
+      font-size: .79rem;
+      line-height: 1.35;
+    }
+
+    .food-map-popup-type {
+      font-weight: 700;
+      color: #345d42;
+    }
+
+    .food-map-reserve-btn {
+      width: 100%;
+      margin-top: 9px;
+      border: 0;
+      border-radius: 8px;
+      padding: 8px 10px;
+      background: #345d42;
+      color: white;
+      font: inherit;
+      font-size: .78rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    @media (max-width: 700px) {
+      #food-access-map { height: 360px; }
+      .food-map-header { flex-direction: column; }
+    }
+  </style>
+
+</head>
+<body>
+
+<!-- ============ MANIFEST RAIL (progress) ============ -->
+<aside class="rail" id="rail" aria-label="Registration progress">
+  <div class="rail-top">
+    <div class="rail-mark">SFRN</div>
+    <div class="rail-title">Recipient<br>Registration</div>
+  </div>
+
+  <div class="rail-tag" id="rail-tag" hidden>
+    <span class="rail-tag-label">Recipient type</span>
+    <span class="rail-tag-value" id="rail-tag-value">—</span>
+  </div>
+
+  <ol class="stamps" id="stamps">
+    <li class="stamp-row" data-step="type">
+      <span class="stamp"><span class="stamp-num">1</span><span class="stamp-check">✓</span></span>
+      <span class="stamp-label">Recipient type</span>
+    </li>
+    <li class="stamp-row" data-step="org">
+      <span class="stamp"><span class="stamp-num">2</span><span class="stamp-check">✓</span></span>
+      <span class="stamp-label">Organization info</span>
+    </li>
+    <li class="stamp-row" data-step="contact">
+      <span class="stamp"><span class="stamp-num">3</span><span class="stamp-check">✓</span></span>
+      <span class="stamp-label">Contact info</span>
+    </li>
+    <li class="stamp-row" data-step="capacity">
+      <span class="stamp"><span class="stamp-num">4</span><span class="stamp-check">✓</span></span>
+      <span class="stamp-label">Capacity profile</span>
+    </li>
+    <li class="stamp-row" data-step="account">
+      <span class="stamp"><span class="stamp-num">5</span><span class="stamp-check">✓</span></span>
+      <span class="stamp-label">Account</span>
+    </li>
+    <li class="stamp-row" data-step="review">
+      <span class="stamp"><span class="stamp-num">6</span><span class="stamp-check">✓</span></span>
+      <span class="stamp-label">Review &amp; submit</span>
+    </li>
+  </ol>
+
+  <div class="rail-bottom">
+    <p>Already registered?</p>
+    <a href="../../public/login.html" class="rail-link">Log in &rarr;</a>
+  </div>
+</aside>
+
+<!-- ============ RECIPIENT DESKTOP HEADER ============ -->
+<header class="recipient-desktop-header">
+  <div class="recipient-crate-front">
+    <div class="recipient-nav-item active" data-tab="dashboard" style="left: 29%; width: 10%;"></div>
+    <div class="recipient-nav-item" data-tab="available" style="left: 39%; width: 12%;"></div>
+    <div class="recipient-nav-item" data-tab="reservations" style="left: 51%; width: 12%;"></div>
+    <div class="recipient-nav-item" data-tab="schedule" style="left: 63%; width: 12%;"></div>
+    <div class="recipient-nav-item" data-tab="map" style="left: 75%; width: 8%;"></div>
+    <div class="recipient-nav-item" data-tab="chat" style="left: 83%; width: 8%;"></div>
+    
+    <!-- Profile Circle trigger in the reserved far-right wood space -->
+    <div class="recipient-nav-item" id="nav-profile-menu-trigger" style="left: 90.5%; width: 7.5%;">
+      <div class="nav-avatar-circle" id="header-avatar" style="background-image: url('default_avatar.jpg'); background-size: cover;"></div>
+    </div>
+  </div>
+  
+  <!-- Profile Dropdown Menu -->
+  <div class="profile-dropdown" id="profile-dropdown">
+    <div class="dropdown-header">
+      <span class="dropdown-donor-name" id="dropdown-donor-name">Jane Doe</span>
+      <span class="dropdown-donor-type" id="dropdown-donor-type">Pantry Coordinator</span>
+    </div>
+    <div class="dropdown-divider"></div>
+    <a href="#" class="dropdown-item" onclick="showDashboardTab('profile'); return false;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      Edit Profile
+    </a>
+    <a href="#" class="dropdown-item" onclick="showDashboardTab('settings'); return false;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+      Settings
+    </a>
+    <div class="dropdown-divider"></div>
+    <a href="#" class="dropdown-item dropdown-logout" onclick="logoutUser(); return false;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+        <polyline points="16 17 21 12 16 7"></polyline>
+        <line x1="21" y1="12" x2="9" y2="12"></line>
+      </svg>
+      Logout
+    </a>
+  </div>
+</header>
+
+<!-- ============ RECIPIENT MOBILE HEADER ============ -->
+<header class="recipient-mobile-header">
+  <button class="hamburger-btn" id="mobile-hamburger" aria-label="Open navigation menu">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+  </button>
+  <div class="mobile-logo-text">Nourish &amp; Share</div>
+  <div class="nav-avatar-circle" id="mobile-header-avatar" onclick="showDashboardTab('profile')" style="width: 34px; height: 34px; border-radius: 50%; background-image: url('default_avatar.jpg'); background-size: cover; cursor: pointer;"></div>
+</header>
+
+<!-- ============ MOBILE DRAWER OVERLAY ============ -->
+<div class="recipient-drawer-overlay" id="drawer-overlay"></div>
+<aside class="recipient-mobile-drawer" id="mobile-drawer">
+  <!-- Invisible overlay click targets placed exactly over the pre-rendered rows in mobile_nav_clean.png -->
+  <div class="recipient-mobile-nav-item" data-tab="dashboard" style="top: 20%; height: 8.5%; left: 8%; width: 84%;"></div>
+  <div class="recipient-mobile-nav-item" data-tab="available" style="top: 29%; height: 8.5%; left: 8%; width: 84%;"></div>
+  <div class="recipient-mobile-nav-item" data-tab="reservations" style="top: 38%; height: 8.5%; left: 8%; width: 84%;"></div>
+  <div class="recipient-mobile-nav-item" data-tab="schedule" style="top: 47%; height: 8.5%; left: 8%; width: 84%;"></div>
+  <div class="recipient-mobile-nav-item" data-tab="map" style="top: 56%; height: 8.5%; left: 8%; width: 84%;"></div>
+  <div class="recipient-mobile-nav-item" data-tab="chat" style="top: 65%; height: 8.5%; left: 8%; width: 84%;"></div>
+</aside>
+
+<!-- ============ MOBILE TOP BAR ============ -->
+<header class="topbar" id="topbar">
+  <div class="topbar-mark">SFRN</div>
+  <div class="topbar-stamps" id="topbar-stamps"></div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<main class="stage">
+
+  <!-- WELCOME -->
+  <section class="screen active" id="screen-welcome">
+    <div class="sheet sheet--wide">
+      <span class="eyebrow">Private recipient platform</span>
+      <h1 class="headline">Welcome, Recipient.</h1>
+      <p class="lede">Somewhere nearby, a grocery store, farm, or bakery has food about to go to waste. This is how you find it before it does.</p>
+
+      <div class="welcome-grid">
+        <div class="welcome-point">
+          <span class="welcome-point-mark">01</span>
+          <h3>Tell us who you are</h3>
+          <p>Six quick steps to register your organization — no paperwork, no waiting rooms.</p>
+        </div>
+        <div class="welcome-point">
+          <span class="welcome-point-mark">02</span>
+          <h3>We verify you</h3>
+          <p>A short review keeps every organization on the network trustworthy.</p>
+        </div>
+        <div class="welcome-point">
+          <span class="welcome-point-mark">03</span>
+          <h3>Start reserving food</h3>
+          <p>Browse available donations near you and reserve what your community needs.</p>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-lg" onclick="goTo('type')">Get started <span aria-hidden="true">→</span></button>
+      <p class="fine-print">Takes about 8 minutes. You can save and finish later.</p>
+    </div>
+  </section>
+
+  <!-- STEP 1: CHOOSE RECIPIENT TYPE -->
+  <section class="screen" id="screen-type">
+    <div class="sheet sheet--wide">
+      <span class="eyebrow">Step 1 of 6</span>
+      <h1 class="headline headline--md">What kind of organization are you?</h1>
+      <p class="lede">This tells us what to ask next — every type gets a form built for the way it actually serves its community.</p>
+
+      <div class="crate-grid" id="crate-grid"></div>
+
+      <div class="step-actions">
+        <button class="btn btn-ghost" onclick="goTo('welcome')">← Back</button>
+        <button class="btn btn-primary" id="type-continue" disabled onclick="goTo('org')">Continue <span aria-hidden="true">→</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2: ORGANIZATION INFORMATION -->
+  <section class="screen" id="screen-org">
+    <div class="sheet">
+      <span class="eyebrow">Step 2 of 6</span>
+      <h1 class="headline headline--md">Organization information</h1>
+      <p class="lede">The basics every organization shares, plus a couple of questions specific to <span class="type-echo" id="org-type-echo">your organization type</span>.</p>
+
+      <form id="form-org" class="form" novalidate>
+        <div class="field">
+          <label for="org-name">Organization name <span class="req">*</span></label>
+          <input type="text" id="org-name" name="orgName" required placeholder="e.g. Westside Community Pantry">
+        </div>
+
+        <div class="field">
+          <label for="org-address">Address <span class="req">*</span></label>
+          <input type="text" id="org-address" name="orgAddress" required placeholder="Street, city, ZIP">
+        </div>
+
+        <div class="field">
+          <label for="org-license">Registration / nonprofit number <span class="req">*</span></label>
+          <input type="text" id="org-license" name="orgLicense" required placeholder="Used for verification only">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="org-years">Years in operation</label>
+            <input type="number" id="org-years" name="orgYears" min="0" placeholder="Optional">
+          </div>
+          <div class="field">
+            <label for="org-website">Website</label>
+            <input type="url" id="org-website" name="orgWebsite" placeholder="Optional">
+          </div>
+        </div>
+
+        <div class="type-fields" id="type-specific-fields"></div>
+
+        <div class="step-actions">
+          <button type="button" class="btn btn-ghost" onclick="goTo('type')">← Back</button>
+          <button type="submit" class="btn btn-primary">Continue <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- STEP 3: CONTACT INFORMATION -->
+  <section class="screen" id="screen-contact">
+    <div class="sheet">
+      <span class="eyebrow">Step 3 of 6</span>
+      <h1 class="headline headline--md">Contact information</h1>
+      <p class="lede">Who should we reach when a reservation needs coordinating? This is also who logs in.</p>
+
+      <form id="form-contact" class="form" novalidate>
+        <div class="field">
+          <label for="ct-name">Contact person's name <span class="req">*</span></label>
+          <input type="text" id="ct-name" name="ctName" required placeholder="Full name">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="ct-title">Job title / role <span class="req">*</span></label>
+            <input type="text" id="ct-title" name="ctTitle" required placeholder="e.g. Pantry Coordinator">
+          </div>
+          <div class="field">
+            <label for="ct-phone">Phone number <span class="req">*</span></label>
+            <input type="tel" id="ct-phone" name="ctPhone" required placeholder="(   )    -    ">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="ct-email">Email <span class="req">*</span></label>
+          <input type="email" id="ct-email" name="ctEmail" required placeholder="name@organization.com">
+          <span class="field-hint">We'll use this as your login email in the next step — you can change it there.</span>
+        </div>
+
+        <div class="field">
+          <label>Preferred contact method <span class="req">*</span></label>
+          <div class="pill-choices" data-name="ctMethod">
+            <button type="button" class="pill" data-value="Email">Email</button>
+            <button type="button" class="pill" data-value="Phone">Phone</button>
+            <button type="button" class="pill" data-value="In-app messages">In-app messages</button>
+          </div>
+        </div>
+
+        <div class="step-actions">
+          <button type="button" class="btn btn-ghost" onclick="goTo('org')">← Back</button>
+          <button type="submit" class="btn btn-primary">Continue <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- STEP 4: CAPACITY INFORMATION (profile, not a live reservation) -->
+  <section class="screen" id="screen-capacity">
+    <div class="sheet">
+      <span class="eyebrow">Step 4 of 6</span>
+      <h1 class="headline headline--md">Your capacity profile</h1>
+      <p class="lede">This isn't a reservation — that comes later. It just helps nearby donors understand what your organization can receive.</p>
+
+      <form id="form-capacity" class="form" novalidate>
+        <div class="field">
+          <label>Food categories you most need <span class="req">*</span></label>
+          <div class="chip-choices" id="food-categories" data-name="foodCategories">
+            <button type="button" class="chip" data-value="Produce">Produce</button>
+            <button type="button" class="chip" data-value="Bakery">Bakery</button>
+            <button type="button" class="chip" data-value="Dairy">Dairy</button>
+            <button type="button" class="chip" data-value="Prepared meals">Prepared meals</button>
+            <button type="button" class="chip" data-value="Packaged goods">Packaged goods</button>
+            <button type="button" class="chip" data-value="Meat &amp; seafood">Meat &amp; seafood</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="cap-served">Estimated people served weekly <span class="req">*</span></label>
+          <input type="number" id="cap-served" name="capServed" min="0" required placeholder="e.g. 150">
+        </div>
+
+        <div class="field">
+          <label for="cap-frequency">How often can you receive donations? <span class="req">*</span></label>
+          <select id="cap-frequency" name="capFrequency" required>
+            <option value="" disabled selected>Select one</option>
+            <option>Daily</option>
+            <option>Weekly</option>
+            <option>Occasional</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="cap-window">General pickup / receiving availability</label>
+          <input type="text" id="cap-window" name="capWindow" placeholder="e.g. Weekday afternoons, 1–4pm">
+        </div>
+
+        <div class="field">
+          <label>Storage / refrigeration available on-site?</label>
+          <div class="pill-choices" data-name="capStorage">
+            <button type="button" class="pill" data-value="Yes">Yes</button>
+            <button type="button" class="pill" data-value="No">No</button>
+            <button type="button" class="pill" data-value="Limited">Limited</button>
+          </div>
+        </div>
+
+        <div class="step-actions">
+          <button type="button" class="btn btn-ghost" onclick="goTo('contact')">← Back</button>
+          <button type="submit" class="btn btn-primary">Continue <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- STEP 5: ACCOUNT CREDENTIALS -->
+  <section class="screen" id="screen-account">
+    <div class="sheet">
+      <span class="eyebrow">Step 5 of 6</span>
+      <h1 class="headline headline--md">Create your login</h1>
+      <p class="lede">This is how you'll sign back in once you're verified.</p>
+
+      <form id="form-account" class="form" novalidate>
+        <div class="field">
+          <label for="acc-email">Login email <span class="req">*</span></label>
+          <input type="email" id="acc-email" name="accEmail" required>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="acc-pass">Password <span class="req">*</span></label>
+            <input type="password" id="acc-pass" name="accPass" required minlength="8">
+          </div>
+          <div class="field">
+            <label for="acc-pass2">Confirm password <span class="req">*</span></label>
+            <input type="password" id="acc-pass2" name="accPass2" required minlength="8">
+          </div>
+        </div>
+        <p class="field-hint" id="pass-match-hint" hidden>Passwords don't match yet.</p>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="acc-terms" required>
+          <span>I agree to the Terms of Service and Privacy Policy. <span class="req">*</span></span>
+        </label>
+
+        <div class="step-actions">
+          <button type="button" class="btn btn-ghost" onclick="goTo('capacity')">← Back</button>
+          <button type="submit" class="btn btn-primary">Continue <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- STEP 6: REVIEW & SUBMIT -->
+  <section class="screen" id="screen-review">
+    <div class="sheet">
+      <span class="eyebrow">Step 6 of 6</span>
+      <h1 class="headline headline--md">Review before you submit</h1>
+      <p class="lede">Make sure everything reads right — you can jump back to fix anything.</p>
+
+      <div class="review-list" id="review-list"></div>
+
+      <label class="checkbox-row">
+        <input type="checkbox" id="review-confirm">
+        <span>Everything above is accurate to the best of my knowledge.</span>
+      </label>
+
+      <div class="step-actions">
+        <button type="button" class="btn btn-ghost" onclick="goTo('account')">← Back</button>
+        <button type="button" class="btn btn-primary" id="submit-btn" disabled onclick="submitApplication()">Submit application</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PENDING VERIFICATION -->
+  <section class="screen" id="screen-pending">
+    <div class="sheet sheet--wide sheet--center">
+      <div class="stamp-big">
+        <span>PENDING</span>
+      </div>
+      <h1 class="headline headline--md">Account created. You're in the queue.</h1>
+      <p class="lede">Thanks, <span id="pending-name">—</span>. An administrator is reviewing <strong id="pending-org">your organization</strong>. This usually takes 1–2 business days.</p>
+
+      <div class="pending-card">
+        <h3>While you wait, you can:</h3>
+        <ul>
+          <li>Log in any time to check your status</li>
+          <li>Edit your organization profile</li>
+          <li>Read how reservations and pickups work</li>
+        </ul>
+        <h3 class="pending-locked-title">Not yet available:</h3>
+        <ul class="locked">
+          <li>Browsing available donations</li>
+          <li>Reserving food</li>
+          <li>Messaging donor organizations</li>
+        </ul>
+      </div>
+
+      <p class="fine-print">We'll email <span id="pending-email">you</span> the moment you're approved — and you'll see it here too.</p>
+      <div style="display: flex; gap: 12px; justify-content: center; margin-top: 24px; flex-wrap: wrap;">
+        <button class="btn btn-secondary" style="margin-top: 0;" onclick="restart()">Start a new registration</button>
+        <a class="btn btn-primary" href="../../public/login.html">Return to Log In</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TAB 1: RECIPIENT DASHBOARD ============ -->
+  <section class="screen" id="screen-dashboard-tab">
+    <div class="sheet sheet--wide no-padding">
+      
+      <!-- Welcome back banner card -->
+      <div class="recipient-welcome-card">
+        <div class="recipient-welcome-text">
+          <h1 class="welcome-title">Welcome back! 👋</h1>
+          <p class="welcome-subtitle">Together, we can fight hunger<br>and build stronger communities.</p>
+          
+          <div class="recipient-info-badge">
+            <span class="badge-leaf-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2E5E8C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 2 7a7 7 0 0 1-7 7h-3"></path>
+                <path d="M9 22v-2"></path>
+              </svg>
+            </span>
+            <div class="badge-content">
+              <strong>Find food, make a difference</strong>
+              <span>Every meal counts.</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="recipient-welcome-illustration">
+          <img src="food_box.png" alt="Food Box Illustration">
+        </div>
+      </div>
+      
+      <!-- Dashboard Statistics Grid -->
+      <div class="recipient-stats-grid">
+        
+        <!-- Card 1: Available Food -->
+        <div class="recipient-stat-card card-available">
+          <div class="card-icon-circle bg-green">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#345D42" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
+              <path d="M12 22V12"></path>
+              <path d="M12 12 3 7.2"></path>
+              <path d="M12 12 21 7.2"></path>
+              <path d="M16 11.5 12 14 10 12"></path>
+            </svg>
+          </div>
+          <div class="card-details">
+            <span class="card-label">Available Food</span>
+            <span class="card-number" id="stat-available-food">0</span>
+            <span class="card-hint">New listings today</span>
+          </div>
+        </div>
+        
+        <!-- Card 2: My Reservations -->
+        <div class="recipient-stat-card card-reservations">
+          <div class="card-icon-circle bg-blue">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E5E8C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <div class="card-details">
+            <span class="card-label">My Reservations</span>
+            <span class="card-number" id="stat-my-reservations">0</span>
+            <span class="card-hint">Active reservations</span>
+          </div>
+        </div>
+        
+        <!-- Card 3: Upcoming Pickups -->
+        <div class="recipient-stat-card card-pickups">
+          <div class="card-icon-circle bg-purple">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5E35B1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <div class="card-details">
+            <span class="card-label">Upcoming Pickups</span>
+            <span class="card-number" id="stat-upcoming-pickups">0</span>
+            <span class="card-hint">Scheduled pickups</span>
+          </div>
+        </div>
+        
+        <!-- Card 4: Meals Impacted -->
+        <div class="recipient-stat-card card-meals">
+          <div class="card-icon-circle bg-orange">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E07A3E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12h18"></path>
+              <path d="M12 12a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9z"></path>
+              <path d="M9 7c0-2 1-3 3-3s3 1 3 3"></path>
+              <path d="M6 9c0-1.5.5-2.5 2-2.5s2 1 2 2.5"></path>
+              <path d="M14 9c0-1.5.5-2.5 2-2.5s2 1 2 2.5"></path>
+            </svg>
+          </div>
+          <div class="card-details">
+            <span class="card-label">Meals Impacted</span>
+            <span class="card-number" id="stat-meals-impacted">0</span>
+            <span class="card-hint">People you're helping</span>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ============ TAB 2: AVAILABLE FOOD ============ -->
+  <section class="screen" id="screen-available-tab">
+    <div class="sheet sheet--wide no-padding">
+      
+      <!-- Welcome/header banner card -->
+      <div class="recipient-welcome-card" style="margin-bottom: 24px;">
+        <div class="recipient-welcome-text">
+          <h1 class="welcome-title" style="display: flex; align-items: center; gap: 10px;">
+            Available Food
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#345D42" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 2 7a7 7 0 0 1-7 7h-3"></path>
+              <path d="M9 22v-2"></path>
+            </svg>
+          </h1>
+          <p class="welcome-subtitle">Discover available food donations near your organization.<br>Reserve what you need and help reduce food waste.</p>
+        </div>
+        <div class="recipient-welcome-illustration">
+          <img src="food_box.png" alt="Food Box">
+        </div>
+      </div>
+      
+      <!-- Chicago Food Access Map -->
+      <div class="food-map-card">
+        <div class="food-map-header">
+          <div>
+            <h2 class="food-map-title">Chicago Food Access Map</h2>
+            <p class="food-map-subtitle">
+              Explore live food donations and researched grocery and pantry locations
+              across Beacon's six priority Chicago communities.
+            </p>
+          </div>
+
+          <div class="food-map-filters" aria-label="Research location filters">
+            <button type="button" class="food-map-filter active" data-map-filter="all">
+              All Research
+            </button>
+            <button type="button" class="food-map-filter" data-map-filter="grocery_store">
+              Grocery Stores
+            </button>
+            <button type="button" class="food-map-filter" data-map-filter="food_pantry">
+              Food Pantries
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="food-access-map"
+          role="region"
+          aria-label="Map of available food donations, grocery stores, and food pantries in Chicago"
+        ></div>
+
+        <div class="food-map-footer">
+          <div class="food-map-legend">
+            <span class="food-map-key">
+              <span class="food-map-dot live"></span>
+              Available Donation
+            </span>
+            <span class="food-map-key">
+              <span class="food-map-dot grocery"></span>
+              Grocery Store
+            </span>
+            <span class="food-map-key">
+              <span class="food-map-dot pantry"></span>
+              Food Pantry
+            </span>
+          </div>
+
+          <span id="food-map-status">
+            Loading Chicago food-access data...
+          </span>
+        </div>
+      </div>
+
+      <!-- Two-column columns container -->
+      <div class="available-cols-container">
+        
+        <!-- Left: Filters Sidebar -->
+        <aside class="filters-sidebar">
+          <div class="filters-card">
+            <div class="filters-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+                <line x1="1" y1="14" x2="7" y2="14"></line>
+                <line x1="9" y1="8" x2="15" y2="8"></line>
+                <line x1="17" y1="16" x2="23" y2="16"></line>
+              </svg>
+              <h3>Filter Options</h3>
+            </div>
+            
+            <form id="form-available-filters" onsubmit="applyAvailableFilters(event); return false;">
+              <div class="filter-field">
+                <label for="filter-search">Search</label>
+                <div class="search-input-wrap">
+                  <input type="text" id="filter-search" placeholder="Search food, category, or donor...">
+                  <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </div>
+              </div>
+              
+              <div class="filter-field">
+                <label for="filter-category">Category</label>
+                <select id="filter-category">
+                  <option value="all">All Categories</option>
+                  <option value="Produce">Produce</option>
+                  <option value="Bakery">Bakery</option>
+                  <option value="Dairy">Dairy</option>
+                  <option value="Prepared meals">Prepared meals</option>
+                  <option value="Packaged goods">Packaged goods</option>
+                  <option value="Meat &amp; seafood">Meat &amp; seafood</option>
+                </select>
+              </div>
+              
+              <div class="filter-field">
+                <label for="filter-availability">Pickup Availability</label>
+                <select id="filter-availability">
+                  <option value="all">All Availability</option>
+                  <option value="weekdays">Weekdays</option>
+                  <option value="daily">Daily</option>
+                </select>
+              </div>
+              
+              <div class="filter-field">
+                <label for="filter-storage">Storage Requirements</label>
+                <select id="filter-storage">
+                  <option value="all">All Storage Types</option>
+                  <option value="ambient">Ambient</option>
+                  <option value="refrigerated">Refrigerated</option>
+                  <option value="frozen">Frozen</option>
+                </select>
+              </div>
+              
+              <div class="filter-field">
+                <label for="filter-sort">Sort By</label>
+                <select id="filter-sort">
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                </select>
+              </div>
+              
+              <div class="filter-actions-row">
+                <button type="submit" class="btn btn-primary btn-apply">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                  </svg>
+                  Apply Filters
+                </button>
+                <button type="button" class="btn btn-secondary btn-reset" onclick="resetAvailableFilters()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                  Reset Filters
+                </button>
+              </div>
+            </form>
+          </div>
+        </aside>
+        
+        <!-- Right: Listings Container -->
+        <main class="listings-container">
+          <div class="listings-header">
+            <span class="showing-count" id="showing-donations-count">Showing 0 available donations</span>
+            <div class="layout-toggles">
+              <button type="button" class="toggle-btn" aria-label="Grid view">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+              </button>
+              <button type="button" class="toggle-btn active" aria-label="List view">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="8" y1="6" x2="21" y2="6"></line>
+                  <line x1="8" y1="12" x2="21" y2="12"></line>
+                  <line x1="8" y1="18" x2="21" y2="18"></line>
+                  <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                  <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                  <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Dynamic Listings Card list -->
+          <div class="listings-cards-list" id="listings-cards-list">
+            <!-- Filled via script.js -->
+          </div>
+          
+          <!-- Pagination -->
+          <div class="listings-pagination" id="listings-pagination">
+            <button class="pag-btn" disabled>&lt;</button>
+            <button class="pag-num active">1</button>
+            <button class="pag-btn" disabled>&gt;</button>
+          </div>
+          
+          <!-- Bottom card message with basket -->
+          <div class="recipient-welcome-card community-box" style="margin-top: 32px; padding: 24px 120px 24px 24px; background: #F4F7F4;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div class="badge-leaf-icon" style="background: #EAF0EB; width: 44px; height: 44px; border-radius: 50%;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#345D42" stroke-width="2">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 2 7a7 7 0 0 1-7 7h-3"></path>
+                  <path d="M9 22v-2"></path>
+                </svg>
+              </div>
+              <div style="text-align: left;">
+                <p style="margin: 0; font-size: 0.92rem; font-weight: 600; color: var(--ink);">Ask fast! Donations are available on a first-come, first-served basis.</p>
+                <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--ink-soft);">By reserving food, you're helping reduce waste and feed more people in need.</p>
+              </div>
+            </div>
+            <img class="community-basket-decor" src="food_basket.png" alt="Basket Decor">
+          </div>
+        </main>
+        
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ============ TAB 3: MY RESERVATIONS ============ -->
+  <section class="screen" id="screen-reservations-tab">
+    <div class="sheet sheet--wide no-padding">
+      
+      <!-- Welcome/header banner card -->
+      <div class="recipient-welcome-card" style="margin-bottom: 24px;">
+        <div class="recipient-welcome-text">
+          <h1 class="welcome-title" style="display: flex; align-items: center; gap: 10px;">
+            My Reservations
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#345D42" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </h1>
+          <p class="welcome-subtitle">View and manage all the food you've reserved.<br>Thank you for helping reduce food waste!</p>
+        </div>
+        <div class="recipient-welcome-illustration">
+          <img src="food_basket.png" alt="Food Basket" style="height: 90px; width: auto; object-fit: contain;">
+        </div>
+      </div>
+      
+      <!-- Two-column columns container -->
+      <div class="available-cols-container">
+        
+        <!-- Left: Filters Sidebar -->
+        <aside class="filters-sidebar">
+          <div class="filters-card">
+            <div class="filters-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+                <line x1="1" y1="14" x2="7" y2="14"></line>
+                <line x1="9" y1="8" x2="15" y2="8"></line>
+                <line x1="17" y1="16" x2="23" y2="16"></line>
+              </svg>
+              <h3>Filter Options</h3>
+            </div>
+            
+            <form id="form-reservations-filters" onsubmit="applyReservationsFilters(event); return false;">
+              <div class="filter-field">
+                <label for="res-filter-search">Search</label>
+                <div class="search-input-wrap">
+                  <input type="text" id="res-filter-search" placeholder="Search by food, donor or status...">
+                  <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </div>
+              </div>
+              
+              <div class="filter-field">
+                <label for="res-filter-status">Status</label>
+                <select id="res-filter-status">
+                  <option value="all">All Statuses</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Confirmed">Confirmed</option>
+                  <option value="Ready for Pickup">Ready for Pickup</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+              </div>
+              
+              <div class="filter-field">
+                <label for="res-filter-category">Category</label>
+                <select id="res-filter-category">
+                  <option value="all">All Categories</option>
+                  <option value="Produce">Produce</option>
+                  <option value="Bakery">Bakery</option>
+                  <option value="Dairy">Dairy</option>
+                  <option value="Prepared meals">Prepared meals</option>
+                  <option value="Packaged goods">Packaged goods</option>
+                  <option value="Meat &amp; seafood">Meat &amp; seafood</option>
+                </select>
+              </div>
+              
+              <div class="filter-field">
+                <label for="res-filter-date">Pickup Date</label>
+                <div class="search-input-wrap">
+                  <input type="text" id="res-filter-date" placeholder="Select date range">
+                  <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                  </svg>
+                </div>
+              </div>
+              
+              <div class="filter-actions-row">
+                <button type="submit" class="btn btn-primary btn-apply">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                  </svg>
+                  Apply Filters
+                </button>
+                <button type="button" class="btn btn-secondary btn-reset" onclick="resetReservationsFilters()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                  Reset Filters
+                </button>
+              </div>
+            </form>
+          </div>
+        </aside>
+        
+        <!-- Right: Listings Container -->
+        <main class="listings-container">
+          <div class="listings-header">
+            <span class="showing-count" id="showing-reservations-count">Showing 0 reservations</span>
+          </div>
+          
+          <!-- Dynamic Reservations card list -->
+          <div class="listings-cards-list" id="reservations-cards-list">
+            <!-- Filled via script.js -->
+          </div>
+          
+          <!-- Pagination -->
+          <div class="listings-pagination" id="reservations-pagination">
+            <button class="pag-btn" disabled>&lt;</button>
+            <button class="pag-num active">1</button>
+            <button class="pag-btn" disabled>&gt;</button>
+          </div>
+          
+          <!-- Bottom card message with basket -->
+          <div class="recipient-welcome-card community-box" style="margin-top: 32px; padding: 24px 120px 24px 24px; background: #F4F7F4;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div class="badge-leaf-icon" style="background: #EAF0EB; width: 44px; height: 44px; border-radius: 50%;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#345D42" stroke-width="2">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 2 7a7 7 0 0 1-7 7h-3"></path>
+                </svg>
+              </div>
+              <div style="text-align: left;">
+                <p style="margin: 0; font-size: 0.92rem; font-weight: 600; color: var(--ink);">Your reservations help fight hunger and build stronger communities.</p>
+                <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--ink-soft);">Thank you for being part of the solution!</p>
+              </div>
+            </div>
+            <img class="community-basket-decor" src="food_basket.png" alt="Basket Decor">
+          </div>
+        </main>
+        
+      </div>
+      
+    </div>
+  </section>
+ 
+  <!-- ============ TAB 4: PICKUP SCHEDULE ============ -->
+  <section class="screen" id="screen-schedule-tab">
+    <div class="sheet sheet--wide no-padding">
+      
+      <!-- Welcome/header banner card -->
+      <div class="recipient-welcome-card" style="margin-bottom: 24px;">
+        <div class="recipient-welcome-text">
+          <h1 class="welcome-title" style="display: flex; align-items: center; gap: 10px;">
+            Pickup Schedule
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#345D42" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </h1>
+          <p class="welcome-subtitle">Keep track of your upcoming and completed food pickups.</p>
+        </div>
+        <div class="recipient-welcome-illustration">
+          <img src="../Donor website/truck_illustration.jpg" alt="Truck Illustration" style="height: 110px; width: auto; object-fit: contain;">
+        </div>
+      </div>
+      
+      <!-- Summary Cards Row -->
+      <div class="recipient-stats-grid">
+        <div class="recipient-stat-card">
+          <div class="card-icon-circle" style="background: #EAF0EB; color: #345D42;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <div class="card-details">
+            <span class="card-label">Upcoming Pickups</span>
+            <span class="card-number" id="sched-stat-upcoming">0</span>
+            <span class="card-hint">Scheduled for future</span>
+          </div>
+        </div>
+        
+        <div class="recipient-stat-card">
+          <div class="card-icon-circle" style="background: #FFF3E0; color: #E65100;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="card-details">
+            <span class="card-label">Pending Pickups</span>
+            <span class="card-number" id="sched-stat-pending">0</span>
+            <span class="card-hint">Waiting to be scheduled</span>
+          </div>
+        </div>
+        
+        <div class="recipient-stat-card">
+          <div class="card-icon-circle" style="background: #E3F2FD; color: #0D47A1;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13"></rect>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+              <circle cx="5.5" cy="18.5" r="2.5"></circle>
+              <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+          </div>
+          <div class="card-details">
+            <span class="card-label">In Transit</span>
+            <span class="card-number" id="sched-stat-transit">0</span>
+            <span class="card-hint">On the way</span>
+          </div>
+        </div>
+        
+        <div class="recipient-stat-card">
+          <div class="card-icon-circle" style="background: #EAF0EB; color: #1B5E20;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="card-details">
+            <span class="card-label">Completed Pickups</span>
+            <span class="card-number" id="sched-stat-completed">0</span>
+            <span class="card-hint">Successfully completed</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Two-column content wrapper -->
+      <div class="available-cols-container">
+        
+        <!-- Left: Three Sections list of pickups -->
+        <div class="listings-container" style="display: flex; flex-direction: column; gap: 24px;">
+          
+          <!-- Upcoming Pickups List Section -->
+          <div class="schedule-section">
+            <h2 class="headline headline--sm" style="margin-bottom: 12px; color: var(--blue-dark); text-align: left;">Upcoming Pickups</h2>
+            <div id="list-upcoming-pickups" class="schedule-list-wrapper">
+              <!-- Filled via script.js -->
+            </div>
+          </div>
+          
+          <!-- Pending Pickup Requests List Section -->
+          <div class="schedule-section">
+            <h2 class="headline headline--sm" style="margin-bottom: 12px; color: #E65100; text-align: left;">Pending Pickup Requests</h2>
+            <div id="list-pending-pickups" class="schedule-list-wrapper">
+              <!-- Filled via script.js -->
+            </div>
+          </div>
+          
+          <!-- Completed Pickups List Section -->
+          <div class="schedule-section">
+            <h2 class="headline headline--sm" style="margin-bottom: 12px; color: #1B5E20; text-align: left;">Completed Pickups</h2>
+            <div id="list-completed-pickups" class="schedule-list-wrapper">
+              <!-- Filled via script.js -->
+            </div>
+          </div>
+          
+          <!-- Bottom community quote box -->
+          <div class="recipient-welcome-card community-box" style="margin-top: 16px; padding: 24px; background: #F4F7F4;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div class="badge-leaf-icon" style="background: #EAF0EB; width: 44px; height: 44px; border-radius: 50%;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#345D42" stroke-width="2">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 2 7a7 7 0 0 1-7 7h-3"></path>
+                </svg>
+              </div>
+              <div style="text-align: left;">
+                <p style="margin: 0; font-size: 0.92rem; font-weight: 600; color: var(--ink);">Thank you for helping reduce food waste and fighting hunger in our community!</p>
+                <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--ink-soft);">Together, we can make a real difference. 💚</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right: Status Guide Sidebar -->
+        <aside class="filters-sidebar">
+          <div class="filters-card" style="padding: 24px;">
+            <div class="filters-header" style="border-bottom: 1px dashed var(--kraft-line); padding-bottom: 12px; margin-bottom: 16px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <h3>Pickup Status Guide</h3>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--ink-soft); margin: 0 0 20px; text-align: left;">Here's what each status means.</p>
+            
+            <div class="status-guide-list" style="display: flex; flex-direction: column; gap: 20px; text-align: left;">
+              <div class="guide-item" style="display: flex; gap: 12px;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: #E65100; margin-top: 6px; flex-shrink: 0;"></div>
+                <div>
+                  <h4 style="margin: 0 0 4px; font-size: 0.9rem; font-weight: 700; color: var(--ink);">Pending</h4>
+                  <p style="margin: 0; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.4;">Your pickup request is pending scheduling by the donor.</p>
+                </div>
+              </div>
+              
+              <div class="guide-item" style="display: flex; gap: 12px;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: #0D47A1; margin-top: 6px; flex-shrink: 0;"></div>
+                <div>
+                  <h4 style="margin: 0 0 4px; font-size: 0.9rem; font-weight: 700; color: var(--ink);">Scheduled</h4>
+                  <p style="margin: 0; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.4;">Your pickup has been scheduled and confirmed.</p>
+                </div>
+              </div>
+              
+              <div class="guide-item" style="display: flex; gap: 12px;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: #4A148C; margin-top: 6px; flex-shrink: 0;"></div>
+                <div>
+                  <h4 style="margin: 0 0 4px; font-size: 0.9rem; font-weight: 700; color: var(--ink);">In Transit</h4>
+                  <p style="margin: 0; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.4;">The donor is on the way with your donation.</p>
+                </div>
+              </div>
+              
+              <div class="guide-item" style="display: flex; gap: 12px;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: #1B5E20; margin-top: 6px; flex-shrink: 0;"></div>
+                <div>
+                  <h4 style="margin: 0 0 4px; font-size: 0.9rem; font-weight: 700; color: var(--ink);">Completed</h4>
+                  <p style="margin: 0; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.4;">Your donation has been successfully picked up.</p>
+                </div>
+              </div>
+              
+              <div class="guide-item" style="display: flex; gap: 12px;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: #B71C1C; margin-top: 6px; flex-shrink: 0;"></div>
+                <div>
+                  <h4 style="margin: 0 0 4px; font-size: 0.9rem; font-weight: 700; color: var(--ink);">Cancelled</h4>
+                  <p style="margin: 0; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.4;">This pickup has been cancelled.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div style="margin-top: 32px; display: flex; justify-content: center;">
+              <img src="food_basket.png" alt="Basket" style="max-height: 90px; width: auto; object-fit: contain;">
+            </div>
+          </div>
+        </aside>
+        
+      </div>
+      
+    </div>
+  </section>
+ 
+  <!-- ============ TAB 5: MAP ============ -->
+  <section class="screen" id="screen-map-tab">
+    <div class="sheet sheet--wide">
+      <h1 class="headline headline--md">Map</h1>
+      <div style="margin-top: 20px;">
+        <p style="margin: 0 0 18px; color: var(--ink-soft, #66736b); line-height: 1.6;">
+          Explore Nourish &amp; Share's Chicago pilot area and the communities served by the network.
+        </p>
+        <iframe
+          title="Nourish and Share Chicago service area map"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-87.805%2C41.72%2C-87.59%2C41.94&amp;layer=mapnik"
+          style="width:100%; height:480px; border:1px solid #d7d1c4; border-radius:16px;"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <p style="margin: 12px 0 0; font-size: .85rem; color: var(--ink-soft, #66736b);">
+          Chicago pilot communities include Englewood, Austin, West Garfield Park,
+          Auburn Gresham, North Lawndale, and South Lawndale / Little Village.
+        </p>
+      </div>
+
+    </div>
+  </section>
+ 
+  <!-- ============ TAB 6: CHAT ============ -->
+  <section class="screen" id="screen-chat-tab">
+    <div class="sheet sheet--wide no-padding">
+      <div class="sfrn-chat-layout">
+        <!-- Left Side: Conversation List -->
+        <aside class="chat-conversations-list" id="chat-conversations-list">
+          <div class="chat-search-container">
+            <input type="text" id="chat-convo-search" placeholder="Search conversations..." oninput="handleChatSearch()">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          </div>
+          <div class="conversations-deck" id="conversations-deck">
+            <!-- Generated dynamically -->
+          </div>
+        </aside>
+        
+        <!-- Right Side: Active Chat Window -->
+        <main class="chat-active-window" id="chat-active-window">
+          <!-- Empty/No Conversation selected State -->
+          <div class="chat-empty-state" id="chat-empty-state">
+            <i class="fa-solid fa-comments"></i>
+            <h3>Your Messages</h3>
+            <p>Select a conversation from the left to start messaging.</p>
+          </div>
+          
+          <!-- Chat Active Panel -->
+          <div class="chat-active-panel" id="chat-active-panel" style="display: none;">
+            <div class="chat-active-header">
+              <button class="mobile-chat-back-btn" onclick="goBackToConversations()">&larr; Back</button>
+              <div class="active-partner-avatar" id="active-partner-avatar"></div>
+              <div class="active-partner-info">
+                <h4 id="active-partner-name">-</h4>
+                <span id="active-partner-role" class="qty-badge"></span>
+                <span id="active-context" style="font-size: 0.75rem; color: var(--ink-soft); margin-left: 10px;"></span>
+              </div>
+            </div>
+            
+            <!-- Messages List -->
+            <div class="chat-messages-scroll" id="chat-messages-scroll">
+              <!-- Rendered dynamically -->
+            </div>
+            
+            <!-- Input text footer -->
+            <form class="chat-input-bar" id="chat-input-bar" onsubmit="sendChatMessage(event); return false;">
+              <input type="text" id="chat-message-input" placeholder="Type a message..." required>
+              <button type="submit" class="btn-chat-send">
+                <span>Send</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TAB 7: PROFILE / EDIT PROFILE ============ -->
+  <section class="screen" id="screen-profile-tab">
+    <div class="sheet sheet--wide no-padding">
+      
+      <!-- Profile Header Card -->
+      <div class="recipient-welcome-card" style="margin-bottom: 24px;">
+        <div class="recipient-welcome-text">
+          <h1 class="welcome-title" style="display: flex; align-items: center; gap: 10px;">
+            Edit Profile
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#345D42" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </h1>
+          <p class="welcome-subtitle">Manage your organization details, contact preferences,<br>and food capacity.</p>
+        </div>
+        <div class="recipient-welcome-illustration">
+          <div class="nav-avatar-circle" id="profile-view-avatar" style="width: 90px; height: 90px; border-width: 3px; background-image: url('default_avatar.jpg'); background-size: cover; cursor: default;"></div>
+        </div>
+      </div>
+      
+      <!-- Main Profile Grid Layout -->
+      <div class="donate-grid-layout">
+        
+        <!-- Left: Edit Profile Form -->
+        <form class="donate-form-column" id="form-edit-profile" novalidate onsubmit="saveProfileChanges(event)">
+          
+          <!-- Section 1: Organization Profile -->
+          <div class="donate-form-card">
+            <div class="card-section-header">
+              <div class="section-icon-circle" style="background: var(--blue);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+              </div>
+              <div class="section-header-text">
+                <h2>Organization Profile</h2>
+                <p>Organization identifiers and location details</p>
+              </div>
+            </div>
+            
+            <div class="field-row">
+              <div class="field field-double">
+                <label for="prof-org-name">Organization Name <span class="req">*</span></label>
+                <input type="text" id="prof-org-name" name="orgName" required>
+              </div>
+              <div class="field">
+                <label>Organization Type</label>
+                <input type="text" id="prof-recipient-type" readonly style="background: #f4f4f4; cursor: not-allowed;">
+              </div>
+            </div>
+            
+            <div class="field-row">
+              <div class="field field-double">
+                <label for="prof-org-address">Address <span class="req">*</span></label>
+                <input type="text" id="prof-org-address" name="orgAddress" required>
+              </div>
+              <div class="field">
+                <label for="prof-org-license">Registration / Nonprofit # <span class="req">*</span></label>
+                <input type="text" id="prof-org-license" name="orgLicense" required>
+              </div>
+            </div>
+            
+            <div class="field-row">
+              <div class="field">
+                <label for="prof-org-years">Years in Operation</label>
+                <input type="number" id="prof-org-years" name="orgYears">
+              </div>
+              <div class="field">
+                <label for="prof-org-website">Website</label>
+                <input type="url" id="prof-org-website" name="orgWebsite">
+              </div>
+            </div>
+          </div>
+          
+          <!-- Section 2: Contact Details -->
+          <div class="donate-form-card">
+            <div class="card-section-header">
+              <div class="section-icon-circle" style="background: var(--blue);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <div class="section-header-text">
+                <h2>Contact Information</h2>
+                <p>Primary point of contact for coordinates</p>
+              </div>
+            </div>
+            
+            <div class="field-row">
+              <div class="field">
+                <label for="prof-ct-name">Contact Person's Name <span class="req">*</span></label>
+                <input type="text" id="prof-ct-name" name="ctName" required>
+              </div>
+              <div class="field">
+                <label for="prof-ct-title">Job Title / Role <span class="req">*</span></label>
+                <input type="text" id="prof-ct-title" name="ctTitle" required>
+              </div>
+            </div>
+            
+            <div class="field-row">
+              <div class="field">
+                <label for="prof-ct-phone">Phone Number <span class="req">*</span></label>
+                <input type="tel" id="prof-ct-phone" name="ctPhone" required>
+              </div>
+              <div class="field">
+                <label for="prof-ct-email">Login / Notification Email <span class="req">*</span></label>
+                <input type="email" id="prof-ct-email" name="ctEmail" required>
+              </div>
+            </div>
+            
+            <div class="field">
+              <label for="prof-ct-method">Preferred Contact Method <span class="req">*</span></label>
+              <select id="prof-ct-method" name="ctMethod" required>
+                <option value="Email">Email</option>
+                <option value="Phone">Phone</option>
+                <option value="In-app messages">In-app messages</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Section 3: Capacity Profile -->
+          <div class="donate-form-card">
+            <div class="card-section-header">
+              <div class="section-icon-circle" style="background: var(--blue);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+              </div>
+              <div class="section-header-text">
+                <h2>Capacity Settings</h2>
+                <p>What categories of surplus food you can accept</p>
+              </div>
+            </div>
+            
+            <div class="field">
+              <label>Food Categories Needed <span class="req">*</span></label>
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 8px;">
+                <label class="checkbox-row" style="margin: 0; padding: 0;">
+                  <input type="checkbox" name="profFoodCategories" value="Produce">
+                  <span>Produce</span>
+                </label>
+                <label class="checkbox-row" style="margin: 0; padding: 0;">
+                  <input type="checkbox" name="profFoodCategories" value="Bakery">
+                  <span>Bakery</span>
+                </label>
+                <label class="checkbox-row" style="margin: 0; padding: 0;">
+                  <input type="checkbox" name="profFoodCategories" value="Dairy">
+                  <span>Dairy</span>
+                </label>
+                <label class="checkbox-row" style="margin: 0; padding: 0;">
+                  <input type="checkbox" name="profFoodCategories" value="Prepared meals">
+                  <span>Prepared meals</span>
+                </label>
+                <label class="checkbox-row" style="margin: 0; padding: 0;">
+                  <input type="checkbox" name="profFoodCategories" value="Packaged goods">
+                  <span>Packaged goods</span>
+                </label>
+                <label class="checkbox-row" style="margin: 0; padding: 0;">
+                  <input type="checkbox" name="profFoodCategories" value="Meat &amp; seafood">
+                  <span>Meat &amp; seafood</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Section 4: Profile Photo Upload -->
+          <div class="donate-form-card">
+            <div class="card-section-header">
+              <div class="section-icon-circle" style="background: var(--blue);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+              </div>
+              <div class="section-header-text">
+                <h2>Profile Photo / Logo</h2>
+                <p>Change your organization avatar photo</p>
+              </div>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div class="nav-avatar-circle" id="profile-edit-avatar-preview" style="width: 70px; height: 70px; border-width: 3px; background-image: url('default_avatar.jpg'); background-size: cover; cursor: default;"></div>
+              <div>
+                <input type="file" id="profile-photo-input" accept="image/*" style="display: none;" onchange="handleProfilePhotoChange(event)">
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('profile-photo-input').click()">Upload New Image</button>
+                <p class="field-hint" style="margin-top: 6px;">JPG, PNG up to 2MB</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="donate-submit-row">
+            <button type="submit" class="btn btn-primary btn-submit-donation" style="background: var(--blue);">Save Changes</button>
+          </div>
+        </form>
+        
+        <!-- Right Column: Sidebar Guide -->
+        <div class="donate-info-column">
+          <div class="info-card">
+            <div class="info-card-header" style="color: var(--blue-dark);">
+              <svg class="guidelines-icon" style="color: var(--blue);" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <h3>Profile Management</h3>
+            </div>
+            <p class="guidelines-intro" style="line-height: 1.5;">Maintaining accurate registration data keeps the surplus food redistribution network safe, authenticated, and efficient.</p>
+            <ul class="guidelines-list">
+              <li>
+                <svg class="check-icon" style="color: var(--blue);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Ensure your physical pickup address is current</span>
+              </li>
+              <li>
+                <svg class="check-icon" style="color: var(--blue);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Keep contact numbers up-to-date for pickup coordination</span>
+              </li>
+              <li>
+                <svg class="check-icon" style="color: var(--blue);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Update accepted categories to receive food matches</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TAB 8: SETTINGS ============ -->
+  <section class="screen" id="screen-settings-tab">
+    <div class="sheet sheet--wide no-padding">
+      
+      <!-- Settings Header Card -->
+      <div class="recipient-welcome-card" style="margin-bottom: 24px;">
+        <div class="recipient-welcome-text">
+          <h1 class="welcome-title" style="display: flex; align-items: center; gap: 10px;">
+            Settings
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#345D42" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </h1>
+          <p class="welcome-subtitle">Configure email templates, notification preferences,<br>and security details.</p>
+        </div>
+        <div class="recipient-welcome-illustration">
+          <img src="food_basket.png" alt="Basket" style="height: 90px; width: auto; object-fit: contain;">
+        </div>
+      </div>
+      
+      <!-- Main Settings Grid Layout -->
+      <div class="donate-grid-layout">
+        
+        <!-- Left Column: Settings Form -->
+        <form class="donate-form-column" id="form-settings" novalidate onsubmit="saveSettingsChanges(event)">
+          
+          <!-- Section 1: Notifications -->
+          <div class="donate-form-card">
+            <div class="card-section-header">
+              <div class="section-icon-circle" style="background: var(--blue);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+              </div>
+              <div class="section-header-text">
+                <h2>Notification Preferences</h2>
+                <p>Control when and how you receive alerts</p>
+              </div>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <label class="checkbox-row" style="margin: 0; padding: 0;">
+                <input type="checkbox" id="set-notify-email" checked>
+                <div>
+                  <strong style="display: block; font-size: 0.95rem;">Email Notifications</strong>
+                  <span style="font-size: 0.8rem; color: var(--ink-soft);">Receive alerts for new available food and reservation confirmations</span>
+                </div>
+              </label>
+              
+              <label class="checkbox-row" style="margin: 0; padding: 0;">
+                <input type="checkbox" id="set-notify-sms" checked>
+                <div>
+                  <strong style="display: block; font-size: 0.95rem;">SMS Alerts</strong>
+                  <span style="font-size: 0.8rem; color: var(--ink-soft);">Receive urgent coordinates regarding upcoming pickup schedules</span>
+                </div>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Section 2: Security -->
+          <div class="donate-form-card">
+            <div class="card-section-header">
+              <div class="section-icon-circle" style="background: var(--blue);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div class="section-header-text">
+                <h2>Security Preferences</h2>
+                <p>Update your login credentials</p>
+              </div>
+            </div>
+            
+            <div class="field">
+              <label for="set-pass-current">Current Password</label>
+              <input type="password" id="set-pass-current" placeholder="Enter current password">
+            </div>
+            
+            <div class="field-row">
+              <div class="field">
+                <label for="set-pass-new">New Password</label>
+                <input type="password" id="set-pass-new" placeholder="Enter new password" minlength="8">
+              </div>
+              <div class="field">
+                <label for="set-pass-confirm">Confirm New Password</label>
+                <input type="password" id="set-pass-confirm" placeholder="Confirm new password" minlength="8">
+              </div>
+            </div>
+            <p class="field-hint" id="set-pass-hint" hidden style="color: var(--red);"></p>
+          </div>
+          
+          <div class="donate-submit-row">
+            <button type="submit" class="btn btn-primary btn-submit-donation" style="background: var(--blue);">Save Preferences</button>
+          </div>
+        </form>
+        
+        <!-- Right Column: Sidebar info -->
+        <div class="donate-info-column">
+          <div class="info-card">
+            <div class="info-card-header" style="color: var(--blue-dark);">
+              <svg class="guidelines-icon" style="color: var(--blue);" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <h3>Security &amp; Privacy</h3>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--ink-soft); line-height: 1.5; margin: 0 0 16px;">We follow top-tier security standards to verify surplus networks and protect organization identifiers.</p>
+            <p style="font-size: 0.85rem; color: var(--ink-soft); line-height: 1.5; margin: 0;">Passwords must be at least 8 characters long and contain a mix of letters, numbers, and symbols.</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DETAIL MODAL ============ -->
+  <div class="recipient-modal-overlay" id="res-detail-modal" style="display: none;">
+    <div class="recipient-modal-card">
+      <div class="recipient-modal-header">
+        <h3 id="modal-food-name">Reservation Details</h3>
+        <button class="modal-close-btn" onclick="closeResDetailModal()">&times;</button>
+      </div>
+      <div class="recipient-modal-body">
+        <div class="modal-detail-row">
+          <span class="detail-label">Category:</span>
+          <span id="modal-category" class="qty-badge"></span>
+        </div>
+        <div class="modal-detail-row">
+          <span class="detail-label">Quantity:</span>
+          <span id="modal-qty" style="font-weight: 600;"></span>
+        </div>
+        <div class="modal-detail-row">
+          <span class="detail-label">Donated By:</span>
+          <span id="modal-donor" style="font-weight: 600;"></span>
+        </div>
+        <div class="modal-detail-row">
+          <span class="detail-label">Status:</span>
+          <span id="modal-status"></span>
+        </div>
+        <div class="modal-detail-row">
+          <span class="detail-label">Storage Requirements:</span>
+          <span id="modal-storage" style="font-weight: 600;"></span>
+        </div>
+        <div class="modal-detail-row">
+          <span class="detail-label">Pickup Instructions:</span>
+          <p id="modal-pickup-instructions" style="margin: 4px 0 0; font-size: 0.88rem; color: var(--ink-soft); line-height: 1.4;"></p>
+        </div>
+        <div class="modal-detail-row" id="modal-notes-row">
+          <span class="detail-label">Special Notes:</span>
+          <p id="modal-notes" style="margin: 4px 0 0; font-size: 0.88rem; color: var(--ink-soft); line-height: 1.4;"></p>
+        </div>
+      </div>
+      <div class="recipient-modal-footer">
+        <button class="btn btn-secondary" onclick="closeResDetailModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script type="module">
+  try {
+    await import("./data-adapter.js?v=20260826prod1");
+  } catch (error) {
+    console.error("Recipient data adapter failed:", error);
+    alert(`Recipient data adapter failed: ${error.message}`);
+  }
+</script>
+<script src="script.js?v=20260826prod1"></script>
+</body>
+</html>

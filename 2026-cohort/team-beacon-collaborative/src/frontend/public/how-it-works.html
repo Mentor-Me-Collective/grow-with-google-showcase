@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works | Nourish &amp; Share</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="how-it-works.css">
+</head>
+<body>
+  <!-- Shared public navigation -->
+  <header class="crate-header">
+    <div class="peeking-veggies">
+      <svg class="veg carrot" viewBox="0 0 30 40" width="24" height="32"><path d="M15 15 L15 0 M15 15 L8 5 M15 15 L22 5" stroke="#4caf50" stroke-width="3" stroke-linecap="round"/><path d="M5 15 Q15 12 25 15 L15 38 Z" fill="#ff9800"/></svg>
+      <svg class="veg tomato" viewBox="0 0 35 35" width="28" height="28"><circle cx="17.5" cy="20" r="14" fill="#f44336"/><path d="M17.5 10 L17.5 4 M17.5 8 L12 6 M17.5 8 L23 6" stroke="#4caf50" stroke-width="2" stroke-linecap="round"/></svg>
+      <svg class="veg lettuce" viewBox="0 0 40 40" width="32" height="32"><path d="M10 30 Q5 20 12 10 Q20 5 28 10 Q35 20 30 30 Z" fill="#81c784"/><path d="M15 30 Q10 22 17 14 Q24 10 27 18 Q30 25 25 30 Z" fill="#66bb6a"/></svg>
+      <svg class="veg eggplant" viewBox="0 0 30 40" width="24" height="32"><path d="M7 15 C7 15 5 28 15 35 C25 28 23 15 23 15 Q15 12 7 15 Z" fill="#673ab7"/><path d="M7 15 Q15 12 23 15 L20 10 L15 12 L10 10 Z" fill="#4caf50"/></svg>
+      <svg class="veg pepper" viewBox="0 0 30 35" width="24" height="28"><path d="M5 15 Q15 12 25 15 C28 25 25 32 15 32 C5 32 2 25 5 15 Z" fill="#ffc107"/><path d="M15 15 L15 8" stroke="#4caf50" stroke-width="3" stroke-linecap="round"/></svg>
+    </div>
+    <div class="crate-front">
+      <div class="crate-nail nail-tl"></div>
+      <div class="crate-nail nail-tr"></div>
+      <div class="crate-nail nail-bl"></div>
+      <div class="crate-nail nail-br"></div>
+      <div class="crate-container">
+        <a href="index.html" class="logo-area">
+          <i class="fa-solid fa-apple-whole logo-icon"></i>
+          <span class="logo-copy">
+            <span class="logo-text">Nourish <b>&amp;</b> Share</span>
+            <small>Food Redistribution Network</small>
+          </span>
+        </a>
+        <nav class="nav-links">
+          <a href="index.html#home" class="nav-item">Home</a>
+          <a href="about.html" class="nav-item">About</a>
+          <a href="how-it-works.html" class="nav-item">How It Works</a>
+          <a href="communities.html" class="nav-item">Communities</a>
+          <a href="index.html#impact" class="nav-item">Impact</a>
+          <a href="faq.html" class="nav-item">FAQ</a>
+          <a href="contact.html" class="nav-item">Contact</a>
+          <a href="login.html" class="nav-item">Login</a>
+          <a href="join.html" class="nav-item">Join</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-header">
+    <a href="index.html" class="logo-area">
+      <i class="fa-solid fa-apple-whole logo-icon"></i>
+      <span class="logo-copy">
+        <span class="logo-text">Nourish <b>&amp;</b> Share</span>
+        <small>Food Redistribution Network</small>
+      </span>
+    </a>
+    <div class="mobile-header-right">
+      <button class="menu-toggle-btn" aria-label="Open Navigation Drawer" id="mobile-menu-btn">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-drawer-overlay" id="mobile-drawer-overlay"></div>
+  <aside class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-header-green">
+      <div class="drawer-logo-container">
+        <div class="drawer-logo">
+          <i class="fa-solid fa-apple-whole"></i>
+          <span>Nourish &amp; Share</span>
+        </div>
+      </div>
+      <button class="drawer-close-btn" id="drawer-close-btn" aria-label="Close menu">&times;</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="index.html#home" class="drawer-item">Home <i class="fa-solid fa-chevron-right"></i></a>
+      <a href="about.html" class="drawer-item">About <i class="fa-solid fa-chevron-right"></i></a>
+      <a href="how-it-works.html" class="drawer-item">How It Works <i class="fa-solid fa-chevron-right"></i></a>
+      <a href="communities.html" class="drawer-item">Communities <i class="fa-solid fa-chevron-right"></i></a>
+      <a href="index.html#impact" class="drawer-item">Impact <i class="fa-solid fa-chevron-right"></i></a>
+      <a href="faq.html" class="drawer-item">FAQ <i class="fa-solid fa-chevron-right"></i></a>
+      <a href="contact.html" class="drawer-item">Contact <i class="fa-solid fa-chevron-right"></i></a>
+      <a href="login.html" class="drawer-item">Login <i class="fa-solid fa-chevron-right"></i></a>
+      <a href="join.html" class="drawer-item">Join <i class="fa-solid fa-chevron-right"></i></a>
+    </nav>
+    <div class="drawer-community-box">
+      <i class="fa-solid fa-leaf community-leaf-icon"></i>
+      <p>Together, we can nourish more lives and build stronger communities.</p>
+    </div>
+  </aside>
+
+  <main>
+    <!-- Welcome Header / Hero -->
+    <section class="how-hero">
+      <div class="hero-content-inner">
+        <span class="badge-tag"><i class="fa-solid fa-arrow-turn-down"></i> Simple &amp; Local</span>
+        <h1>From Surplus to Shared &mdash;<br><span class="highlight">In a Few Simple Steps</span></h1>
+        <p>Food businesses have surplus. Community organizations have people to serve. Nourish &amp; Share helps connect the two before good food goes to waste.</p>
+      </div>
+    </section>
+
+    <!-- Visual Heart: The Food Journey -->
+    <section class="journey-section">
+      <div class="container">
+        <h2>The Redistribution Journey</h2>
+        <div class="journey-map">
+          <div class="journey-step">
+            <div class="step-num"><i class="fa-solid fa-store"></i></div>
+            <h4>Surplus Food</h4>
+            <p>Fresh items unsold</p>
+          </div>
+          <div class="journey-arrow"><i class="fa-solid fa-circle-arrow-right"></i></div>
+          <div class="journey-step">
+            <div class="step-num"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+            <h4>Post</h4>
+            <p>List food details</p>
+          </div>
+          <div class="journey-arrow"><i class="fa-solid fa-circle-arrow-right"></i></div>
+          <div class="journey-step">
+            <div class="step-num"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <h4>Discover</h4>
+            <p>Find nearby supply</p>
+          </div>
+          <div class="journey-arrow"><i class="fa-solid fa-circle-arrow-right"></i></div>
+          <div class="journey-step">
+            <div class="step-num"><i class="fa-solid fa-hand-holding-heart"></i></div>
+            <h4>Claim</h4>
+            <p>Reserve instant items</p>
+          </div>
+          <div class="journey-arrow"><i class="fa-solid fa-circle-arrow-right"></i></div>
+          <div class="journey-step">
+            <div class="step-num"><i class="fa-solid fa-calendar-check"></i></div>
+            <h4>Coordinate</h4>
+            <p>Agree on collection</p>
+          </div>
+          <div class="journey-arrow"><i class="fa-solid fa-circle-arrow-right"></i></div>
+          <div class="journey-step">
+            <div class="step-num"><i class="fa-solid fa-truck"></i></div>
+            <h4>Pickup</h4>
+            <p>Collect surplus food</p>
+          </div>
+          <div class="journey-arrow"><i class="fa-solid fa-circle-arrow-right"></i></div>
+          <div class="journey-step">
+            <div class="step-num"><i class="fa-solid fa-house-chimney-user"></i></div>
+            <h4>Community</h4>
+            <p>Meals are served</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Division: The Two Sides -->
+    <section class="sides-intro">
+      <div class="container">
+        <div class="sides-grid">
+          <!-- Food Business Card -->
+          <div class="side-card side-donor">
+            <i class="fa-solid fa-store side-icon"></i>
+            <h2>Food Businesses</h2>
+            <p class="subtitle">Have surplus to share?</p>
+            <p> bakeries, grocery stores, supermarkets, farms, and restaurants listing surplus products to avoid landfill waste.</p>
+            <a href="#donor-flow" class="flow-link">See your journey <i class="fa-solid fa-arrow-down"></i></a>
+          </div>
+
+          <!-- Recipient Card -->
+          <div class="side-card side-recipient">
+            <i class="fa-solid fa-people-roof side-icon"></i>
+            <h2>Community Organizations</h2>
+            <p class="subtitle">Looking for available food?</p>
+            <p> shelters, food pantries, soup kitchens, and local support hubs claiming fresh groceries for families in need.</p>
+            <a href="#recipient-flow" class="flow-link">See your journey <i class="fa-solid fa-arrow-down"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Donor Flow -->
+    <section class="detailed-flow" id="donor-flow">
+      <div class="container">
+        <div class="flow-header">
+          <span class="eyebrow">For Donors</span>
+          <h2>The Food Business Journey</h2>
+          <p>End your food wastage footprint in five simple, structured milestones.</p>
+        </div>
+
+        <div class="flow-steps">
+          <div class="flow-step-item">
+            <div class="step-badge">1</div>
+            <div class="step-body">
+              <h3>Create an Account</h3>
+              <p>Register your bakery, market, or restaurant and complete verification details to build a trustworthy profile on our network.</p>
+            </div>
+          </div>
+          <div class="flow-step-item">
+            <div class="step-badge">2</div>
+            <div class="step-body">
+              <h3>Post Surplus Food</h3>
+              <p>List details including food type (bread, fruit, dairy, groceries), precise quantities, expiration deadlines, and simple collection directions.</p>
+            </div>
+          </div>
+          <div class="flow-step-item">
+            <div class="step-badge">3</div>
+            <div class="step-body">
+              <h3>Wait for a Claim</h3>
+              <p>Your listing goes live instantly. Registered nearby community organizations will receive alerts about the fresh surplus food.</p>
+            </div>
+          </div>
+          <div class="flow-step-item">
+            <div class="step-badge">4</div>
+            <div class="step-body">
+              <h3>Confirm the Claim</h3>
+              <p>Coordinate details with the reserving recipient through in-app channels. Keep track of scheduled slots easily.</p>
+            </div>
+          </div>
+          <div class="flow-step-item">
+            <div class="step-badge">5</div>
+            <div class="step-body">
+              <h3>Complete Pickup</h3>
+              <p>Hand over the food at the agreed pickup window. The recipient delivers it to the community, reducing landfill waste footprint.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Recipient Flow -->
+    <section class="detailed-flow recipient-theme" id="recipient-flow">
+      <div class="container">
+        <div class="flow-header">
+          <span class="eyebrow">For Recipients</span>
+          <h2>The Community Organization Journey</h2>
+          <p>Acquire fresh, nutritious supplies directly from local food businesses nearby.</p>
+        </div>
+
+        <div class="flow-steps">
+          <div class="flow-step-item">
+            <div class="step-badge">1</div>
+            <div class="step-body">
+              <h3>Create an Account</h3>
+              <p>Sign up as a verified non-profit shelter, pantry, or support organization to access the active food redistribution database.</p>
+            </div>
+          </div>
+          <div class="flow-step-item">
+            <div class="step-badge">2</div>
+            <div class="step-body">
+              <h3>Discover Available Food</h3>
+              <p>Check the live food directory for surplus goods. Food availability changes in real-time as local businesses list surplus.</p>
+            </div>
+          </div>
+          <div class="flow-step-item">
+            <div class="step-badge">3</div>
+            <div class="step-body">
+              <h3>Search and Filter</h3>
+              <p>Refine options by distance, food category (prepared dishes, bakery items, dairy, fruits, dry goods), and expiration times.</p>
+            </div>
+          </div>
+          <div class="flow-step-item">
+            <div class="step-badge">4</div>
+            <div class="step-body">
+              <h3>View Details</h3>
+              <p>Review the storage instructions, allergens, pickup address, and specific donor collection requirements before committing.</p>
+            </div>
+          </div>
+          <div class="flow-step-item">
+            <div class="step-badge">5</div>
+            <div class="step-body">
+              <h3>Claim &amp; Coordinate</h3>
+              <p>Claim the listing. Coordinate the pickup timing with the food business to collect it before expiration deadlines.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Connection diagram -->
+    <section class="connection-section">
+      <div class="container">
+        <h2>Connecting the Pieces</h2>
+        <div class="connection-viz">
+          <div class="viz-node">
+            <i class="fa-solid fa-store"></i>
+            <h3>Donor</h3>
+            <small>Food Business</small>
+          </div>
+          <div class="viz-line"><i class="fa-solid fa-share"></i></div>
+          <div class="viz-node center-node">
+            <i class="fa-solid fa-apple-whole"></i>
+            <h3>Nourish &amp; Share</h3>
+            <small>Local Coordination Layer</small>
+          </div>
+          <div class="viz-line"><i class="fa-solid fa-share"></i></div>
+          <div class="viz-node">
+            <i class="fa-solid fa-people-roof"></i>
+            <h3>Recipient</h3>
+            <small>Community Organization</small>
+          </div>
+          <div class="viz-line"><i class="fa-solid fa-circle-down"></i></div>
+          <div class="viz-node community-node">
+            <i class="fa-solid fa-house-chimney-user"></i>
+            <h3>Community</h3>
+            <small>Food reaches people who can use it</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to be part of the network?</h2>
+        <p>Whether you have food to give or communities to support, your contribution helps end local hunger and food waste.</p>
+        <div class="cta-actions">
+          <a href="index.html#join-network" class="btn btn-primary btn-lg"><i class="fa-solid fa-circle-plus"></i> Share Surplus Food</a>
+          <a href="index.html#join-network" class="btn btn-secondary btn-lg"><i class="fa-solid fa-handshake-angle"></i> Find Available Food</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="public-nav.js"></script>
+  <script src="about.js"></script>
+</body>
+</html>
