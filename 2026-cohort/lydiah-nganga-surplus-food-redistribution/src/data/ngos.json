@@ -1,0 +1,119 @@
+[
+  {
+    "id": "ngo_001",
+    "name": "Nairobi Hope Kitchen",
+    "country": "Kenya",
+    "location": "Kibera",
+    "lat": -1.3133,
+    "lon": 36.7820,
+    "capacity_kg": 150
+  },
+  {
+    "id": "ngo_002",
+    "name": "Eastlands Community Pantry",
+    "country": "Kenya",
+    "location": "Kariobangi",
+    "lat": -1.2570,
+    "lon": 36.8790,
+    "capacity_kg": 200
+  },
+  {
+    "id": "ngo_003",
+    "name": "Riverside Community Shelter",
+    "country": "Kenya",
+    "location": "Kawangware",
+    "lat": -1.2830,
+    "lon": 36.7440,
+    "capacity_kg": 100
+  },
+  {
+    "id": "ngo_004",
+    "name": "Mathare Relief Network",
+    "country": "Kenya",
+    "location": "Mathare",
+    "lat": -1.2600,
+    "lon": 36.8570,
+    "capacity_kg": 120
+  },
+  {
+    "id": "ngo_005",
+    "name": "Dandora Family Aid",
+    "country": "Kenya",
+    "location": "Dandora",
+    "lat": -1.2500,
+    "lon": 36.8960,
+    "capacity_kg": 180
+  },
+  {
+    "id": "ngo_006",
+    "name": "Yaba Community Food Bank",
+    "country": "Nigeria",
+    "location": "Yaba",
+    "lat": 6.5158,
+    "lon": 3.3707,
+    "capacity_kg": 160
+  },
+  {
+    "id": "ngo_007",
+    "name": "Ikeja Community Pantry",
+    "country": "Nigeria",
+    "location": "Ikeja",
+    "lat": 6.6018,
+    "lon": 3.3515,
+    "capacity_kg": 140
+  },
+  {
+    "id": "ngo_008",
+    "name": "Surulere Care Foundation",
+    "country": "Nigeria",
+    "location": "Surulere",
+    "lat": 6.5027,
+    "lon": 3.3541,
+    "capacity_kg": 110
+  },
+  {
+    "id": "ngo_009",
+    "name": "Ajegunle Family Kitchen",
+    "country": "Nigeria",
+    "location": "Ajegunle",
+    "lat": 6.4550,
+    "lon": 3.3280,
+    "capacity_kg": 130
+  },
+  {
+    "id": "ngo_010",
+    "name": "Soweto Family Kitchen",
+    "country": "South Africa",
+    "location": "Soweto",
+    "lat": -26.2678,
+    "lon": 27.8585,
+    "capacity_kg": 170
+  },
+  {
+    "id": "ngo_011",
+    "name": "Johannesburg Hope Center",
+    "country": "South Africa",
+    "location": "Johannesburg CBD",
+    "lat": -26.2041,
+    "lon": 28.0473,
+    "capacity_kg": 190
+  },
+  {
+    "id": "ngo_012",
+    "name": "Alexandra Community Pantry",
+    "country": "South Africa",
+    "location": "Alexandra",
+    "lat": -26.1036,
+    "lon": 28.0964,
+    "capacity_kg": 100
+  },
+  {
+    "id": "ngo_013",
+    "name": "Sandton Community Aid",
+    "country": "South Africa",
+    "location": "Sandton",
+    "lat": -26.1076,
+    "lon": 28.0567,
+    "capacity_kg": 150
+  }
+]

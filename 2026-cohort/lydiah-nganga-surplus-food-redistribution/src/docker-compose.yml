@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data   # keeps notifications.log and seed data editable from the host
+    environment:
+      - FLASK_ENV=development

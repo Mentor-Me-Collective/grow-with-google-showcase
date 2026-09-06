@@ -1,0 +1,19 @@
+# Runtime data that accumulates real user-submitted contact info during
+# testing/demos -- must never be committed to a public repo.
+# Reset each of these to their empty starting state before committing:
+#   public_board.json      -> []
+#   subscribers.json        -> []
+#   notifications.log       -> (empty file)
+data/public_board.json
+data/subscribers.json
+data/notifications.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment / editor
+.env
+.vscode/
+venv/

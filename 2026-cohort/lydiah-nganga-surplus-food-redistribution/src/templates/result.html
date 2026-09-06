@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Result — Baki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="{{ url_for('static', filename='images/baki-logo-for-dark-nav.png') }}" alt="Baki logo" class="brand-mark">
+        Baki
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="/#about">About</a>
+        <a href="/#how-it-works">How it works</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/browse">Browse community deals</a>
+        <a href="/#list-form" class="nav-cta">List surplus food</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="#F4F6F5" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="result-wrap">
+    {% if listing_type == 'sell' %}
+      <h1>Posted to the community board</h1>
+      <p>Your listing is now visible to neighbors looking for affordable surplus, but the board only reaches people who visit it. Share it directly for faster reach:</p>
+      <div class="result-card">
+        <p><strong>{{ vendor_name }}</strong> · {{ food_type }} · {{ quantity_kg }}kg</p>
+        <p>Price: {{ sale_price }}</p>
+        <p>Location: {{ location }}</p>
+      </div>
+      <a class="btn btn-primary btn-block whatsapp-share" target="_blank" rel="noopener"
+         href="https://wa.me/?text={{ share_message | urlencode }}">
+        Share on WhatsApp
+      </a>
+      {% if notified_count and notified_count > 0 %}
+        <p class="subscriber-notice">✓ {{ notified_count }} nearby subscriber{{ 's' if notified_count != 1 else '' }} notified automatically.</p>
+      {% else %}
+        <p class="demo-note">Posting alone doesn't notify anyone, it just makes the listing visible to whoever checks the board. Sharing this straight to a neighborhood WhatsApp group is currently the fastest way to actually reach nearby buyers. No one's subscribed for automatic alerts in this location yet, that grows as people sign up on the <a href="/browse">live board</a>.</p>
+      {% endif %}
+      <a class="back-link" href="/browse">View the community board →</a><br>
+      <a class="back-link" href="/#list-form">List another item</a>
+
+    {% elif match %}
+      <h1>Match found</h1>
+      <div class="result-card">
+        <p><strong>Matched NGO:</strong> {{ match.ngo.name }} ({{ match.ngo.location }})</p>
+        <p><strong>Distance:</strong> {{ match.distance_km }} km</p>
+        <p><strong>Match Score:</strong> {{ match.score }}</p>
+      </div>
+      <h2 style="font-size:18px; margin-top:28px;">Notification sent</h2>
+      <div class="notification-box">{{ message }}</div>
+      <p class="demo-note">This is a prototype demo: {{ match.ngo.name }} is one of our hand-built seed organizations, not yet a live registered partner. In production, this alert would go as a real SMS/WhatsApp message to a verified partner NGO's actual contact, set up through the partner onboarding process described on our homepage.</p>
+      <a class="back-link" href="/#list-form">Log another listing</a>
+
+    {% else %}
+      <h1>No match found</h1>
+      <p>No NGO currently has enough capacity for this listing. Try a smaller quantity, or list it on the community board instead.</p>
+      <a class="back-link" href="/#list-form">Try again</a>
+    {% endif %}
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">Baki</span>
+        <p class="footer-tagline">Matching surplus food to the people and organizations who can use it, before it spoils.</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-heading">Explore</span>
+        <a href="/#about">About</a>
+        <a href="/#how-it-works">How it works</a>
+        <a href="/browse">Live board</a>
+        <a href="/#list-form">List surplus food</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Baki. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinksEl = document.getElementById('nav-links');
+    if (navToggle && navLinksEl) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinksEl.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      navLinksEl.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinksEl.classList.remove('nav-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

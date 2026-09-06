@@ -1,0 +1,27 @@
+{
+  "Kenya": {
+    "Kibera": {"lat": -1.3133, "lon": 36.7820},
+    "Kariobangi": {"lat": -1.2570, "lon": 36.8790},
+    "Kawangware": {"lat": -1.2830, "lon": 36.7440},
+    "Mathare": {"lat": -1.2600, "lon": 36.8570},
+    "Dandora": {"lat": -1.2500, "lon": 36.8960},
+    "CBD": {"lat": -1.2864, "lon": 36.8172},
+    "Westlands": {"lat": -1.2670, "lon": 36.8020},
+    "Embakasi": {"lat": -1.3200, "lon": 36.8940}
+  },
+  "Nigeria": {
+    "Ikeja": {"lat": 6.6018, "lon": 3.3515},
+    "Surulere": {"lat": 6.5027, "lon": 3.3541},
+    "Yaba": {"lat": 6.5158, "lon": 3.3707},
+    "Victoria Island": {"lat": 6.4281, "lon": 3.4219},
+    "Ajegunle": {"lat": 6.4550, "lon": 3.3280},
+    "Lekki": {"lat": 6.4650, "lon": 3.5658}
+  },
+  "South Africa": {
+    "Johannesburg CBD": {"lat": -26.2041, "lon": 28.0473},
+    "Soweto": {"lat": -26.2678, "lon": 27.8585},
+    "Sandton": {"lat": -26.1076, "lon": 28.0567},
+    "Alexandra": {"lat": -26.1036, "lon": 28.0964},
+    "Randburg": {"lat": -26.0939, "lon": 27.9998}
+  }
+}

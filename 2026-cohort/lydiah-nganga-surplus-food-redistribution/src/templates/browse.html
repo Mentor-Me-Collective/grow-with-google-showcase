@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Board — Baki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="{{ url_for('static', filename='images/baki-logo-for-dark-nav.png') }}" alt="Baki logo" class="brand-mark">
+        Baki
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="/#how-it-works">How it works</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/browse" class="active-link">Browse community deals</a>
+        <a href="/#about">About</a>
+        <a href="/#list-form" class="nav-cta">List surplus food</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="#F4F6F5" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <section class="browse-header">
+    <div class="section-inner">
+      <p class="eyebrow">Live Board</p>
+      <h1>Everything posted, right now.</h1>
+      <p class="section-sub">
+        Free-to-collect donations and discounted community listings, side by side.
+        If a donation hasn't been picked up yet, anyone, an NGO or a neighbor, can
+        call the vendor directly and arrange collection.
+      </p>
+    </div>
+  </section>
+
+  <section class="subscribe-section">
+    <div class="section-inner narrow">
+      {% if subscribed %}
+        <p class="subscribe-confirm">✓ You're subscribed. We'll notify you when a new listing goes up near you.</p>
+      {% else %}
+        <p class="eyebrow">Don't want to keep checking back?</p>
+        <h2 class="subscribe-heading">Get notified of new deals near you.</h2>
+        <form action="/subscribe" method="POST" class="subscribe-form">
+          <input type="text" name="sub_name" placeholder="Your name" required>
+          <input type="text" name="sub_contact" placeholder="Phone or WhatsApp" required>
+          <select name="sub_country" id="sub_country" required>
+            {% for c in countries %}
+              <option value="{{ c }}">{{ c }}</option>
+            {% endfor %}
+          </select>
+          <select name="sub_location" id="sub_location" required></select>
+          <button type="submit" class="btn btn-primary">Notify Me</button>
+        </form>
+        <p class="privacy-note">Your contact is only used to alert you about listings near you, it's never shown publicly.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="browse-list reveal">
+    <div class="section-inner narrow">
+      {% if listings %}
+        {% for item in listings %}
+        <div class="deal-card">
+          <div class="deal-top">
+            <span class="deal-food">{{ item.food_type }}</span>
+            {% if item.listing_type == 'sell' %}
+              <span class="deal-price">{{ item.sale_price }}</span>
+            {% else %}
+              <span class="deal-badge-free">Free · Donation</span>
+            {% endif %}
+          </div>
+          <h3>{{ item.vendor_name }}</h3>
+          <p class="deal-meta">{{ item.quantity_kg }}kg available · {{ item.location }} · good for {{ item.expiry_hours|int }}h from posting</p>
+          {% if item.listing_type == 'donate' and item.matched_ngo %}
+            <p class="deal-matched">Auto-matched to <strong>{{ item.matched_ngo }}</strong>, notified already. Still listed here in case pickup falls through.</p>
+          {% endif %}
+          <p class="deal-contact">Contact to arrange pickup: <strong>{{ item.vendor_contact }}</strong></p>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state">
+          <p>No active listings right now. Check back soon, or if you're a vendor with surplus, be the first to post one.</p>
+          <a href="/#list-form" class="btn btn-primary">List surplus food</a>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">Baki</span>
+        <p class="footer-tagline">Matching surplus food to the people and organizations who can use it, before it spoils.</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-heading">Explore</span>
+        <a href="/#how-it-works">How it works</a>
+        <a href="/browse">Live board</a>
+        <a href="/#about">About</a>
+        <a href="/#list-form">List surplus food</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Baki. All rights reserved.</p>
+    </div>
+  </footer>
+  <script>
+    const LOCATIONS_BY_COUNTRY = {{ locations_json | default('{}') | safe }};
+    const subCountrySelect = document.getElementById('sub_country');
+    const subLocationSelect = document.getElementById('sub_location');
+
+    function populateSubLocations(countryName) {
+      if (!subLocationSelect) return;
+      subLocationSelect.innerHTML = '';
+      const locs = LOCATIONS_BY_COUNTRY[countryName] || {};
+      Object.keys(locs).forEach(locName => {
+        const opt = document.createElement('option');
+        opt.value = locName;
+        opt.textContent = locName;
+        subLocationSelect.appendChild(opt);
+      });
+    }
+
+    if (subCountrySelect) {
+      populateSubLocations(subCountrySelect.value);
+      subCountrySelect.addEventListener('change', () => populateSubLocations(subCountrySelect.value));
+    }
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+
+  <script>
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinksEl = document.getElementById('nav-links');
+    if (navToggle && navLinksEl) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinksEl.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      navLinksEl.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinksEl.classList.remove('nav-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

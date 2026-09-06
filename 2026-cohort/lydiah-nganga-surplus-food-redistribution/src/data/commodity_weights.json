@@ -1,0 +1,11 @@
+{
+  "_comment": "Relative urgency weight per food type, based on the risk ranking from the team's cleaned operational inventory analysis (Omoruyi, BUILD Project research log): categories ranked by surplus volume and inventory turnover, slowest-moving = highest waste risk. Source dataset is a modeling reference for prototype logic, not African-specific data -- see README Limitations section.",
+  "_source_ranking": "Fruits & Vegetables > Dairy > Grains & Pulses > Oils & Fats > Bakery > Seafood > Beverages (slowest to fastest turnover)",
+  "Fruits & Vegetables": 1.5,
+  "Dairy": 1.4,
+  "Grains & Cereals": 1.3,
+  "Cooked Meals": 1.3,
+  "Bakery": 1.2,
+  "Meat & Poultry": 1.1,
+  "Other": 1.0
+}

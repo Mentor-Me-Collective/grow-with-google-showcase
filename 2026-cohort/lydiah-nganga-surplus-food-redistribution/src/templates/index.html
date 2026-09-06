@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baki — Surplus food, matched before it spoils</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="{{ url_for('static', filename='images/baki-logo-for-dark-nav.png') }}" alt="Baki logo" class="brand-mark">
+        Baki
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#faq">FAQ</a>
+        <a href="/browse">Browse community deals</a>
+        <a href="#about">About</a>
+        <a href="#list-form" class="nav-cta">List surplus food</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="#F4F6F5" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <header class="hero-photo">
+    <img src="{{ url_for('static', filename='images/hero-photo.jpg') }}" alt="A restaurant chef handing a box of surplus food to a community volunteer" class="hero-photo-img">
+    <div class="hero-photo-overlay"></div>
+
+    <div class="hero-photo-content">
+      <p class="eyebrow">Automated surplus food matching</p>
+      <h1>Surplus food, matched<br>before it spoils.</h1>
+      <p class="hero-sub">
+        Local grocery vendors in Kenya, Nigeria, and South Africa end up with perishable surplus that's
+        still good but can't wait until tomorrow. We connect it, in minutes,
+        to the local pantry, NGO, or neighbor who can use it tonight.
+      </p>
+      <div class="hero-ctas">
+        <a href="#list-form" class="btn btn-primary">List surplus food</a>
+        <a href="/browse" class="btn btn-secondary">Browse community deals</a>
+      </div>
+
+      <div class="flow-strip flow-strip-compact" aria-hidden="true">
+        <div class="flow-node">
+          <span class="flow-label">Vendor</span>
+        </div>
+        <div class="flow-line">
+          <span class="flow-pulse"></span>
+        </div>
+        <div class="flow-node flow-node-engine">
+          <span class="flow-label">Match Engine</span>
+        </div>
+        <div class="flow-line">
+          <span class="flow-pulse flow-pulse-delay"></span>
+        </div>
+        <div class="flow-node">
+          <span class="flow-label">NGO / Neighbor</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="hero-caption">"At least this food won't go to waste."</p>
+  </header>
+
+  <section class="stats reveal">
+    <div class="stats-inner">
+      <div class="stat">
+        <span class="stat-number">100kg</span>
+        <span class="stat-label">Food wasted per person, per year, in Nairobi (JICA, 2010)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">113kg</span>
+        <span class="stat-label">Household food waste per person, per year, in Nigeria (~24.79M tonnes nationally; some methodologies estimate up to 189kg)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">27kg</span>
+        <span class="stat-label">Household food waste per person, per year, in South Africa (ranging 8–134kg across city-level studies)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">40%</span>
+        <span class="stat-label">Of global food waste happens at food service + retail, the exact stage we target</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">0</span>
+        <span class="stat-label">National food-service waste data currently measured in Kenya, Nigeria, or South Africa</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="impact reveal" id="impact">
+    <div class="section-inner">
+      <div class="impact-header">
+        <p class="eyebrow">Live impact <span class="live-badge"><span class="live-dot"></span>LIVE</span></p>
+        <h2>What's actually moved through the platform.</h2>
+        <p class="section-sub">Real numbers from every listing posted so far across Kenya, Nigeria, and South Africa, not a projection.</p>
+      </div>
+
+      <div class="impact-grid">
+        <div class="impact-card">
+          <svg class="impact-icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 7l9-4 9 4-9 4-9-4z" stroke="#E8A33D" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 7v10l9 4 9-4V7" stroke="#E8A33D" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 11v10" stroke="#E8A33D" stroke-width="1.6"/></svg>
+          <span class="impact-number" data-target="{{ impact.total_listings }}" data-decimals="0" data-suffix="">0</span>
+          <span class="impact-label">Listings posted</span>
+        </div>
+        <div class="impact-card">
+          <svg class="impact-icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 8h16l-1.5 11a2 2 0 01-2 1.8H7.5a2 2 0 01-2-1.8L4 8z" stroke="#E8A33D" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 8a4 4 0 018 0" stroke="#E8A33D" stroke-width="1.6"/></svg>
+          <span class="impact-number" data-target="{{ impact.total_kg }}" data-decimals="1" data-suffix="kg">0kg</span>
+          <span class="impact-label">Total surplus food logged</span>
+        </div>
+        <div class="impact-card">
+          <svg class="impact-icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.4-9.5-9A5 5 0 0112 6a5 5 0 019.5 5c-2.5 4.6-9.5 9-9.5 9z" stroke="#E8A33D" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span class="impact-number" data-target="{{ impact.donated_kg }}" data-decimals="1" data-suffix="kg">0kg</span>
+          <span class="impact-label">Routed to NGOs, free</span>
+        </div>
+        <div class="impact-card">
+          <svg class="impact-icon" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke="#E8A33D" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span class="impact-number" data-target="{{ impact.matched_count }}" data-decimals="0" data-suffix="">0</span>
+          <span class="impact-label">Automated NGO matches made</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-it-works reveal" id="how-it-works">
+    <svg class="section-food-accent" style="top:-40px; right:-40px;" width="220" height="220" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+      <path d="M50 10 C70 10 85 30 85 50 C65 50 50 65 50 90 C30 90 15 70 15 50 C35 50 50 35 50 10Z" stroke="#1C3A24" stroke-width="2"/>
+      <path d="M50 15 L50 85" stroke="#1C3A24" stroke-width="1.5"/>
+    </svg>
+    <div class="section-inner">
+      <p class="eyebrow">Two ways surplus finds a home</p>
+      <h2>Not every listing wants the same outcome.</h2>
+      <p class="section-sub">
+        Some surplus is right for a full donation to an organization already
+        serving people in need. Some is better sold on, cheaply, to a
+        neighbor who'd rather pay a little than see it thrown out. Vendors
+        choose per listing.
+      </p>
+
+      <div class="paths">
+        <div class="path">
+          <span class="path-tag">Path A</span>
+          <h3>Donate to a Pantry or NGO</h3>
+          <ol class="path-steps">
+            <li>Vendor logs quantity, food type, and pickup window.</li>
+            <li>Our engine scores nearby pantries and NGOs by distance, urgency, and capacity.</li>
+            <li>The best match gets an automatic pickup alert.</li>
+            <li>The pantry or NGO collects and redistributes through their existing network.</li>
+          </ol>
+        </div>
+
+        <div class="path">
+          <span class="path-tag">Path B</span>
+          <h3>Sell affordable to the community</h3>
+          <ol class="path-steps">
+            <li>Vendor lists surplus at a steep discount, good today, not tomorrow.</li>
+            <li>The listing appears on the public community board.</li>
+            <li>A neighbor reserves it and contacts the vendor directly.</li>
+            <li>Vendor recovers some cost instead of a total loss.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="partner reveal" id="partner">
+    <div class="section-inner">
+      <p class="eyebrow">For local pantries, food banks, and NGOs, not vendors</p>
+      <h2>How a pantry or NGO joins the network.</h2>
+      <p class="section-sub">This section is for the receiving side, local pantries, food banks, and NGOs who want to receive matched surplus, not for grocery vendors or restaurants listing food. Our seed pantry/NGO network in Kenya, Nigeria, and South Africa was built by hand for this prototype. Here's the process we're building toward as we onboard real partner pantries and NGOs.</p>
+
+      <div class="partner-steps">
+        <div class="partner-step">
+          <span class="partner-step-number">1</span>
+          <h3>Your pantry or NGO applies</h3>
+          <p>Tell us where your pantry or NGO is located, and roughly how much surplus food your pantry or NGO can collect from vendors and store until it's distributed.</p>
+        </div>
+        <div class="partner-step">
+          <span class="partner-step-number">2</span>
+          <h3>We verify your pantry or NGO</h3>
+          <p>We confirm your pantry or NGO is a real, currently operating organization, and review its basic food handling and storage safety practices.</p>
+        </div>
+        <div class="partner-step">
+          <span class="partner-step-number">3</span>
+          <h3>Your pantry or NGO sets up a profile</h3>
+          <p>Your pantry or NGO's location, storage capacity, and contact number go into the matching engine, so nearby vendor listings can start being routed to you.</p>
+        </div>
+        <div class="partner-step">
+          <span class="partner-step-number">4</span>
+          <h3>Your pantry or NGO starts receiving matches</h3>
+          <p>Your pantry or NGO gets an automated pickup alert the moment a nearby vendor's surplus listing fits your capacity, first come, first served.</p>
+        </div>
+      </div>
+
+      <p class="partner-contact">Are you a pantry, food bank, or NGO interested in partnering early? Reach out at <strong>hello@baki.app</strong></p>
+    </div>
+  </section>
+
+  <section class="faq reveal" id="faq">
+    <div class="section-inner">
+      <p class="eyebrow">Questions</p>
+      <h2>Common questions</h2>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>How do you handle food safety?</h3>
+          <p>Every listing includes a strict pickup window based on how long the food stays genuinely safe to eat, and vendors confirm food is unspoiled at the time of listing. As we onboard real partners, we're building a lightweight food safety check into the NGO verification step, so organizations we work with meet basic handling standards before they're added to the matching pool.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Is this free for vendors?</h3>
+          <p>Yes, for donations. Listing surplus and getting matched to an NGO costs nothing. The "sell to the community" path lets a vendor set their own discounted price instead, for surplus that's a better fit for a small recovery than a full donation.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Is help limited to NGOs, or can individuals get free food too?</h3>
+          <p>Neither is exclusive. The matching engine's automated alert goes to the best-fit local pantry or NGO first, but every donation listing also stays visible on our public live board. That means a vulnerable individual or family, not just a registered organization, can see an unclaimed donation and arrange pickup directly with the vendor, free of charge, the same way a pantry or NGO would.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Do vendors need any certification to use Baki?</h3>
+          <p>No certification is required to list surplus food. We rely on the vendor's own confirmation that food is safe and unspoiled, the same standard most food donation programs use.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Which countries does Baki operate in?</h3>
+          <p>Kenya, Nigeria, and South Africa today, live specifically in Nairobi, Lagos, and Johannesburg, the biggest commercial hubs in each country, chosen because that's where our team has direct local knowledge.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about reveal" id="about">
+    <div class="section-inner about-grid">
+      <div class="about-copy">
+        <p class="eyebrow">About Baki</p>
+        <h2>The coordination layer food redistribution has been missing.</h2>
+        <p class="about-body">
+          Local grocery vendors, along with restaurants and small hotels,
+          dump surplus perishable food every day, not because no one wants
+          it, but because there's no automated, hyper-local way to connect
+          it to the local pantries and NGOs who could redistribute it. Baki
+          is that coordination hub. A vendor logs a listing once; our
+          matching engine scores nearby pantries and NGOs by distance,
+          urgency, and available capacity, and fires an automated pickup
+          alert within seconds. When a listing is a better fit for a
+          discounted sale than a full donation, it goes straight to a public
+          community board instead, giving the vendor a way to recover some
+          value rather than a total loss.
+        </p>
+        <p class="about-body">
+          We operate across Kenya, Nigeria, and South Africa, specifically Nairobi, Lagos, and Johannesburg, in markets where
+          food waste is well documented at the household level but almost
+          entirely unmeasured at the point where we work: retail and food
+          service. That gap is both the problem and the opportunity.
+        </p>
+      </div>
+
+      <div class="about-visual" aria-hidden="true">
+        <p class="about-visual-label">Where global food waste happens</p>
+        <div class="waste-bar-row">
+          <span class="waste-bar-name">Household</span>
+          <div class="waste-bar-track"><div class="waste-bar-fill" style="width:60%; background:#8FA893;"></div></div>
+          <span class="waste-bar-pct">60%</span>
+        </div>
+        <div class="waste-bar-row">
+          <span class="waste-bar-name">Food service</span>
+          <div class="waste-bar-track"><div class="waste-bar-fill" style="width:28%; background:#E8A33D;"></div></div>
+          <span class="waste-bar-pct">28%</span>
+        </div>
+        <div class="waste-bar-row">
+          <span class="waste-bar-name">Retail</span>
+          <div class="waste-bar-track"><div class="waste-bar-fill" style="width:12%; background:#E8A33D;"></div></div>
+          <span class="waste-bar-pct">12%</span>
+        </div>
+        <p class="about-visual-note">The marigold slices, 40% combined, are where Baki operates. It's also the least measured part of the chain in our markets.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band reveal">
+    <div class="section-inner narrow">
+      <h2>No one has to go hungry over food that's still good.</h2>
+      <p class="cta-band-sub">If you have surplus today, it takes under two minutes to post it, free to an NGO or discounted to a neighbor.</p>
+      <div class="cta-band-buttons">
+        <a href="#list-form" class="btn btn-large cta-btn-donate" onclick="selectListingType('donate')">Donate to a Pantry or NGO</a>
+        <a href="#list-form" class="btn btn-large cta-btn-sell" onclick="selectListingType('sell')">Sell at a Discount</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="list-section reveal" id="list-form">
+    <svg class="section-food-accent" style="bottom:-30px; left:-30px;" width="180" height="180" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+      <path d="M50 90 L50 20" stroke="#E8A33D" stroke-width="2"/>
+      <ellipse cx="42" cy="30" rx="6" ry="10" transform="rotate(-30 42 30)" stroke="#E8A33D" stroke-width="1.5"/>
+      <ellipse cx="58" cy="30" rx="6" ry="10" transform="rotate(30 58 30)" stroke="#E8A33D" stroke-width="1.5"/>
+      <ellipse cx="42" cy="45" rx="6" ry="10" transform="rotate(-30 42 45)" stroke="#E8A33D" stroke-width="1.5"/>
+      <ellipse cx="58" cy="45" rx="6" ry="10" transform="rotate(30 58 45)" stroke="#E8A33D" stroke-width="1.5"/>
+      <ellipse cx="50" cy="20" rx="6" ry="10" stroke="#E8A33D" stroke-width="1.5"/>
+    </svg>
+    <div class="section-inner narrow">
+      <p class="eyebrow">Vendors start here</p>
+      <h2>Log your surplus</h2>
+
+      <div class="type-toggle">
+        <button type="button" class="toggle-btn active" data-type="donate">Donate to an NGO</button>
+        <button type="button" class="toggle-btn" data-type="sell">Sell to the community</button>
+      </div>
+
+      <form action="/submit" method="POST" class="listing-form">
+        <input type="hidden" name="listing_type" id="listing_type" value="donate">
+
+        <label for="vendor_name">Vendor / Business Name</label>
+        <input type="text" id="vendor_name" name="vendor_name" required>
+
+        <label for="vendor_contact">Contact Number (so NGOs or neighbors can reach you)</label>
+        <input type="text" id="vendor_contact" name="vendor_contact" placeholder="e.g. 07XX XXX XXX" required>
+        <p class="privacy-note">This number will be shown publicly on our live board so pantries, NGOs, or neighbors can contact you directly for pickup.</p>
+        <label for="food_type">Food Type</label>
+        <select id="food_type" name="food_type" required>
+          <option value="Bakery">Bakery</option>
+          <option value="Fruits & Vegetables">Fruits & Vegetables</option>
+          <option value="Dairy">Dairy</option>
+          <option value="Cooked Meals">Cooked Meals</option>
+          <option value="Grains & Cereals">Grains & Cereals</option>
+          <option value="Meat & Poultry">Meat & Poultry</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="quantity_kg">Quantity (kg)</label>
+            <input type="number" id="quantity_kg" name="quantity_kg" min="1" step="0.5" required>
+          </div>
+          <div class="form-field">
+            <label for="expiry_hours">Good Until (hours from now)</label>
+            <input type="number" id="expiry_hours" name="expiry_hours" min="1" max="72" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="country">Country</label>
+            <select id="country" name="country" required>
+              {% for c in countries %}
+                <option value="{{ c }}">{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="location">Pickup Location</label>
+            <select id="location" name="location" required></select>
+          </div>
+        </div>
+
+        <div class="sell-only-fields" style="display:none;">
+          <label for="sale_price">Price (local currency, discounted)</label>
+          <input type="text" id="sale_price" name="sale_price" placeholder="e.g. 200 KES, 5000 NGN, 40 ZAR">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Find a Match</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">Baki</span>
+        <p class="footer-tagline">Matching surplus food to the people and organizations who can use it, before it spoils.</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-heading">Explore</span>
+        <a href="/#how-it-works">How it works</a>
+        <a href="/#partner">Partner with us</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/browse">Live board</a>
+        <a href="/#about">About</a>
+        <a href="/#list-form">List surplus food</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Baki. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const LOCATIONS_BY_COUNTRY = {{ locations_json | safe }};
+
+    const countrySelect = document.getElementById('country');
+    const locationSelect = document.getElementById('location');
+
+    function populateLocations(countryName) {
+      locationSelect.innerHTML = '';
+      const locs = LOCATIONS_BY_COUNTRY[countryName] || {};
+      Object.keys(locs).forEach(locName => {
+        const opt = document.createElement('option');
+        opt.value = locName;
+        opt.textContent = locName;
+        locationSelect.appendChild(opt);
+      });
+    }
+
+    // Populate on load using whichever country is selected first
+    populateLocations(countrySelect.value);
+
+    countrySelect.addEventListener('change', () => {
+      populateLocations(countrySelect.value);
+    });
+
+    const toggleBtns = document.querySelectorAll('.toggle-btn');
+
+    function selectListingType(type) {
+      const targetBtn = document.querySelector(`.toggle-btn[data-type="${type}"]`);
+      if (targetBtn) targetBtn.click();
+    }
+    const listingType = document.getElementById('listing_type');
+    const sellFields = document.querySelector('.sell-only-fields');
+    const submitBtn = document.getElementById('submit-btn');
+    const saleInput = document.getElementById('sale_price');
+
+    toggleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        toggleBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const type = btn.dataset.type;
+        listingType.value = type;
+
+        if (type === 'sell') {
+          sellFields.style.display = 'block';
+          saleInput.required = true;
+          submitBtn.textContent = 'Post to the Board';
+        } else {
+          sellFields.style.display = 'none';
+          saleInput.required = false;
+          submitBtn.textContent = 'Find a Match';
+        }
+      });
+    });
+  </script>
+  <script>
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function animateCountUp(el) {
+      const target = parseFloat(el.dataset.target || '0');
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const suffix = el.dataset.suffix || '';
+
+      if (prefersReducedMotion || target === 0) {
+        el.textContent = target.toFixed(decimals) + suffix;
+        return;
+      }
+
+      const duration = 1200;
+      const startTime = performance.now();
+
+      function tick(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out
+        const current = target * eased;
+        el.textContent = current.toFixed(decimals) + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          el.textContent = target.toFixed(decimals) + suffix;
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const impactSection = document.getElementById('impact');
+    if (impactSection) {
+      const impactObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.impact-number').forEach(animateCountUp);
+            impactObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      impactObserver.observe(impactSection);
+    }
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+
+  <script>
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinksEl = document.getElementById('nav-links');
+    if (navToggle && navLinksEl) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinksEl.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      navLinksEl.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinksEl.classList.remove('nav-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
