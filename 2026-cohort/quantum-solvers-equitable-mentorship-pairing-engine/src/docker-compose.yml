@@ -1,9 +1,17 @@
-# Local development for the whole stack. Production deploys the same three
-# services from this repo, each pointed at its own directory — see README.
+# The whole stack, for anyone who would rather run one command than four.
 #
-# The api service is commented out until it exists. Until then, run the frontend
-# on its own with `cd web && npm run dev`, which serves its own mock backend and
-# needs nothing here.
+#   docker compose up --build          all three services
+#   docker compose up -d db            just Postgres, if you are running the
+#                                      api and web from source (see RUNNING.md)
+#
+# The database starts empty. Load the sample cohort once the api is healthy:
+#
+#   docker compose exec api python -m app.seed
+#
+# Deploying this somewhere public is a different question, and the answer is in
+# DEPLOYING.md — chiefly because NEXT_PUBLIC_API_URL has to be baked in at build
+# time, and because the session cookie needs different settings once the two
+# services stop sharing a hostname.
 
 services:
   db:
@@ -13,9 +21,12 @@ services:
       POSTGRES_PASSWORD: braid
       POSTGRES_DB: braid
     ports:
-      # Override when the host already runs Postgres on 5432:
-      #   DB_PORT=5433 docker compose up db
-      - "${DB_PORT:-5432}:5432"
+      # 5433 rather than 5432, because a machine that does Postgres work usually
+      # already has one on the default port and the collision is a confusing
+      # first thing to meet. This is the host-side port only; inside the network
+      # the api still reaches Postgres on 5432. `api/.env.example` matches.
+      #   DB_PORT=5544 docker compose up -d db     to move it again
+      - "${DB_PORT:-5433}:5432"
     volumes:
       - braid-db:/var/lib/postgresql/data
     healthcheck:
@@ -24,29 +35,58 @@ services:
       timeout: 5s
       retries: 5
 
-  # api:
-  #   build: ./api
-  #   environment:
-  #     DATABASE_URL: postgresql+psycopg://braid:braid@db:5432/braid
-  #   ports:
-  #     - "8000:8000"
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
-  #   volumes:
-  #     - ./api:/app
-  #     - ./openapi.yaml:/openapi.yaml:ro
+  api:
+    build: ./api
+    environment:
+      # `db` is the service name, and 5432 is the port inside the network —
+      # DB_PORT above only affects how the host reaches Postgres, not how this
+      # container does.
+      DATABASE_URL: postgresql+psycopg://braid:braid@db:5432/braid
+      WEB_ORIGIN: http://localhost:3000
+      ENVIRONMENT: development
+      # Opens "Explore as a coordinator" on the sign-in screen, which is the
+      # fastest way to see the product without any email set up. Never true on a
+      # deployment holding a real cohort's data.
+      DEMO_MODE: "true"
+      # Unset, so a sign-in link is written to the container's log instead of
+      # being sent. `docker compose logs api` is where to read it.
+      RESEND_API_KEY: ""
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health')\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      # Migrations run at start, so the first check must not arrive before them.
+      start_period: 30s
 
-  # web:
-  #   build: ./web
-  #   environment:
-  #     # The api's address as seen from the browser, not from inside the network.
-  #     NEXT_PUBLIC_API_URL: http://localhost:8000/v1
-  #     NEXT_PUBLIC_API_MOCKING: disabled
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - api
+  web:
+    build:
+      context: ./web
+      args:
+        # A build argument rather than an environment variable, and it has to
+        # be: Next inlines NEXT_PUBLIC_* into the client bundle during the
+        # build. Passed only at runtime it would produce an image that starts
+        # cleanly and then sends every browser request to the visitor's own
+        # machine. This is the address as seen from the browser, which is why it
+        # is localhost and not the `api` service name.
+        NEXT_PUBLIC_API_URL: http://localhost:8000/v1
+        NEXT_PUBLIC_DEMO_MODE: "true"
+    environment:
+      # The same API, addressed the other way. Server Components render inside
+      # this container, where localhost:8000 is this container — the address
+      # above is only correct from the browser. Read at runtime, so it is a
+      # plain environment variable rather than a build argument.
+      API_URL_INTERNAL: http://api:8000/v1
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
 
 volumes:
   braid-db:

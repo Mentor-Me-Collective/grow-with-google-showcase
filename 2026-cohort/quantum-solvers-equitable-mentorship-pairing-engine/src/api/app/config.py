@@ -44,6 +44,21 @@ class Settings(BaseSettings):
     # exists, and it must never be a way into a real cohort's data.
     demo_mode: bool = False
 
+    # Absent by default, and that absence is a working mode rather than a
+    # misconfiguration: with no key `mail.send` logs the message, so a local
+    # sign-in works with no provider account anywhere. Set it wherever somebody
+    # other than you needs to receive a link.
+    resend_api_key: str | None = None
+
+    # Must be an address at a domain verified with the provider. Resend's shared
+    # sandbox sender only delivers to the address that owns the account, which
+    # looks like working email right up to the moment somebody else signs up.
+    mail_from: str = "Braid <onboarding@resend.dev>"
+
+    @property
+    def mail_configured(self) -> bool:
+        return bool(self.resend_api_key)
+
     @property
     def is_production(self) -> bool:
         return self.environment == "production"

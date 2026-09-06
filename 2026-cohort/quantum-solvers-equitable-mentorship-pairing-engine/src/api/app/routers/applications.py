@@ -1,10 +1,11 @@
 import uuid
 from datetime import UTC, datetime
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Request
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app import limits
 from app.deps import (
     CurrentAccount,
     DbSession,
@@ -313,8 +314,14 @@ def submit_application(
     program_slug: str,
     body: ApplicationCreateIn,
     db: DbSession,
+    request: Request,
 ) -> ApplicationOut:
-    """No session required. Somebody applying does not have an account yet."""
+    """No session required. Somebody applying does not have an account yet.
+
+    Which is also why it is limited by source: this writes an account and a
+    participation for anybody who asks, and nothing else stands in front of it.
+    """
+    limits.enforce("application", limits.source(request), limits.APPLICATION_SUBMIT)
     row = db.execute(
         select(Program, Organisation)
         .join(Organisation, Program.organisation_id == Organisation.id)

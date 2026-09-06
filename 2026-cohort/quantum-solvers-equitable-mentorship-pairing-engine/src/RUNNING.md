@@ -2,11 +2,27 @@
 
 Three parts: Postgres, the FastAPI backend, the Next.js frontend.
 
+## Everything at once
+
+If you would rather not install Python and Node to look around:
+
+```bash
+docker compose up --build
+docker compose exec api python -m app.seed    # once, for the sample cohort
+```
+
+Then open **http://localhost:3000/signin**. Demo mode is on, so "Explore as a
+coordinator" works immediately. Sign-in links are written to the api's log
+rather than sent — `docker compose logs api` is where to find them.
+
+Deploying a copy where other people can reach it is a different set of
+questions, answered in [`DEPLOYING.md`](DEPLOYING.md).
+
 ## Quick start
 
 ```bash
 # 1. Database  (from the repo root)
-DB_PORT=5433 docker compose up -d db
+docker compose up -d db
 
 # 2. Backend   (from api/)
 cd api
@@ -25,8 +41,9 @@ npm run dev
 Then open **http://localhost:3000/signin** and click **Explore as a
 coordinator** or **Explore as a participant**.
 
-`DB_PORT=5433` is only needed if your machine already runs Postgres on 5432.
-Whatever port you use must match `DATABASE_URL` in `api/.env`.
+Postgres is published on **5433**, not 5432, so it does not collide with one
+you may already be running. `api/.env.example` already points there. Set
+`DB_PORT` to move it, and match `DATABASE_URL` in `api/.env` if you do.
 
 ## The two modes
 

@@ -75,10 +75,14 @@ export function SignInForm() {
 
         setState({
           kind: "failed",
+          // The server's 429 names the actual wait, computed from the window
+          // that is still open. A fixed "wait a minute" here would contradict
+          // it, and be wrong for fifty-seven of those minutes.
           message:
-            response.status === 429
-              ? "That is a few too many links in a row. Wait a minute, then try again."
-              : (error.message ?? "That did not send. Try again."),
+            error.message ??
+            (response.status === 429
+              ? "That is a few too many links in a row. Try again shortly."
+              : "That did not send. Try again."),
         });
       }}
     >

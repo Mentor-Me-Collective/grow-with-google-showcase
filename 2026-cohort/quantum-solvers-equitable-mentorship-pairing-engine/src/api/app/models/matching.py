@@ -71,6 +71,13 @@ class Run(UUIDPrimaryKey, Base):
         DateTime(timezone=True), nullable=False
     )
     created_by: Mapped[str] = mapped_column(String(200), nullable=False)
+
+    # Set when the background task picks the run up, which is the only thing
+    # that distinguishes a task that died mid-run from one that was never
+    # scheduled at all. Both leave the row looking identical otherwise, and they
+    # are different faults.
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
     published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     published_by: Mapped[str | None] = mapped_column(String(200))
 

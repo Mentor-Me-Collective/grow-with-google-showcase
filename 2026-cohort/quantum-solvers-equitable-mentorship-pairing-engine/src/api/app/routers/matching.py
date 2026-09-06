@@ -1,10 +1,13 @@
+import logging
 import uuid
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 
 from fastapi import APIRouter, BackgroundTasks, Query, Response
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
+from app import limits
 from app.db import SessionLocal
 from app.deps import CurrentAccount, DbSession, require_coordinator_of_program
 from app.enums import (
@@ -33,6 +36,9 @@ from app.schemas.matching import (
     RunOut,
     RunPageOut,
 )
+from app.services import explain
+
+logger = logging.getLogger("braid.matching")
 
 router = APIRouter(tags=["Matching"])
 
@@ -71,6 +77,7 @@ def _detail(db: Session, run: Run) -> RunDetailOut:
         p.mentor_participation_id for p in pairs
     }
     people = _people(db, ids)
+    explanations = explain.explain(db, run, pairs)
 
     def ref(participation_id: uuid.UUID) -> PersonRefOut:
         name, photo = people.get(participation_id, ("Someone", None))
@@ -88,11 +95,60 @@ def _detail(db: Session, run: Run) -> RunDetailOut:
                 mentor=ref(pair.mentor_participation_id),
                 score=pair.score,
                 priority_band=pair.priority_band,
+                score_breakdown=reasons.score_breakdown,
+                unscored=reasons.unscored,
+                priority_score=reasons.priority_score,
+                priority_breakdown=reasons.priority_breakdown,
             )
             for pair in pairs
+            for reasons in [explanations.get(pair.id, explain.PairExplanation())]
         ],
         unmatched_count=len(run.unmatched),
     )
+
+
+#: How long a run may sit in queued or running before it is presumed dead.
+#: Generous against the work itself — a cohort of a few hundred drafts in under
+#: a second — because the cost of reaping a live run is a coordinator's wasted
+#: afternoon and the cost of waiting is a few more minutes.
+STALE_AFTER = timedelta(minutes=10)
+
+
+def _reap_stale(db: Session, program_id: uuid.UUID) -> None:
+    """Discard runs whose process died before they could finish.
+
+    The engine already handles its own failure: an exception rolls back and
+    lands the run in `discarded`. What it cannot handle is not being there —
+    a deploy, an out-of-memory kill, or any restart takes the background task
+    with it, and the `except` never runs. The row is then indistinguishable
+    from one still working, for ever.
+
+    Swept on read rather than on a schedule because the service has no
+    scheduler, and the only person who cares is the one looking at the screen.
+    """
+    cutoff = datetime.now(UTC) - STALE_AFTER
+    stale = list(
+        db.scalars(
+            select(Run).where(
+                Run.program_id == program_id,
+                Run.state.in_([RunState.QUEUED, RunState.RUNNING]),
+                Run.created_at < cutoff,
+            )
+        ).all()
+    )
+    if not stale:
+        return
+
+    for run in stale:
+        logger.warning(
+            "discarding run %s: %s for %s",
+            run.id,
+            "started but never finished" if run.started_at else "never started",
+            datetime.now(UTC) - run.created_at,
+        )
+        run.state = RunState.DISCARDED
+        run.progress = 1.0
+    db.commit()
 
 
 def _execute_in_background(run_id: uuid.UUID) -> None:
@@ -115,6 +171,7 @@ def list_runs(
     page_size: int = Query(25, ge=1, le=100, alias="pageSize"),
 ) -> RunPageOut:
     require_coordinator_of_program(db, account, program_id)
+    _reap_stale(db, program_id)
 
     runs = list(
         db.scalars(
@@ -147,6 +204,15 @@ def create_run(
     """
     require_coordinator_of_program(db, account, program_id)
 
+    # Keyed on the programme, not the coordinator: the cost being bounded is the
+    # matching work, and a programme with three coordinators does not get three
+    # times the budget for it.
+    limits.enforce("run_create", str(program_id), limits.RUN_CREATE)
+
+    # Before the check below, or a run whose process died holds the programme
+    # shut for ever and the only remedy is the database.
+    _reap_stale(db, program_id)
+
     in_flight = db.scalar(
         select(Run).where(
             Run.program_id == program_id,
@@ -177,7 +243,17 @@ def create_run(
         created_by=account.name,
     )
     db.add(run)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # The check above is a courtesy, not the guarantee. Two coordinators
+        # clicking together both read no active run and both arrive here, and
+        # only a partial unique index on the active states can refuse the second
+        # — a lock would have to be taken on a row that does not exist yet.
+        db.rollback()
+        raise Problem(
+            409, "run_in_progress", "A matching run is already in progress."
+        ) from None
 
     background.add_task(_execute_in_background, run.id)
     return _detail(db, run)
@@ -191,6 +267,9 @@ def get_run(
     if run is None:
         raise not_found("run")
     require_coordinator_of_program(db, account, run.program_id)
+    # The screen that polls a run is the one place a stuck run is actually being
+    # watched, so it is where noticing costs least.
+    _reap_stale(db, run.program_id)
     # Read fresh: the background task writes progress from another session.
     db.refresh(run)
     return _detail(db, run)
@@ -205,8 +284,14 @@ def publish_run(
     Publication is the only step that reaches a participant, which is why it is
     the only one that cannot be undone — and why the interface spells out the
     counts before it happens.
+
+    The row is locked for the whole transaction rather than merely read. Two
+    clicks on an irreversible button is the ordinary case, not the exotic one,
+    and unlocked this would run the loop below twice: every pair published as
+    two strands, and every mentor's load incremented twice. The second caller
+    now waits for the first to commit and then finds the run already published.
     """
-    run = db.get(Run, run_id)
+    run = db.scalar(select(Run).where(Run.id == run_id).with_for_update())
     if run is None:
         raise not_found("run")
     require_coordinator_of_program(db, account, run.program_id)

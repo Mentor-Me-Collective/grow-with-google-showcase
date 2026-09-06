@@ -1,10 +1,10 @@
 from urllib.parse import urlencode
 
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Request, Response
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import mail
+from app import limits, mail
 from app.config import get_settings
 from app.deps import CurrentAccount, DbSession, RawSession
 from app.errors import Problem, not_found
@@ -61,14 +61,25 @@ def session_for(db: Session, account: Account) -> SessionOut:
 
 
 @router.post("/magic-link", status_code=202)
-def request_magic_link(body: MagicLinkRequest, db: DbSession) -> Response:
+def request_magic_link(
+    body: MagicLinkRequest, db: DbSession, request: Request
+) -> Response:
     """Always 202, whether or not the address has an account.
 
     Answering differently would turn this into an account-enumeration oracle:
     anybody could learn who is in a programme by posting addresses at it. A link
     is minted only for a real account, and the caller cannot tell which happened.
+
+    Limited on both the address and the source, and the address limit is applied
+    first: it is the one that still holds when the source is forged, and being
+    able to send somebody an unlimited number of sign-in links is a way to use
+    this service against them rather than against us.
     """
     email = body.email.lower().strip()
+    limits.enforce("magic_link_address", email, limits.MAGIC_LINK_PER_ADDRESS)
+    limits.enforce(
+        "magic_link_source", limits.source(request), limits.MAGIC_LINK_PER_SOURCE
+    )
     account = db.scalar(select(Account).where(Account.email == email))
 
     if account is not None:
@@ -114,7 +125,7 @@ def verify(body: VerifyRequest, db: DbSession, response: Response) -> SessionOut
 
 @router.post("/demo")
 def sign_in_as_demo(
-    body: DemoSignInRequest, db: DbSession, response: Response
+    body: DemoSignInRequest, db: DbSession, response: Response, request: Request
 ) -> SessionOut:
     """Sign in as a seeded account so a reviewer can see the product.
 
@@ -127,6 +138,10 @@ def sign_in_as_demo(
     """
     if not settings.demo_mode:
         raise not_found("route")
+
+    # After the 404, so an enabled deployment is not distinguishable from a
+    # disabled one by how it refuses.
+    limits.enforce("demo_sign_in", limits.source(request), limits.DEMO_SIGN_IN)
 
     wanted_coordinator = body.as_ == "coordinator"
     participation = db.scalar(

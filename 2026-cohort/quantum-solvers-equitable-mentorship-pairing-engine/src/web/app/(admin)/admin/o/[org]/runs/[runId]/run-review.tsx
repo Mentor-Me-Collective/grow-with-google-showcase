@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/dialog";
 import { EmptyState } from "@/components/ui/empty-state";
 import { FairnessSummary } from "./fairness-summary";
+import { HowScored } from "./how-scored";
+import { PairExplanation } from "./pair-explanation";
 
 type RunDetail = Schemas["RunDetail"];
 
@@ -113,6 +115,10 @@ export function RunReview({
   }
 
   const working = run.state === "queued" || run.state === "running";
+  // Reachable two ways: the engine caught its own failure, or the server was
+  // restarted mid-run and the sweep tidied up after it. Neither leaves anything
+  // to review, and an empty pair list with no explanation reads as a bug.
+  const stopped = run.state === "discarded";
   const unmatchedHref = `/admin/o/${orgSlug}/programs/${run.programId}/unmatched`;
 
   return (
@@ -132,12 +138,24 @@ export function RunReview({
 
       {working && <RunProgress progress={run.progress} />}
 
-      {!working && run.fairnessSummary && (
+      {stopped && (
+        <section className="flex flex-col gap-8 rounded-md border border-subtle bg-sunken p-16">
+          <h2 className="type-heading-s text-primary">This run did not finish</h2>
+          <p className="type-body-m text-secondary">
+            It stopped before drafting any pairs. Nothing was matched and nobody
+            was told anything, so starting a new run is safe.
+          </p>
+        </section>
+      )}
+
+      {!working && !stopped && run.fairnessSummary && (
         <FairnessSummary summary={run.fairnessSummary} />
       )}
 
-      {!working && (
+      {!working && !stopped && (
         <>
+          <HowScored run={run} />
+
           <PairList pairs={run.pairs} published={run.state === "published"} />
 
           {run.unmatchedCount > 0 && (
@@ -286,24 +304,14 @@ function PairList({
               <th scope="col" className="px-16 text-right type-label text-secondary">
                 Score
               </th>
+              <th scope="col" className="px-16 text-right type-label text-secondary">
+                <span className="sr-only">Reasoning</span>
+              </th>
             </tr>
           </thead>
           <tbody>
             {pairs.map((pair) => (
-              <tr key={pair.id} className="h-48 border-t border-subtle">
-                <td className="px-16 type-body-s text-primary">
-                  {pair.mentee.name}
-                </td>
-                <td className="px-16 type-body-s text-primary">
-                  {pair.mentor.name}
-                </td>
-                <td className="px-16 type-body-s text-primary">
-                  {capitalise(pair.priorityBand)}
-                </td>
-                <td className="px-16 text-right type-data-m text-primary">
-                  {pair.score.toFixed(2)}
-                </td>
-              </tr>
+              <PairRow key={pair.id} pair={pair} />
             ))}
           </tbody>
         </table>
@@ -313,6 +321,56 @@ function PairList({
           excludes the pair-level actions until the step that needs them, so
           they are absent rather than drawn and dead. */}
     </section>
+  );
+}
+
+/**
+ * One pair, and the reasoning behind it on request.
+ *
+ * Collapsed by default because the fairness summary above is what should be
+ * read first — opening every pair by default would restore exactly the pair-by
+ * -pair reading that putting distribution first exists to prevent.
+ */
+function PairRow({ pair }: { pair: RunDetail["pairs"][number] }) {
+  const [open, setOpen] = useState(false);
+  const panelId = `pair-why-${pair.id}`;
+
+  return (
+    <>
+      <tr className="h-48 border-t border-subtle">
+        <td className="px-16 type-body-s text-primary">{pair.mentee.name}</td>
+        <td className="px-16 type-body-s text-primary">{pair.mentor.name}</td>
+        <td className="px-16 type-body-s text-primary">
+          {capitalise(pair.priorityBand)}
+        </td>
+        <td className="px-16 text-right type-data-m text-primary">
+          {pair.score.toFixed(2)}
+        </td>
+        <td className="px-16 text-right">
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            aria-expanded={open}
+            aria-controls={panelId}
+            className="pointer-coarse:min-h-field px-8 type-body-s text-link underline underline-offset-4 outline-focus outline-offset-2 focus-visible:outline-2"
+          >
+            {open ? "Hide" : "Why"}
+            <span className="sr-only">
+              {" "}
+              {pair.mentee.name} was paired with {pair.mentor.name}
+            </span>
+          </button>
+        </td>
+      </tr>
+
+      {open && (
+        <tr id={panelId} className="border-t border-subtle bg-sunken">
+          <td colSpan={5} className="p-24">
+            <PairExplanation pair={pair} />
+          </td>
+        </tr>
+      )}
+    </>
   );
 }
 

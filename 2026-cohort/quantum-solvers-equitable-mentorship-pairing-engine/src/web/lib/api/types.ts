@@ -1158,7 +1158,7 @@ export interface paths {
         };
         /**
          * Read a strand's message thread
-         * @description Newest last. Page backwards with `before`.
+         * @description Newest last. Page backwards through history with `before`, or poll forwards for new arrivals with `since`. The two describe opposite directions and cannot be combined.
          */
         get: operations["listMessages"];
         put?: never;
@@ -2261,6 +2261,27 @@ export interface components {
             priorityBands: components["schemas"]["PriorityBandStat"][];
             scoreDistribution: components["schemas"]["ScoreBucket"][];
         };
+        /** @description One scored question's contribution to a pair's fit, with both sides' answers so a coordinator can see what was compared rather than only the number it produced. */
+        ScoreContribution: {
+            /** Format: uuid */
+            fieldId: string;
+            label: string;
+            weight: number;
+            /** @enum {string} */
+            direction: "similar" | "complementary";
+            contribution: number;
+            menteeAnswer?: string | null;
+            mentorAnswer?: string | null;
+        };
+        /** @description One equity question's contribution to the mentee's priority score. Scales are inverted before they arrive here, so a higher value always means less existing access. */
+        PriorityContribution: {
+            /** Format: uuid */
+            fieldId: string;
+            label: string;
+            weight: number;
+            value: number;
+            answer?: string | null;
+        };
         DraftPair: {
             /** Format: uuid */
             id: string;
@@ -2268,6 +2289,12 @@ export interface components {
             mentor: components["schemas"]["PersonRef"];
             score: number;
             priorityBand: components["schemas"]["PriorityBand"];
+            /** @description Questions that produced a comparable number, highest weight first. */
+            scoreBreakdown?: components["schemas"]["ScoreContribution"][];
+            /** @description Labels of scored questions that could not be compared for this pair, usually free text with no taxonomy behind it. Named rather than hidden, because they are the difference between the score shown and a score over every configured question. */
+            unscored?: string[];
+            priorityScore?: number | null;
+            priorityBreakdown?: components["schemas"]["PriorityContribution"][];
         };
         Run: {
             /** Format: uuid */
@@ -2601,6 +2628,7 @@ export interface operations {
                     "application/json": components["schemas"]["Problem"];
                 };
             };
+            429: components["responses"]["TooManyRequests"];
         };
     };
     joinWaitlist: {
@@ -2632,6 +2660,7 @@ export interface operations {
             };
             400: components["responses"]["BadRequest"];
             404: components["responses"]["NotFound"];
+            429: components["responses"]["TooManyRequests"];
         };
     };
     getApplicationDraft: {
@@ -2812,6 +2841,7 @@ export interface operations {
                     "application/json": components["schemas"]["Problem"];
                 };
             };
+            429: components["responses"]["TooManyRequests"];
         };
     };
     signOut: {
@@ -3233,6 +3263,7 @@ export interface operations {
                     "application/json": components["schemas"]["Problem"];
                 };
             };
+            429: components["responses"]["TooManyRequests"];
         };
     };
     requestNewInvite: {
@@ -4061,6 +4092,7 @@ export interface operations {
                     "application/json": components["schemas"]["Problem"];
                 };
             };
+            429: components["responses"]["TooManyRequests"];
         };
     };
     getRun: {
@@ -4218,6 +4250,8 @@ export interface operations {
             query?: {
                 /** @description Return messages sent before this message id. */
                 before?: string;
+                /** @description Return only messages sent after this message id, oldest first. A thread with nothing new answers with an empty list, which is what makes polling cheap. */
+                since?: string;
                 limit?: number;
             };
             header?: never;
@@ -4270,6 +4304,7 @@ export interface operations {
             401: components["responses"]["Unauthorized"];
             403: components["responses"]["Forbidden"];
             404: components["responses"]["NotFound"];
+            429: components["responses"]["TooManyRequests"];
         };
     };
 }

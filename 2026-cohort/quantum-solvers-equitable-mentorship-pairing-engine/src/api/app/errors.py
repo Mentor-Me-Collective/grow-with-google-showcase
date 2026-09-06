@@ -19,11 +19,16 @@ class Problem(Exception):
         code: str,
         message: str,
         field: str | None = None,
+        headers: dict[str, str] | None = None,
     ) -> None:
         self.status = status
         self.code = code
         self.message = message
         self.field = field
+        # 429 has to carry Retry-After to be worth anything to a client that
+        # wants to behave. The body says what happened; only the header says
+        # when to come back.
+        self.headers = headers
         super().__init__(message)
 
     def body(self) -> dict[str, str]:
@@ -48,7 +53,9 @@ def forbidden(message: str = "You do not have access to this.") -> Problem:
 def install_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(Problem)
     async def _problem(_: Request, exc: Problem) -> JSONResponse:
-        return JSONResponse(status_code=exc.status, content=exc.body())
+        return JSONResponse(
+            status_code=exc.status, content=exc.body(), headers=exc.headers
+        )
 
     @app.exception_handler(StarletteHTTPException)
     async def _http(_: Request, exc: StarletteHTTPException) -> JSONResponse:

@@ -178,8 +178,23 @@ def priority_score(
     Each equity answer is read as "less existing access scores higher": a low
     number on a scale, or an option indicating no prior mentorship, raises it.
     """
-    total = 0.0
-    used = 0.0
+    contributions = priority_contributions(equity_weights, attributes)
+    total = sum(value * equity_weights[f] for f, value in contributions.items())
+    used = sum(equity_weights[f] for f in contributions)
+
+    return round(total / used, 4) if used else 0.5
+
+
+def priority_contributions(
+    equity_weights: dict[str, int], attributes: Attributes
+) -> dict[str, float]:
+    """Each equity question's value on its own, before weighting.
+
+    Split out of `priority_score` so the review screen can show what produced a
+    band without a second copy of the inversion rules — two copies would drift,
+    and a band nobody can reproduce is worse than no band at all.
+    """
+    values: dict[str, float] = {}
 
     for field_id, weight in equity_weights.items():
         if weight <= 0:
@@ -200,10 +215,9 @@ def priority_score(
         else:
             continue
 
-        total += value * weight
-        used += weight
+        values[field_id] = value
 
-    return round(total / used, 4) if used else 0.5
+    return values
 
 
 def band_for(score: float) -> PriorityBand:

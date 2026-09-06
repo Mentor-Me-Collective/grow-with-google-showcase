@@ -164,6 +164,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
 
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
   /orgs/{orgSlug}/programs/{programSlug}/waitlist:
     parameters:
       - $ref: "#/components/parameters/OrgSlug"
@@ -199,6 +201,8 @@ paths:
         "404":
           $ref: "#/components/responses/NotFound"
 
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
   /orgs/{orgSlug}/programs/{programSlug}/application-draft:
     parameters:
       - $ref: "#/components/parameters/OrgSlug"
@@ -388,6 +392,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
 
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
   /auth/signout:
     post:
       operationId: signOut
@@ -790,6 +796,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
 
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
   /invites/{token}/reissue:
     parameters:
       - name: token
@@ -1640,6 +1648,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
 
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
   /runs/{runId}:
     parameters:
       - $ref: "#/components/parameters/RunId"
@@ -1786,11 +1796,23 @@ paths:
       operationId: listMessages
       tags: [Strands]
       summary: Read a strand's message thread
-      description: Newest last. Page backwards with `before`.
+      description: >
+        Newest last. Page backwards through history with `before`, or poll
+        forwards for new arrivals with `since`. The two describe opposite
+        directions and cannot be combined.
       parameters:
         - name: before
           in: query
           description: Return messages sent before this message id.
+          schema:
+            type: string
+            format: uuid
+        - name: since
+          in: query
+          description: >
+            Return only messages sent after this message id, oldest first. A
+            thread with nothing new answers with an empty list, which is what
+            makes polling cheap.
           schema:
             type: string
             format: uuid
@@ -1840,6 +1862,8 @@ paths:
         "404":
           $ref: "#/components/responses/NotFound"
 
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
 components:
   securitySchemes:
     sessionCookie:
@@ -4072,6 +4096,55 @@ components:
           items:
             $ref: "#/components/schemas/ScoreBucket"
 
+    ScoreContribution:
+      type: object
+      description: >-
+        One scored question's contribution to a pair's fit, with both sides'
+        answers so a coordinator can see what was compared rather than only
+        the number it produced.
+      required: [fieldId, label, weight, direction, contribution]
+      properties:
+        fieldId:
+          type: string
+          format: uuid
+        label:
+          type: string
+        weight:
+          type: integer
+        direction:
+          type: string
+          enum: [similar, complementary]
+        contribution:
+          type: number
+          minimum: 0
+          maximum: 1
+        menteeAnswer:
+          type: [string, "null"]
+        mentorAnswer:
+          type: [string, "null"]
+
+    PriorityContribution:
+      type: object
+      description: >-
+        One equity question's contribution to the mentee's priority score.
+        Scales are inverted before they arrive here, so a higher value always
+        means less existing access.
+      required: [fieldId, label, weight, value]
+      properties:
+        fieldId:
+          type: string
+          format: uuid
+        label:
+          type: string
+        weight:
+          type: integer
+        value:
+          type: number
+          minimum: 0
+          maximum: 1
+        answer:
+          type: [string, "null"]
+
     DraftPair:
       type: object
       required: [id, mentee, mentor, score, priorityBand]
@@ -4089,6 +4162,28 @@ components:
           maximum: 1
         priorityBand:
           $ref: "#/components/schemas/PriorityBand"
+        scoreBreakdown:
+          type: array
+          description: Questions that produced a comparable number, highest weight first.
+          items:
+            $ref: "#/components/schemas/ScoreContribution"
+        unscored:
+          type: array
+          description: >-
+            Labels of scored questions that could not be compared for this pair,
+            usually free text with no taxonomy behind it. Named rather than
+            hidden, because they are the difference between the score shown and
+            a score over every configured question.
+          items:
+            type: string
+        priorityScore:
+          type: [number, "null"]
+          minimum: 0
+          maximum: 1
+        priorityBreakdown:
+          type: array
+          items:
+            $ref: "#/components/schemas/PriorityContribution"
 
     Run:
       type: object

@@ -11,10 +11,11 @@ waitlist grants nothing at all.
 import uuid
 from datetime import UTC, datetime
 
-from fastapi import APIRouter, Query, Response
+from fastapi import APIRouter, Query, Request, Response
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app import limits
 from app.deps import DbSession
 from app.enums import InviteState, ParticipationStatus, ProgramState
 from app.errors import Problem, not_found
@@ -100,8 +101,15 @@ def get_invite(token: str, db: DbSession) -> InviteOut:
 
 @router.post("/invites/{token}", response_model=InviteAcceptedOut | None)
 def respond_to_invite(
-    token: str, body: InviteResponseIn, db: DbSession, response: Response
+    token: str,
+    body: InviteResponseIn,
+    db: DbSession,
+    response: Response,
+    request: Request,
 ) -> InviteAcceptedOut | Response:
+    # Before the token is loaded, so guessing tokens is bounded rather than
+    # merely unlikely.
+    limits.enforce("invite_response", limits.source(request), limits.INVITE_RESPONSE)
     invite, program, org = _load_invite(db, token)
 
     if invite.state != InviteState.PENDING or _expired(invite):
@@ -287,7 +295,11 @@ def save_application_draft(
 
 @router.post("/orgs/{org_slug}/programs/{program_slug}/waitlist", status_code=202)
 def join_waitlist(
-    org_slug: str, program_slug: str, body: WaitlistJoinIn, db: DbSession
+    org_slug: str,
+    program_slug: str,
+    body: WaitlistJoinIn,
+    db: DbSession,
+    request: Request,
 ) -> Response:
     """Ask to be told when the next round opens.
 
@@ -295,6 +307,7 @@ def join_waitlist(
     differently would turn this open endpoint into a way to test which
     addresses a programme holds.
     """
+    limits.enforce("waitlist", limits.source(request), limits.WAITLIST_JOIN)
     program = _open_program(db, org_slug, program_slug)
     email = body.email.strip().lower()
 

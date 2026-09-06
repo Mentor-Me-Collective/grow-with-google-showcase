@@ -18,12 +18,14 @@ dependencies = [
     "email-validator>=2.2",
     "scipy>=1.14",
     "numpy>=2.1",
+    # The mail provider is an HTTP API. Runtime rather than dev because
+    # app.mail calls it on the sign-in path.
+    "httpx>=0.28",
 ]
 
 [dependency-groups]
 dev = [
     "ruff>=0.8",
-    "httpx>=0.28",
     "pytest>=8.3",
 ]
 

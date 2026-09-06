@@ -7,6 +7,7 @@ rather than returning at the end — the review screen follows the row.
 import statistics
 import uuid
 from dataclasses import dataclass
+from datetime import UTC, datetime
 from typing import Any
 
 from sqlalchemy import select
@@ -201,6 +202,7 @@ def execute(db: Session, run_id: uuid.UUID) -> None:
 
     try:
         run.state = RunState.RUNNING
+        run.started_at = datetime.now(UTC)
         run.progress = 0.15
         db.commit()
 

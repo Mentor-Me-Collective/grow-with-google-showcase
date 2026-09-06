@@ -27,12 +27,39 @@ class RunOut(Wire):
     coverage_rate: float | None = None
 
 
+class ScoreContributionOut(Wire):
+    field_id: uuid.UUID
+    label: str
+    weight: int
+    direction: str
+    contribution: float
+    #: Both sides' answers, because a number on its own does not tell a
+    #: coordinator what was compared.
+    mentee_answer: str | None = None
+    mentor_answer: str | None = None
+
+
+class PriorityContributionOut(Wire):
+    field_id: uuid.UUID
+    label: str
+    weight: int
+    #: Already inverted where the question is a scale, so higher always means
+    #: less existing access.
+    value: float
+    answer: str | None = None
+
+
 class DraftPairOut(Wire):
     id: uuid.UUID
     mentee: PersonRefOut
     mentor: PersonRefOut
     score: float
     priority_band: PriorityBand
+    score_breakdown: list[ScoreContributionOut] = []
+    #: Questions the recipe scores that this pair could not be compared on.
+    unscored: list[str] = []
+    priority_score: float | None = None
+    priority_breakdown: list[PriorityContributionOut] = []
 
 
 class RunDetailOut(RunOut):

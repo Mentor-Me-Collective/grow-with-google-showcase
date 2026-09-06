@@ -19,6 +19,7 @@ from app.models.forms import (
     FormVersion,
     WaitlistEntry,
 )
+from app.models.limits import RateLimitCounter
 from app.models.matching import (
     DraftPair,
     MatchingRecipe,
@@ -57,6 +58,7 @@ __all__ = [
     "Participation",
     "Program",
     "ProgramMilestone",
+    "RateLimitCounter",
     "Resource",
     "Run",
     "RunUnmatched",

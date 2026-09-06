@@ -5,6 +5,7 @@ from fastapi import APIRouter, Query
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app import limits
 from app.deps import CurrentAccount, DbSession, participation_in
 from app.enums import StrandState
 from app.errors import Problem, forbidden, not_found
@@ -82,13 +83,21 @@ def list_messages(
     db: DbSession,
     account: CurrentAccount,
     before: uuid.UUID | None = Query(None),
+    since: uuid.UUID | None = Query(None),
     limit: int = Query(50, ge=1, le=100),
 ) -> MessagePageOut:
-    """Newest last, paged backwards.
+    """Newest last, paged backwards with `before` or forwards with `since`.
 
     Reading the thread marks it read, which is what makes the unread count on
     the strands list mean anything.
     """
+    if before is not None and since is not None:
+        raise Problem(
+            400,
+            "conflicting_cursors",
+            "Ask for messages before a point or after one, not both.",
+        )
+
     strand = db.get(Strand, strand_id)
     if strand is None:
         raise not_found("strand")
@@ -99,6 +108,32 @@ def list_messages(
         anchor = db.get(Message, before)
         if anchor is not None:
             query = query.where(Message.sent_at < anchor.sent_at)
+
+    if since is not None:
+        # An unknown anchor falls through to the newest page below rather than
+        # answering empty. A poller holding a cursor the server has never heard
+        # of is out of sync, and the recent window is how it recovers — the
+        # client merges by id, so nothing arrives twice.
+        anchor = db.get(Message, since)
+        if anchor is not None:
+            # Ordered forwards and taken from the oldest end, so a poll that
+            # falls behind catches up in order instead of skipping the middle.
+            ordered = list(
+                db.scalars(
+                    query.where(Message.sent_at > anchor.sent_at)
+                    .order_by(Message.sent_at.asc())
+                    .limit(limit)
+                ).all()
+            )
+            _mark_read(db, ordered, me.id)
+            db.commit()
+            accounts = svc.author_accounts(db, strand)
+            return MessagePageOut(
+                items=[svc.to_message(db, m, accounts) for m in ordered],
+                # Only meaningful walking backwards. A forwards page has no
+                # older page to offer.
+                next_cursor=None,
+            )
 
     # Take the newest `limit`, then reverse: the thread reads oldest-first but
     # a page is anchored at the recent end.
@@ -126,6 +161,11 @@ def send_message(
     if strand is None:
         raise not_found("strand")
     me = _my_participation(db, account, strand)
+
+    # Keyed on the participation rather than the source: the sender is
+    # authenticated here, so there is something better to count than an address
+    # they can change.
+    limits.enforce("message_send", str(me.id), limits.MESSAGE_SEND)
 
     text = body.body.strip()
     if not text:

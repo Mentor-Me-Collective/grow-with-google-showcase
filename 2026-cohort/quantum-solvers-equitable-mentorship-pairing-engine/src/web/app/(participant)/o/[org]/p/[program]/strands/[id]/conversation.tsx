@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import type { components } from "@/lib/api/types";
 import { api } from "@/lib/api/client";
 import { Avatar } from "@/components/ui/avatar";
@@ -63,6 +63,18 @@ export function Conversation({
   const [failed, setFailed] = useState(false);
   const threadRef = useRef<HTMLDivElement>(null);
 
+  // Merged by id rather than appended. A poll and a send can both deliver the
+  // same message — the send returns it, and a poll already in flight collects it
+  // too — and appending would show it twice.
+  const absorb = useCallback((arriving: S["Message"][]) => {
+    if (arriving.length === 0) return;
+    setMessages((prev) => {
+      const seen = new Set(prev.map((m) => m.id));
+      const fresh = arriving.filter((m) => !seen.has(m.id));
+      return fresh.length === 0 ? prev : [...prev, ...fresh];
+    });
+  }, []);
+
   const send = useMutation({
     mutationFn: async (text: string) => {
       const { data, error } = await api.POST("/strands/{strandId}/messages", {
@@ -73,7 +85,7 @@ export function Conversation({
       return data;
     },
     onSuccess: (message) => {
-      setMessages((prev) => [...prev, message]);
+      absorb([message]);
       setBody("");
       setFailed(false);
     },
@@ -85,6 +97,42 @@ export function Conversation({
     const el = threadRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, [messages.length]);
+
+  // Held in a ref rather than the query key so the key stays stable: a cursor in
+  // the key would mint a new cache entry for every message the thread receives.
+  const cursor = useRef(initialMessages.at(-1)?.id);
+  useEffect(() => {
+    cursor.current = messages.at(-1)?.id ?? cursor.current;
+  }, [messages]);
+
+  // Polled, not pushed. Replies here arrive hours apart, and a socket would buy
+  // sub-second delivery on a conversation with a half-day latency at the cost of
+  // a connection to keep alive and a backplane the moment there are two
+  // instances. `since` makes a quiet thread cost one empty array.
+  //
+  // refetchIntervalInBackground stays at its default, so a hidden tab polls
+  // nothing at all; refetchOnWindowFocus, which is off globally, is on here so
+  // coming back to the tab shows what arrived while it was away.
+  useQuery({
+    queryKey: ["strand-messages", strandId],
+    queryFn: async () => {
+      const { data, error } = await api.GET("/strands/{strandId}/messages", {
+        params: {
+          path: { strandId },
+          query: cursor.current ? { since: cursor.current } : {},
+        },
+      });
+      if (error || !data) throw new Error("poll failed");
+      // Absorbed here rather than in an effect watching the result: an effect
+      // that calls setState on every settled query cascades a second render
+      // for each poll, including the empty ones a quiet thread mostly returns.
+      absorb(data.items);
+      return data.items;
+    },
+    enabled: !ended,
+    refetchInterval: 15_000,
+    refetchOnWindowFocus: true,
+  });
 
   return (
     <div className="flex h-thread flex-col overflow-hidden rounded-lg border border-subtle bg-surface">

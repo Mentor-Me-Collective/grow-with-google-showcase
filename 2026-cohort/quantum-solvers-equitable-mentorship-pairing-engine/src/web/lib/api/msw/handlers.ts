@@ -1867,6 +1867,28 @@ export const handlers = [
     const q = new URL(request.url).searchParams;
     const limit = Number(q.get("limit") ?? 50);
     const before = q.get("before");
+    const since = q.get("since");
+
+    if (before && since) {
+      return problem(
+        400,
+        "conflicting_cursors",
+        "Ask for messages before a point or after one, not both.",
+      );
+    }
+
+    if (since) {
+      const at = thread.findIndex((m) => m.id === since);
+      // Unknown anchor falls through to the newest page, matching the server:
+      // a poller out of sync recovers rather than starving.
+      if (at !== -1) {
+        const body: S["MessagePage"] = {
+          items: thread.slice(at + 1, at + 1 + limit),
+          nextCursor: null,
+        };
+        return HttpResponse.json(body);
+      }
+    }
 
     const end = before ? thread.findIndex((m) => m.id === before) : thread.length;
     const start = Math.max(0, end - limit);
