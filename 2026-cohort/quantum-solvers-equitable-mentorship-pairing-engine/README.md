@@ -19,6 +19,7 @@
 - [The matching engine](#-the-matching-engine)
 - [What equitable actually means here](#-what-equitable-actually-means-here)
 - [Walkthrough video](#-walkthrough-video)
+- [Slides](#-slides)
 - [Running it](#️-running-it)
 - [What's built](#-whats-built)
 - [Architecture](#-architecture)
@@ -202,6 +203,14 @@ If you would rather drive it yourself, this is the order that shows the most:
 6. The participant side: strands, messages, milestones
 7. Reports — coverage steps up, quality-by-band fills in
 8. The invitation flow arriving cold, with no session
+
+---
+
+## 📊 Slides
+
+> **📊 [Showcase slides](docs/slides/braid-showcase.pptx)** — eight slides, prepared for the Grow with Google graduation showcase.
+>
+> The problem and its evidence, what Braid does, how the matching engine works, the equity argument, what is actually built, and the team.
 
 ---
 
