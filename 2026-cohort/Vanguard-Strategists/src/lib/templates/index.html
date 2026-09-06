@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VS Pollinator</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: "Bahnschrift", sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #fff5f0 0%,
+                    transparent 40%
+                ),
+                linear-gradient(
+                    135deg,
+                    #fee0d2 0%,
+                    #fcbba1 100%
+                );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            border-radius: 26px;
+
+            padding: 45px 50px;
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 30px;
+
+            margin-bottom: 40px;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        h1 {
+            font-family: "Bahnschrift", sans-serif;
+
+            font-size: 48px;
+            font-weight: bold;
+
+            color: #fc9272;
+
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+
+            line-height: 1.6;
+        }
+
+        .logo-wrapper {
+            width: 140px;
+            height: 90px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: #fff8f5;
+
+            border-radius: 16px;
+            border: 1px solid #fee0d2;
+
+            padding: 10px;
+        }
+
+        .logo-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .form-card {
+            background: #fff8f5;
+
+            border: 1px solid #fee0d2;
+            border-radius: 20px;
+
+            padding: 30px;
+        }
+
+        .form-title {
+            font-size: 22px;
+            font-weight: bold;
+
+            color: #333;
+
+            margin-bottom: 6px;
+        }
+
+        .form-description {
+            font-size: 14px;
+            color: #888;
+
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+
+            color: #444;
+        }
+
+        select {
+            width: 100%;
+            height: 56px;
+
+            padding: 0 16px;
+
+            font-family: "Bahnschrift", sans-serif;
+            font-size: 15px;
+
+            color: #333;
+
+            background: white;
+
+            border: 1px solid #ddd;
+            border-radius: 12px;
+
+            outline: none;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        select:hover {
+            border-color: #fcae91;
+        }
+
+        select:focus {
+            border-color: #fc9272;
+
+            box-shadow:
+                0 0 0 4px rgba(252, 146, 114, 0.15);
+        }
+
+        .button-wrapper {
+            margin-top: 10px;
+        }
+
+        button {
+            width: 100%;
+            height: 58px;
+
+            border: none;
+            border-radius: 14px;
+
+            font-family: "Bahnschrift", sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fc9272,
+                    #ef3b2c
+                );
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+
+            box-shadow:
+                0 12px 25px rgba(239, 59, 44, 0.22);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 17px 32px rgba(239, 59, 44, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .footer {
+            margin-top: 25px;
+
+            text-align: center;
+
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 18px;
+            }
+
+            .container {
+                padding: 30px 22px;
+            }
+
+            .header {
+                flex-direction: column-reverse;
+                align-items: flex-start;
+            }
+
+            .logo-wrapper {
+                width: 120px;
+                height: 75px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .form-card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="header-content">
+
+            <h1>
+                VS Pollinator
+            </h1>
+
+            <p class="subtitle">
+                Select a state, county and pollinator to continue.
+            </p>
+
+        </div>
+
+        <div class="logo-wrapper">
+            <img
+                src="{{ url_for('static', filename='images/Logo_mentor.png') }}"
+                alt="Mentor Logo"
+            >
+        </div>
+
+    </div>
+
+    <div class="form-card">
+
+        <h2 class="form-title">
+            Pollinator Selection
+        </h2>
+
+        <p class="form-description">
+            Please select the information below before continuing.
+        </p>
+
+        <form action="/search" method="POST">
+
+            <div class="form-group">
+
+                <label for="state">
+                    State
+                </label>
+
+                <select
+                    id="state"
+                    name="state"
+                    required
+                >
+                    <option value="" selected disabled>
+                        Select a state
+                    </option>
+                    {% for state in states %}
+                        <option value="{{state.id}}">{{ state.name }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+ <div class="form-group">
+
+                <label for="county">
+                    County
+                </label>
+
+                <select
+                    id="county"
+                    name="county"
+                    required
+                >
+
+                    <option value="" selected disabled>
+                        Select a county
+                    </option>
+                    {% for county in counties %}
+                        <option value="{{county.id}}">{{ county.name }}</option>
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="pollinator">
+                    Pollinator
+                </label>
+
+                <select
+                    id="pollinator"
+                    name="pollinator"
+                    required
+                >
+
+                    <option value="" selected disabled>
+                        Select a pollinator
+                    </option>
+                    {% for pollinator in pollinators %}
+                        <option value="{{pollinator.id}}">{{ pollinator.name }}</option>
+                    {% endfor %}
+
+
+
+                </select>
+
+            </div>
+
+
+            <div class="button-wrapper">
+
+                <button type="submit">
+                    Continue
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="footer">
+        VS Pollinator
+    </div>
+
+</div>
+
+</body>
+</html>

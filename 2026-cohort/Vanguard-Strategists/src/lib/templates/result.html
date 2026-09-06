@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Plant Results - VS Pollinator</title>
+
+    <!-- Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: "Bahnschrift", sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #fff5f0 0%,
+                    transparent 40%
+                ),
+                linear-gradient(
+                    135deg,
+                    #fee0d2 0%,
+                    #fcbba1 100%
+                );
+
+            color: #333;
+        }
+
+        /* ========================================
+           HEADER
+        ======================================== */
+
+        .header {
+            width: 100%;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+            padding: 20px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            backdrop-filter: blur(12px);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-logo {
+            width: 60px;
+            height: 60px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: bold;
+            color: #fc9272;
+        }
+
+        .back-button {
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            background: #fff5f0;
+
+            color: #ef3b2c;
+
+            text-decoration: none;
+            font-weight: 600;
+
+            border: 1px solid #fcbba1;
+
+            transition: 0.25s;
+        }
+
+        .back-button:hover {
+            background: #fee0d2;
+        }
+
+        /* ========================================
+           PAGE
+        ======================================== */
+
+        .page-container {
+            width: 100%;
+            max-width: 1600px;
+
+            margin: 0 auto;
+
+            padding: 35px;
+        }
+
+        .page-title {
+            margin-bottom: 30px;
+        }
+
+        .page-title h2 {
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #777;
+            font-size: 15px;
+        }
+
+        /* ========================================
+           STATS
+        ======================================== */
+
+        .stats {
+            display: flex;
+            gap: 20px;
+
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            min-width: 200px;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            border-radius: 16px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        .stat-card .number {
+            display: block;
+
+            font-size: 34px;
+            font-weight: bold;
+
+            color: #ef3b2c;
+        }
+
+        .stat-card .label {
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* ========================================
+           MAIN GRID
+        ======================================== */
+
+        .content-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(550px, 1.2fr)
+                minmax(450px, 1fr);
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+        /* ========================================
+           TABLE
+        ======================================== */
+
+        .plants-card {
+            background: rgba(255, 255, 255, 0.97);
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            padding: 22px 25px;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-header h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .card-header p {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+
+            background: #fff8f5;
+
+            z-index: 5;
+        }
+
+        th {
+            text-align: left;
+
+            padding: 15px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            color: #555;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        td {
+            padding: 14px 15px;
+
+            border-bottom: 1px solid #f2f2f2;
+
+            font-size: 14px;
+
+            vertical-align: middle;
+        }
+
+        tbody tr {
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: #fff5f0;
+        }
+
+        tbody tr.active {
+            background: #fee0d2;
+        }
+
+        .plant-info {
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+        }
+
+        .plant-image {
+            width: 58px;
+            height: 58px;
+
+            border-radius: 12px;
+
+            object-fit: cover;
+
+            background: #f3f3f3;
+
+            border: 1px solid #eee;
+        }
+
+        .plant-name {
+            font-weight: 600;
+
+            margin-bottom: 4px;
+        }
+
+        .plant-species {
+            font-size: 12px;
+
+            color: #888;
+
+            font-style: italic;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            background: #fff0eb;
+
+            color: #ef3b2c;
+
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .coordinates {
+            color: #777;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+        }
+
+        .view-map-button {
+            border: none;
+
+            padding: 9px 13px;
+
+            background: linear-gradient(
+                135deg,
+                #fc9272,
+                #ef3b2c
+            );
+
+            color: white;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-family: "Bahnschrift", sans-serif;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .view-map-button:hover {
+            transform: translateY(-1px);
+        }
+
+        /* ========================================
+           MAP
+        ======================================== */
+
+        .map-card {
+            background: white;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.08);
+
+            position: sticky;
+
+            top: 120px;
+        }
+
+        .map-header {
+            padding: 20px 22px;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .map-header h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .map-header p {
+            font-size: 13px;
+            color: #888;
+        }
+
+        #map {
+            width: 100%;
+            height: 650px;
+        }
+
+        /* ========================================
+           LEAFLET POPUP
+        ======================================== */
+
+        .plant-popup {
+            min-width: 220px;
+        }
+
+        .plant-popup img {
+            width: 100%;
+            height: 130px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+
+            margin-bottom: 10px;
+        }
+
+        .plant-popup h3 {
+            margin-bottom: 5px;
+
+            font-size: 16px;
+
+            color: #ef3b2c;
+        }
+
+        .plant-popup .scientific {
+            font-size: 12px;
+
+            color: #777;
+
+            font-style: italic;
+
+            margin-bottom: 10px;
+        }
+
+        .plant-popup p {
+            margin: 4px 0;
+
+            font-size: 12px;
+
+            color: #555;
+        }
+
+        /* ========================================
+           EMPTY
+        ======================================== */
+
+        .empty-state {
+            padding: 60px;
+
+            text-align: center;
+
+            color: #888;
+        }
+
+        .empty-state .icon {
+            font-size: 50px;
+
+            margin-bottom: 15px;
+        }
+
+        /* ========================================
+           RESPONSIVE
+        ======================================== */
+
+        @media (max-width: 1100px) {
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .map-card {
+                position: relative;
+                top: auto;
+            }
+
+            #map {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .header {
+                padding: 15px 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .page-container {
+                padding: 20px;
+            }
+
+            .stats {
+                flex-direction: column;
+            }
+
+            .stat-card {
+                width: 100%;
+            }
+
+            .page-title h2 {
+                font-size: 27px;
+            }
+
+            #map {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+<!-- ============================================
+     HEADER
+============================================ -->
+
+<header class="header">
+
+    <div class="header-left">
+
+        <div class="header-logo">
+
+            <img
+                src="{{ url_for('static', filename='images/Logo_mentor.png') }}"
+                alt="Mentor Logo"
+            >
+
+        </div>
+
+        <h1>
+            VS Pollinator
+        </h1>
+
+    </div>
+
+
+    <a
+        href="/"
+        class="back-button"
+    >
+        ← New Search
+    </a>
+
+</header>
+
+
+<!-- ============================================
+     PAGE
+============================================ -->
+
+<main class="page-container">
+
+
+    <div class="page-title">
+
+        <h2>
+            Plant Results
+        </h2>
+
+        <p>
+            Explore the matching plants and view their locations on the map.
+        </p>
+
+    </div>
+
+
+    <!-- ========================================
+         STATS
+    ========================================= -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <span class="number">
+                {{ plants|length }}
+            </span>
+
+            <span class="label">
+                Plants found
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================
+         MAIN CONTENT
+    ========================================= -->
+
+    <div class="content-grid">
+
+
+        <!-- ====================================
+             PLANTS TABLE
+        ===================================== -->
+
+        <div class="plants-card">
+
+            <div class="card-header">
+
+                <h3>
+                    Matching Plants
+                </h3>
+
+                <p>
+                    Click on a plant to locate it on the map.
+                </p>
+
+            </div>
+
+
+            {% if plants %}
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Plant</th>
+
+                            <th>Family</th>
+
+                            <th>Genus</th>
+
+                            <th>Target Taxon</th>
+
+                            <th>Date</th>
+
+                            <th>Location</th>
+
+                            <th></th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for plant in plants %}
+
+                        <tr
+                            class="plant-row"
+                            data-plant-id="{{ plant.id }}"
+                            data-lat="{{ plant.lat }}"
+                            data-long="{{ plant.long }}"
+                        >
+
+                            <!-- Plant -->
+                            <td>
+
+                                <div class="plant-info">
+
+                                    <img
+                                        class="plant-image"
+                                        src="/statics/plant_images/{{plant.image_url}}"
+                                        alt="{{ plant.scientificName }}"
+                                    >
+
+                                    <div>
+
+                                        <div class="plant-name">
+                                            {{ plant.scientificName }}
+                                        </div>
+
+                                        <div class="plant-species">
+                                            {{ plant.species }}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- Family -->
+                            <td>
+
+                                <span class="badge">
+                                    {{ plant.family }}
+                                </span>
+
+                            </td>
+
+
+                            <!-- Genus -->
+                            <td>
+                                {{ plant.genus }}
+                            </td>
+
+
+                            <!-- Target Taxon -->
+                            <td>
+                                {{ plant.targetTaxonName }}
+                            </td>
+
+
+                            <!-- Date -->
+                            <td>
+
+                                {% if plant.eventDate %}
+
+                                    {{ plant.eventDate.strftime('%Y-%m-%d') }}
+
+                                {% else %}
+
+                                    -
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Coordinates -->
+                            <td>
+
+                                <span class="coordinates">
+
+                                    {{ "%.4f"|format(plant.lat) }},
+                                    {{ "%.4f"|format(plant.long) }}
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- Action -->
+                            <td>
+
+                                <button
+                                    type="button"
+                                    class="view-map-button"
+                                    data-plant-id="{{ plant.id }}"
+                                >
+                                    View
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            {% else %}
+
+
+            <div class="empty-state">
+
+                <div class="icon">
+                    🌱
+                </div>
+
+                <h3>
+                    No plants found
+                </h3>
+
+                <p>
+                    No plants match the selected criteria.
+                </p>
+
+            </div>
+
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- ====================================
+             MAP
+        ===================================== -->
+
+        <div class="map-card">
+
+            <div class="map-header">
+
+                <h3>
+                    Plant Locations
+                </h3>
+
+                <p>
+                    Select a plant from the table to focus on its location.
+                </p>
+
+            </div>
+
+            <div id="map"></div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- Leaflet -->
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+></script>
+
+
+<script>
+
+    /*
+    |--------------------------------------------------------------------------
+    | Plant data generated directly by Flask/Jinja
+    |--------------------------------------------------------------------------
+    |
+    | No API or fetch() is required.
+    |
+    */
+
+    const plants = [
+
+        {% for plant in plants %}
+
+        {
+            id: {{ plant.id }},
+
+            scientificName:
+                {{ plant.scientificName | tojson }},
+
+            species:
+                {{ plant.species | tojson }},
+
+            family:
+                {{ plant.family | tojson }},
+
+            genus:
+                {{ plant.genus | tojson }},
+
+            targetTaxonName:
+                {{ plant.targetTaxonName | tojson }},
+
+            image_url:
+                {{ plant.image_url | tojson }},
+
+            latitude:
+                {{ plant.lat }},
+
+            longitude:
+                {{ plant.long }},
+
+            eventDate:
+                {% if plant.eventDate %}
+                    {{ plant.eventDate.strftime('%Y-%m-%d') | tojson }}
+                {% else %}
+                    null
+                {% endif %},
+
+            pollinator:
+                {% if plant.pollinator %}
+                    {{ plant.pollinator.name | tojson }}
+                {% else %}
+                    null
+                {% endif %},
+
+            evidenceType:
+                {% if plant.evidenceType %}
+                    {{ plant.evidenceType.name | tojson }}
+                {% else %}
+                    null
+                {% endif %},
+
+            image:
+                {{plant.image_url| tojson }}
+        }
+
+        {% if not loop.last %}
+            ,
+        {% endif %}
+
+        {% endfor %}
+
+    ];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Map Coordinates
+    |--------------------------------------------------------------------------
+    */
+
+    const defaultCoordinates = {
+        latitude: 3.848,
+        longitude: 11.5021
+    };
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Create Map
+    |--------------------------------------------------------------------------
+    */
+
+    const map = L.map("map").setView(
+        [
+            defaultCoordinates.latitude,
+            defaultCoordinates.longitude
+        ],
+        6
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | OpenStreetMap Layer
+    |--------------------------------------------------------------------------
+    */
+
+    L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom: 19,
+
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }
+    ).addTo(map);
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store Markers
+    |--------------------------------------------------------------------------
+    */
+
+    const markers = new Map();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Escape HTML
+    |--------------------------------------------------------------------------
+    */
+
+    function escapeHtml(value) {
+
+        if (value === null || value === undefined) {
+            return "";
+        }
+
+        const element = document.createElement("div");
+
+        element.textContent = value;
+
+        return element.innerHTML;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Create Plant Popup
+    |--------------------------------------------------------------------------
+    */
+
+    function createPopupContent(plant) {
+
+        return `
+            <div class="plant-popup">
+
+                <img
+                    src="/statics/plant_images/${escapeHtml(plant.image)}"
+                    alt="${escapeHtml(plant.scientificName)}"
+                >
+
+                <h3>
+                    ${escapeHtml(plant.scientificName)}
+                </h3>
+
+                <div class="scientific">
+                    ${escapeHtml(plant.species)}
+                </div>
+
+                <p>
+                    <strong>Family:</strong>
+                    ${escapeHtml(plant.family)}
+                </p>
+
+                <p>
+                    <strong>Genus:</strong>
+                    ${escapeHtml(plant.genus)}
+                </p>
+
+                <p>
+                    <strong>Target Taxon:</strong>
+                    ${escapeHtml(plant.targetTaxonName)}
+                </p>
+
+                ${
+                    plant.pollinator
+                        ? `
+                        <p>
+                            <strong>Pollinator:</strong>
+                            ${escapeHtml(plant.pollinator)}
+                        </p>
+                        `
+                        : ""
+                }
+
+                ${
+                    plant.evidenceType
+                        ? `
+                        <p>
+                            <strong>Evidence:</strong>
+                            ${escapeHtml(plant.evidenceType)}
+                        </p>
+                        `
+                        : ""
+                }
+
+                ${
+                    plant.eventDate
+                        ? `
+                        <p>
+                            <strong>Date:</strong>
+                            ${escapeHtml(plant.eventDate)}
+                        </p>
+                        `
+                        : ""
+                }
+
+                <p>
+                    <strong>Coordinates:</strong>
+                    ${plant.latitude},
+                    ${plant.longitude}
+                </p>
+
+            </div>
+        `;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Create Markers
+    |--------------------------------------------------------------------------
+    */
+
+    function createPlantMarkers() {
+
+        if (!plants.length) {
+            return;
+        }
+
+        const bounds = [];
+
+
+        plants.forEach((plant) => {
+
+            if (
+                plant.latitude === null ||
+                plant.longitude === null
+            ) {
+                return;
+            }
+
+
+            const marker = L.marker([
+                plant.latitude,
+                plant.longitude
+            ]);
+
+
+            marker.addTo(map);
+
+
+            marker.bindPopup(
+                createPopupContent(plant),
+                {
+                    maxWidth: 300
+                }
+            );
+
+
+            markers.set(
+                plant.id,
+                marker
+            );
+
+
+            bounds.push([
+                plant.latitude,
+                plant.longitude
+            ]);
+
+
+            /*
+            | When the marker is clicked,
+            | highlight the corresponding table row.
+            */
+
+            marker.on("click", () => {
+
+                highlightPlantRow(
+                    plant.id
+                );
+
+            });
+
+        });
+
+
+        /*
+        | Automatically adjust the map
+        | so all plants are visible.
+        */
+
+        if (bounds.length === 1) {
+
+            map.setView(
+                bounds[0],
+                14
+            );
+
+        }
+
+        else if (bounds.length > 1) {
+
+            map.fitBounds(
+                bounds,
+                {
+                    padding: [50, 50]
+                }
+            );
+
+        }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Select Plant
+    |--------------------------------------------------------------------------
+    */
+
+    function selectPlant(plantId) {
+
+        const plant = plants.find(
+            plant => plant.id === plantId
+        );
+
+
+        if (!plant) {
+            return;
+        }
+
+
+        const marker = markers.get(
+            plantId
+        );
+
+
+        if (!marker) {
+            return;
+        }
+
+
+        /*
+        | Center map
+        */
+
+        map.flyTo(
+            [
+                plant.latitude,
+                plant.longitude
+            ],
+            16,
+            {
+                duration: 0.8
+            }
+        );
+
+
+        /*
+        | Open popup
+        */
+
+        setTimeout(() => {
+
+            marker.openPopup();
+
+        }, 500);
+
+
+        /*
+        | Highlight table row
+        */
+
+        highlightPlantRow(
+            plantId
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Highlight Selected Row
+    |--------------------------------------------------------------------------
+    */
+
+    function highlightPlantRow(plantId) {
+
+        document
+            .querySelectorAll(".plant-row")
+            .forEach((row) => {
+
+                row.classList.remove(
+                    "active"
+                );
+
+            });
+
+
+        const row = document.querySelector(
+            `[data-plant-id="${plantId}"]`
+        );
+
+
+        if (row) {
+
+            row.classList.add(
+                "active"
+            );
+
+        }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Table Row Click
+    |--------------------------------------------------------------------------
+    */
+
+    document
+        .querySelectorAll(".plant-row")
+        .forEach((row) => {
+
+            row.addEventListener(
+                "click",
+                () => {
+
+                    const plantId = Number(
+                        row.dataset.plantId
+                    );
+
+                    selectPlant(
+                        plantId
+                    );
+
+                }
+            );
+
+        });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | View Button Click
+    |--------------------------------------------------------------------------
+    */
+
+    document
+        .querySelectorAll(".view-map-button")
+        .forEach((button) => {
+
+            button.addEventListener(
+                "click",
+                (event) => {
+
+                    event.stopPropagation();
+
+
+                    const plantId = Number(
+                        button.dataset.plantId
+                    );
+
+
+                    selectPlant(
+                        plantId
+                    );
+
+                }
+            );
+
+        });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Initialize
+    |--------------------------------------------------------------------------
+    */
+
+    createPlantMarkers();
+
+</script>
+
+</body>
+
+</html>
