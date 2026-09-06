@@ -1,0 +1,492 @@
+/* Braid design tokens. Source: docs/design-direction.md sections 4-7.
+   This is the only file in the codebase permitted to contain a raw colour. */
+
+/* ---------------------------------------------------------------
+   Ramps
+   --------------------------------------------------------------- */
+
+:root {
+  --ink-50: #f4f1f7;
+  --ink-100: #ddd5e4;
+  --ink-200: #b9aac6;
+  --ink-400: #6b5580;
+  --ink-600: #402c57;
+  --ink-800: #241733;
+  --ink-900: #150c1f;
+
+  --fuchsia-50: #fdebf2;
+  --fuchsia-100: #f9c4da;
+  --fuchsia-200: #f296b8;
+  --fuchsia-400: #e4548e;
+  --fuchsia-600: #d6246e;
+  --fuchsia-800: #a11550;
+  --fuchsia-900: #6b0c34;
+
+  --marigold-50: #fff6e3;
+  --marigold-100: #ffe5ac;
+  --marigold-200: #ffd26f;
+  --marigold-400: #ffb627;
+  --marigold-600: #c88709;
+  --marigold-800: #8f5f04;
+  --marigold-900: #5c3c02;
+
+  --jade-50: #e6f7f1;
+  --jade-100: #a9e5d0;
+  --jade-200: #6dd1b0;
+  --jade-400: #1cbb90;
+  --jade-600: #0fa37f;
+  --jade-800: #0a7059;
+  --jade-900: #054636;
+
+  --warm-50: #fffcf7;
+  --warm-100: #f7f1e9;
+  --warm-200: #e8dfd6;
+  --warm-400: #948a81;
+  --warm-600: #7b6c60;
+  --warm-800: #574a3f;
+  --warm-900: #33291f;
+
+  --white: #ffffff;
+  --danger-base: #c42b1c;
+}
+
+/* ---------------------------------------------------------------
+   Semantic tokens. Components reference these names, never a ramp.
+   Dark mode later reassigns this layer and nothing else.
+   --------------------------------------------------------------- */
+
+:root {
+  --bg-page: var(--warm-50);
+  --bg-surface: var(--white);
+  --bg-sunken: var(--warm-100);
+  --bg-inverse: var(--ink-800);
+
+  --text-primary: var(--ink-800);
+  --text-secondary: var(--warm-800);
+  --text-muted: var(--warm-600);
+  --text-inverse: var(--warm-50);
+  --text-link: var(--fuchsia-800);
+
+  --border-subtle: var(--warm-200);
+  --border-default: var(--warm-400);
+  --border-strong: var(--ink-400);
+
+  --action-primary-bg: var(--fuchsia-600);
+  --action-primary-fg: var(--white);
+  --action-primary-hover: var(--fuchsia-800);
+
+  --focus-ring: var(--fuchsia-600);
+  --focus-ring-offset: var(--bg-page);
+  /* The 3px halo behind a focused field border, per 8.2. */
+  --focus-ring-halo: var(--fuchsia-50);
+
+  --status-success: var(--jade-600);
+  /* Jade 600 is a fill. As text it measures 3.20:1, so text takes 800 —
+     the same split fuchsia already uses. */
+  --status-success-text: var(--jade-800);
+  --status-warning: var(--marigold-800);
+  --status-danger: var(--danger-base);
+  --status-info: var(--ink-600);
+
+  --strand-1: var(--fuchsia-600);
+  --strand-2: var(--marigold-400);
+  --strand-3: var(--jade-600);
+
+  /* The two places a strand colour is allowed to become a surface, per 8.3:
+     the role chip and the avatar. Both are named here rather than mixed at
+     the call site so the ratios below are measured once and cannot drift.
+
+     Chip: the base colour at 12% over the card, with the 800 stop as text —
+     6.39 / 5.14 / 5.30:1.
+
+     Avatar: the 100 stop with the 900 stop as initials — 8.07 / 8.11 / 7.65:1.
+     The 800 stop, which the design file draws, measures 5.09 / 4.48 / 4.26:1
+     and fails on two of the three. See 8.3. */
+  --strand-1-chip-bg: color-mix(in srgb, var(--strand-1) 12%, var(--bg-surface));
+  --strand-1-chip-text: var(--fuchsia-800);
+  --strand-1-avatar-bg: var(--fuchsia-100);
+  --strand-1-avatar-text: var(--fuchsia-900);
+
+  --strand-2-chip-bg: color-mix(in srgb, var(--strand-2) 12%, var(--bg-surface));
+  --strand-2-chip-text: var(--marigold-800);
+  --strand-2-avatar-bg: var(--marigold-100);
+  --strand-2-avatar-text: var(--marigold-900);
+
+  --strand-3-chip-bg: color-mix(in srgb, var(--strand-3) 12%, var(--bg-surface));
+  --strand-3-chip-text: var(--jade-800);
+  --strand-3-avatar-bg: var(--jade-100);
+  --strand-3-avatar-text: var(--jade-900);
+}
+
+/* ---------------------------------------------------------------
+   Tailwind theme. The `initial` resets delete Tailwind's stock
+   palette, type scale, shadows, radii and spacing so the only
+   values reachable from a utility class are the ones below.
+   --------------------------------------------------------------- */
+
+@theme {
+  --color-*: initial;
+  --font-*: initial;
+  --text-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --ease-*: initial;
+  --spacing: initial;
+  --spacing-*: initial;
+  --container-*: initial;
+
+  --font-ui: "Switzer", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Gambetta", Georgia, "Times New Roman", serif;
+  --font-data: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* The eleven type tokens are deliberately not theme entries. A `--text-*`
+     entry generates a utility carrying size, leading, weight and tracking but
+     not family or case, which is precisely the half-right version this system
+     must not allow. They live as `@utility type-*` at the end of this file. */
+
+  /* Public chrome. 72 on desktop, 56 below md, both from the design file. */
+  --height-header: 72px;
+  --height-header-sm: 56px;
+
+  /* The conversation column's fixed height, from the design file. The thread
+     scrolls inside it so the composer stays put while reading. */
+  --height-thread: 640px;
+
+  --height-control-sm: 32px;
+  --height-control-md: 40px;
+  --height-control-lg: 48px;
+  --height-field: 44px;
+
+  /* Zero is not a spacing step, it is the absence of one. Without it the
+     reset below also deletes min-w-0, inset-0, bottom-0 and p-0, which are
+     structural rather than design decisions. */
+  --spacing-0: 0px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-96: 96px;
+
+  --container-public: 720px;
+  --container-participant: 900px;
+  --container-coordinator: 1200px;
+  /* Not in the design direction, which gives content widths but no sidebar. */
+  --container-sidebar: 264px;
+  /* The strand detail's left column. Design direction 9 fixes it at 380 and
+     lets the conversation take the rest. */
+  --container-partner: 380px;
+
+  /* Controls under 24px only. At 16px a 6px radius is 37 percent of the box
+     and a checkbox stops reading as a square, which is the only thing telling
+     it apart from a radio before either is clicked. */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --shadow-raised: 0 1px 2px rgb(36 23 51 / 0.06), 0 4px 12px rgb(36 23 51 / 0.04);
+  --shadow-overlay: 0 8px 32px rgb(36 23 51 / 0.12);
+
+  --transition-duration-instant: 90ms;
+  --transition-duration-quick: 160ms;
+  --transition-duration-base: 240ms;
+  --transition-duration-slow: 420ms;
+  --transition-duration-moment: 1400ms;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.64, 0, 0.78, 0);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-weave: cubic-bezier(0.34, 0.9, 0.28, 1);
+
+  --default-transition-duration: var(--transition-duration-quick);
+  --default-transition-timing-function: var(--ease-out);
+}
+
+/* `inline` keeps the utility pointing at the semantic variable rather
+   than copying its value, so reassigning the layer above re-themes
+   every utility at once. */
+
+@theme inline {
+  --color-page: var(--bg-page);
+  --color-surface: var(--bg-surface);
+  --color-sunken: var(--bg-sunken);
+  --color-inverse: var(--bg-inverse);
+
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-muted: var(--text-muted);
+  --color-on-inverse: var(--text-inverse);
+  --color-link: var(--text-link);
+
+  --color-subtle: var(--border-subtle);
+  --color-default: var(--border-default);
+  --color-strong: var(--border-strong);
+
+  --color-accent: var(--action-primary-bg);
+  --color-on-accent: var(--action-primary-fg);
+  --color-accent-hover: var(--action-primary-hover);
+
+  --color-focus: var(--focus-ring);
+  --color-focus-offset: var(--focus-ring-offset);
+  --color-focus-halo: var(--focus-ring-halo);
+
+  --color-success: var(--status-success);
+  --color-success-text: var(--status-success-text);
+  --color-warning: var(--status-warning);
+  --color-danger: var(--status-danger);
+  --color-info: var(--status-info);
+
+  --color-strand-1: var(--strand-1);
+  --color-strand-2: var(--strand-2);
+  --color-strand-3: var(--strand-3);
+
+  /* Resolved by the nearest [data-strand] ancestor. `inline` is what makes
+     that work: the utility emits the var reference rather than its value. */
+  --color-strand-chip: var(--strand-chip-bg);
+  --color-strand-chip-text: var(--strand-chip-text);
+  --color-strand-avatar: var(--strand-avatar-bg);
+  --color-strand-avatar-text: var(--strand-avatar-text);
+}
+
+/* Strand identity. The card picks one of three by hashing the partner's
+   participation id, so a person keeps the same colour across screens and
+   across a re-sort. `data-strand` carries the choice; these four variables
+   are what the card actually paints with. */
+
+[data-strand="1"] {
+  --strand-chip-bg: var(--strand-1-chip-bg);
+  --strand-chip-text: var(--strand-1-chip-text);
+  --strand-avatar-bg: var(--strand-1-avatar-bg);
+  --strand-avatar-text: var(--strand-1-avatar-text);
+}
+
+[data-strand="2"] {
+  --strand-chip-bg: var(--strand-2-chip-bg);
+  --strand-chip-text: var(--strand-2-chip-text);
+  --strand-avatar-bg: var(--strand-2-avatar-bg);
+  --strand-avatar-text: var(--strand-2-avatar-text);
+}
+
+[data-strand="3"] {
+  --strand-chip-bg: var(--strand-3-chip-bg);
+  --strand-chip-text: var(--strand-3-chip-text);
+  --strand-avatar-bg: var(--strand-3-avatar-bg);
+  --strand-avatar-text: var(--strand-3-avatar-text);
+}
+
+/* An ended strand drops its colour. Neutral, and still 7.62:1. */
+[data-strand="none"] {
+  --strand-chip-bg: var(--bg-sunken);
+  --strand-chip-text: var(--text-secondary);
+  --strand-avatar-bg: var(--bg-sunken);
+  --strand-avatar-text: var(--text-secondary);
+}
+
+/* Duration names as written in the design direction. Tailwind owns the
+   `--transition-duration-*` namespace that generates `duration-quick`. */
+
+:root {
+  --dur-instant: var(--transition-duration-instant);
+  --dur-quick: var(--transition-duration-quick);
+  --dur-base: var(--transition-duration-base);
+  --dur-slow: var(--transition-duration-slow);
+  --dur-moment: var(--transition-duration-moment);
+}
+
+/* ---------------------------------------------------------------
+   Type. Eleven tokens, each complete: family, size, leading, weight,
+   tracking and case in one class. There is deliberately no way to
+   apply the size without the family, or `label` without its casing.
+   Source: design-direction 5.3.
+   --------------------------------------------------------------- */
+
+@utility type-display-xl {
+  font-family: var(--font-display);
+  font-size: 56px;
+  line-height: 60px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+@utility type-display-l {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+@utility type-heading-l {
+  font-family: var(--font-ui);
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 600;
+  letter-spacing: normal;
+}
+
+@utility type-heading-m {
+  font-family: var(--font-ui);
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: normal;
+}
+
+@utility type-heading-s {
+  font-family: var(--font-ui);
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: normal;
+}
+
+@utility type-body-l {
+  font-family: var(--font-ui);
+  font-size: 17px;
+  line-height: 28px;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+@utility type-body-m {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+@utility type-body-s {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+@utility type-label {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+@utility type-caption {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+@utility type-data-m {
+  font-family: var(--font-data);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The mono axis at display size. Section 9 sets the landing hero and the match
+   reveal as live numbers "in the mono face, at display size", and data-m at
+   15/20 cannot carry that. Metrics match display-l and display-xl exactly, so a
+   mono number and a Gambetta line sit on the same baseline grid. */
+
+@utility type-data-l {
+  font-family: var(--font-data);
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility type-data-xl {
+  font-family: var(--font-data);
+  font-size: 56px;
+  line-height: 60px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The wordmark is identity, not type, so it is not one of the thirteen tokens.
+   Section 3.2: display face, weight 500, tracking -2%, cap height 60 percent of
+   the mark. Sized here against the 32px mark the public header uses. */
+
+@utility wordmark {
+  font-family: var(--font-display);
+  font-size: 19px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* Control sizing. 8.1 pairs heights 40/32/48 with horizontal padding 16/12/20,
+   and 20 is deliberately not on the spacing scale — section 6 allows nothing
+   between the nine steps. Binding the pair here keeps the button on spec
+   without leaking a general-purpose `p-20`. */
+
+@utility control-sm {
+  height: var(--height-control-sm);
+  padding-inline: 12px;
+}
+
+@utility control-md {
+  height: var(--height-control-md);
+  padding-inline: 16px;
+}
+
+@utility control-lg {
+  height: var(--height-control-lg);
+  padding-inline: 20px;
+}
+
+/* Two fixed sizes from 8.3 that are sizes rather than spacing, so section 6's
+   nine steps do not cover them. Bound here for the same reason as the control
+   heights: the component gets the drawn size without an arbitrary class. */
+
+/* Four avatar sizes, all from the design files: 32 in a message row, 36 in the
+   mobile strand header, 40 in a strand card, 64 on the partner card. Bound here
+   rather than as spacing, for the same reason the control heights are. */
+
+@utility avatar-32 {
+  width: 32px;
+  height: 32px;
+  flex: none;
+}
+
+@utility avatar-36 {
+  width: 36px;
+  height: 36px;
+  flex: none;
+}
+
+@utility avatar-40 {
+  width: 40px;
+  height: 40px;
+  flex: none;
+}
+
+@utility avatar-64 {
+  width: 64px;
+  height: 64px;
+  flex: none;
+}
+
+@utility badge-count {
+  min-width: 20px;
+  height: 20px;
+  padding-inline: 4px;
+  flex: none;
+}

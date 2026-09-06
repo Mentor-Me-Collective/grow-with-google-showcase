@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<svg viewBox="0 0 140 140" width="{{ size }}" height="{{ size }}" role="img" aria-label="Braid" style="display:block;overflow:visible">
+  <defs>
+    <mask id="mt-{{ uid }}" maskUnits="userSpaceOnUse" x="0" y="0" width="140" height="140">
+      <rect x="0" y="0" width="140" height="140" fill="#fff"></rect>
+      <rect x="{{ cutLeftX }}" y="30" width="{{ cutW }}" height="30" fill="#000"></rect>
+    </mask>
+    <mask id="mb-{{ uid }}" maskUnits="userSpaceOnUse" x="0" y="0" width="140" height="140">
+      <rect x="0" y="0" width="140" height="140" fill="#fff"></rect>
+      <rect x="{{ cutRightX }}" y="70" width="{{ cutW }}" height="30" fill="#000"></rect>
+    </mask>
+  </defs>
+  <rect x="37" y="20" width="16" height="100" rx="8" fill="{{ cLeft }}"></rect>
+  <rect x="77" y="20" width="16" height="100" rx="8" fill="{{ cRight }}"></rect>
+  <rect x="20" y="37" width="100" height="16" rx="8" fill="{{ cTop }}" mask="url(#mt-{{ uid }})"></rect>
+  <rect x="20" y="77" width="100" height="16" rx="8" fill="{{ cBottom }}" mask="url(#mb-{{ uid }})"></rect>
+</svg>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:160,&quot;height&quot;:160},&quot;size&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:96,&quot;tsType&quot;:&quot;number&quot;,&quot;unit&quot;:&quot;px&quot;},&quot;mono&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;tone&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#241733&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#241733&quot;,&quot;#C4B7AA&quot;,&quot;#FFFCF7&quot;,&quot;#D6246E&quot;]}}">
+let __braidUid = 0;
+class Component extends DCLogic {
+  constructor(p) { super(p); this.uid = 'w' + (++__braidUid); }
+  renderVals() {
+    const mono = this.props.mono ?? false;
+    const tone = this.props.tone ?? '#241733';
+    const gap = mono ? 3 : 0;
+    return {
+      uid: this.uid,
+      size: this.props.size ?? 96,
+      cTop: mono ? tone : '#D6246E',
+      cBottom: mono ? tone : '#0FA37F',
+      cLeft: mono ? tone : '#FFB627',
+      cRight: mono ? tone : '#241733',
+      cutLeftX: 37 - gap,
+      cutRightX: 77 - gap,
+      cutW: 16 + gap * 2
+    };
+  }
+}
+</script>
+</body>
+</html>
