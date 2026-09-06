@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VS Pollinator</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+            background:
+                radial-gradient(circle at top left, #fff5f0 0%, transparent 40%),
+                linear-gradient(135deg, #fee0d2 0%, #fcbba1 100%);
+        }
+
+        .upload-container {
+            width: 100%;
+            max-width: 650px;
+
+            background: rgba(255,255,255,.95);
+
+            border-radius: 24px;
+
+            padding: 50px;
+
+            box-shadow: 0 20px 60px rgba(0,0,0,.12);
+
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+
+            margin: auto auto 20px;
+
+            border-radius: 20px;
+
+            background: linear-gradient(
+                135deg,
+                #fc9272,
+                #ef3b2c
+            );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+            font-size: 38px;
+
+            box-shadow: 0 15px 35px rgba(239,59,44,.25);
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #cb181d;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .drop-zone {
+            border: 2px dashed #fcae91;
+            border-radius: 18px;
+
+            background: #fff8f5;
+
+            padding: 45px 30px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            transition: .3s;
+        }
+
+        .drop-zone:hover {
+            background: #fff1eb;
+            border-color: #ef3b2c;
+            transform: translateY(-2px);
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .drop-zone strong {
+            display: block;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .drop-zone span {
+            color: #888;
+            font-size: 14px;
+        }
+
+        #fileName {
+            margin-top: 20px;
+            font-weight: 600;
+            color: #ef3b2c;
+            word-break: break-word;
+        }
+
+        button {
+            height: 60px;
+
+            border: none;
+            border-radius: 14px;
+
+            background: linear-gradient(
+                135deg,
+                #fc9272,
+                #ef3b2c
+            );
+
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: .25s;
+
+            box-shadow: 0 12px 25px rgba(239,59,44,.25);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 35px rgba(239,59,44,.35);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .footer {
+            margin-top: 15px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+
+            .upload-container {
+                padding: 35px 25px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .drop-zone {
+                padding: 35px 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="upload-container">
+
+    <div class="header">
+
+        <div >
+           <img src="{{ url_for('static', filename='images/Logo_mentor.png') }}" alt="Logo Mentorstyle="transform: scale(0.70);">
+
+        </div>
+
+        <h1>VS Pollinator</h1>
+
+        <p class="subtitle">
+            Upload your CSV file to start processing your data.
+        </p>
+
+    </div>
+
+    <form
+        action="/upload"
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+        <label class="drop-zone" for="file">
+
+            <div class="upload-icon">
+                ☁️
+            </div>
+
+            <strong>
+                Select your CSV file
+            </strong>
+
+            <span>
+                Click here to browse your files
+            </span>
+
+            <div id="fileName"></div>
+
+        </label>
+
+        <input
+            type="file"
+            id="file"
+            name="file"
+            accept=".csv,text/csv"
+            required
+        >
+
+        <button type="submit">
+            Upload File
+        </button>
+
+        <div class="footer">
+            Accepted format: .CSV
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+    const fileInput = document.getElementById("file");
+    const fileName = document.getElementById("fileName");
+
+    fileInput.addEventListener("change", function () {
+
+        if (this.files.length > 0) {
+            fileName.textContent = "📄 " + this.files[0].name;
+        } else {
+            fileName.textContent = "";
+        }
+
+    });
+</script>
+</body>
+</html>
