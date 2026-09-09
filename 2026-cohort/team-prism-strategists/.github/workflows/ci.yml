@@ -1,0 +1,65 @@
+name: Mentor Me CI / Automated Test Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    name: Run Automated Test Suites
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r matching/requirements.txt
+
+      - name: Execute Automated 2FA Authentication Tests
+        run: |
+          cd matching
+          python backend/test_2fa_auth.py
+
+      - name: Execute Automated SSO & OAuth Tests
+        run: |
+          cd matching
+          python backend/test_sso_auth.py
+
+      - name: Execute Automated Password Reset Tests
+        run: |
+          cd matching
+          python backend/test_password_reset.py
+
+      - name: Execute Automated In-App Messaging Tests
+        run: |
+          cd matching
+          python backend/test_messaging.py
+
+      - name: Execute Automated LinkedIn Deep Link Tests
+        run: |
+          cd matching
+          python backend/test_linkedin_search.py
+
+      - name: Execute Algorithmic Scenario Tests
+        run: |
+          cd matching
+          python test_matching_scenarios.py
+
+      - name: Execute Outreach Hub Tests (GitHub, ORCID, LinkedIn)
+        run: |
+          cd matching
+          python backend/test_outreach_hub.py

@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./matching
+      dockerfile: Dockerfile.backend
+    container_name: mentoring_me_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=mentoring_me_secure_production_secret_key_change_me
+      - APP_BASE_URL=http://localhost:8501
+      - DATABASE_URL=sqlite:///./mentor_me.db
+    volumes:
+      - ./matching/uploads:/app/uploads
+      - ./matching/mentor_me.db:/app/mentor_me.db
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./matching
+      dockerfile: Dockerfile.frontend
+    container_name: mentoring_me_frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://backend:8000/api/v1
+      - APP_BASE_URL=http://localhost:8501
+    depends_on:
+      - backend
+    restart: unless-stopped

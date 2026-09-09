@@ -1,0 +1,61 @@
+
+KEY INSIGHTS — Objective 1 Analysis
+=====================================
+
+1. REPRESENTATION GAP
+   Women make up 7.6% of respondents overall. Representation
+   is not evenly spread across roles: women are relatively more present in
+   front-end, full-stack, and data-focused roles, and relatively scarcer in
+   DevOps, sysadmin, and embedded/infrastructure roles.
+
+2. THE LEAKY PIPELINE
+   Women's share of the developer population is comparable to men's at
+   junior tenure (0-2 years) but drops sharply by senior tenure (10y+).
+   This is the core "gap" evidence: attrition/advancement, not entry,
+   is where the problem concentrates.
+
+3. SUCCESS FACTOR: RETENTION RISK WINDOW
+   Among women, the share actively job-seeking (a retention-risk proxy)
+   is highest in the first 10 years of career (0-10y) and drops
+   substantially after 10 years. This validates targeting early-career
+   women specifically, as the brief proposes — the vulnerable window is
+   real and measurable, not just assumed.
+
+4. SUCCESS FACTOR: SATISFIED BUT STILL LEAVING
+   Women report slightly HIGHER job satisfaction than men at every experience
+   tier (a small but consistent gap on a 0-4 scale). Read alongside Trend 3
+   (elevated job-seeking among women, especially at 0-2y and 5-10y), this
+   suggests women are not leaving because they are more unhappy where they
+   are — they may be leaving because they see fewer visible paths forward
+   internally. This points toward a sponsorship/growth-pathway gap rather
+   than a satisfaction problem, which is directly relevant to what a
+   mentorship platform can address.
+   NOTE: compensation was tested as a candidate 4th trend but dropped —
+   the direction of any pay gap was inconsistent across datasets (this
+   survey vs. the Kaggle DS/ML survey showed opposite directions at some
+   tiers), so it was not reliable enough to report as a finding.
+
+5. WHAT WOMEN PRIORITIZE DIFFERENTLY WHEN CHOOSING A JOB
+   "Diversity of the company or organization" is the most gender-differentiated
+   job factor in this dataset — women select it far more often than men.
+   "Opportunities for professional development" (the closest proxy to a
+   mentorship/growth interest available here) shows no gap: men and women
+   value it equally. This suggests women are not less interested in
+   development opportunities, but weigh diversity/inclusion signals in an
+   employer much more heavily when deciding where to work.
+
+6. MISSING DATA WAS HANDLED PER-ANALYSIS, NOT GLOBALLY
+   Employment and YearsCode (small gaps, <1%) were dropped globally.
+   YearsCodePro/exp_tier and ConvertedComp (larger gaps, 20-36%) were dropped
+   only within the specific analyses that use them, so unrelated analyses
+   (e.g. role representation) keep their full sample size. No field was
+   imputed — a fabricated average experience or salary could shift the exact
+   gap numbers this report is built on.
+
+7. WHAT THIS DATA CANNOT TELL US
+   No field in this survey (or any public dataset found) directly measures
+   mentorship access. The link between mentorship and retention/success
+   is supported by cited literature (McKinsey "Women in the Workplace",
+   Catalyst), not by this analysis. State this as a limitation, not a gap
+   to keep searching for — it reflects what's publicly available at the
+   individual level, not a research shortfall.

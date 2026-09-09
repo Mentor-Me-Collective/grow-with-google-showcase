@@ -1,0 +1,1 @@
+web: uvicorn backend.main:app --app-dir matching --host 0.0.0.0 --port ${PORT:-8000}

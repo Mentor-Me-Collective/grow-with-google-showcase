@@ -1,0 +1,56 @@
+# =====================================================================
+# Mentor Me - Git Ignore Configuration
+# =====================================================================
+
+# Environment & Secrets
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+**/.pytest_cache/
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+!mentor_me.db
+!matching/mentor_me.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Uploads & Logs
+uploads/
+*.log
+
+# Byte-compiled
+*.pyc
+
+# Streamlit
+.streamlit/secrets.toml

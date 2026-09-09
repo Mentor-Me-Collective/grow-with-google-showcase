@@ -14,6 +14,7 @@
 
 > 🎬 **5-Minute Scenario Video Demonstration:**  
 > **[▶️ Click here to watch the Mentoring-Me Video Demonstration on Google Drive](https://drive.google.com/file/d/1qdDRKiq-G77xvIIfe3XvQ6xBTSC0joS3/view?usp=sharing)**  
+> *Showcasing the live mentee journey, authentic registered mentor pool queries, explainable dynamic algorithm weights, and direct 1-on-1 scheduling.*
 
 ---
 
@@ -232,7 +233,7 @@ python evaluate_matching_algorithm.py
 
 ---
 
-## 🔮 6. Future Ideas 
+## 🔮 6. Future Ideas
 
 To future Grow with Google Scholars building on this foundation, here are five high-impact expansion pathways:
 
