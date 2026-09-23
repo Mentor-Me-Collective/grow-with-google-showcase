@@ -1,0 +1,501 @@
+product_id,name,category,brand,unit_price_usd,unit_cost_usd,weight_kg,is_active,launch_date
+PROD0001,CoreBrand Books Item 1,Books,BoldEdge,25.82,16.78,2.13,True,2019-11-23
+PROD0002,PrimeLine Clothing Item 2,Clothing,ClearView,108.37,48.77,2.86,True,2021-08-14
+PROD0003,GlowUp Home Item 3,Home & Kitchen,StyleCo,214.46,128.68,6.86,True,2019-04-09
+PROD0004,HomePro Electronics Item 4,Electronics,PureForm,830.21,622.66,3.25,True,2019-08-28
+PROD0005,HomePro Clothing Item 5,Clothing,ClearView,19.56,8.8,8.86,True,2020-11-18
+PROD0006,ReadMore Beauty Item 6,Beauty & Health,ZenLife,150.8,60.32,4.32,True,2021-05-05
+PROD0007,NexGen Books Item 7,Books,NexGen,49.31,32.05,9.34,True,2020-06-12
+PROD0008,PrimeLine Beauty Item 8,Beauty & Health,CoreBrand,11.45,4.58,2.88,True,2020-09-17
+PROD0009,ZenLife Sports Item 9,Sports & Outdoors,ReadMore,330.65,181.86,9.02,True,2020-03-02
+PROD0010,FunZone Sports Item 10,Sports & Outdoors,ActiveGear,44.1,24.26,0.48,True,2021-10-31
+PROD0011,NovaTech Beauty Item 11,Beauty & Health,ReadMore,132.5,53.0,1.07,True,2020-05-31
+PROD0012,GlowUp Electronics Item 12,Electronics,ClearView,728.85,546.64,9.83,True,2021-08-10
+PROD0013,FunZone Clothing Item 13,Clothing,NexGen,95.89,43.15,5.29,True,2020-04-12
+PROD0014,GlowUp Toys Item 14,Toys & Games,BoldEdge,85.6,42.8,7.49,True,2020-09-30
+PROD0015,ZenLife Electronics Item 15,Electronics,GlowUp,935.85,701.89,4.4,True,2021-11-05
+PROD0016,NexGen Books Item 16,Books,ZenLife,51.95,33.77,7.54,True,2019-05-05
+PROD0017,ReadMore Sports Item 17,Sports & Outdoors,ClearView,249.68,137.32,3.02,True,2019-12-09
+PROD0018,NovaTech Toys Item 18,Toys & Games,FunZone,64.23,32.12,8.56,True,2020-01-27
+PROD0019,StyleCo Beauty Item 19,Beauty & Health,GlowUp,136.26,54.5,3.22,True,2019-08-13
+PROD0020,NovaTech Books Item 20,Books,StyleCo,41.62,27.05,8.84,True,2021-02-24
+PROD0021,NexGen Sports Item 21,Sports & Outdoors,ActiveGear,273.61,150.49,3.31,True,2021-01-18
+PROD0022,ClearView Clothing Item 22,Clothing,FunZone,25.69,11.56,4.09,True,2019-07-09
+PROD0023,FunZone Clothing Item 23,Clothing,HomePro,63.84,28.73,1.55,True,2019-08-20
+PROD0024,CoreBrand Toys Item 24,Toys & Games,HomePro,92.18,46.09,9.9,True,2019-06-13
+PROD0025,ActiveGear Toys Item 25,Toys & Games,ZenLife,83.07,41.53,3.72,True,2020-04-14
+PROD0026,BoldEdge Clothing Item 26,Clothing,FunZone,128.68,57.91,2.98,True,2020-07-06
+PROD0027,PureForm Clothing Item 27,Clothing,FunZone,124.08,55.84,1.29,True,2019-08-08
+PROD0028,GlowUp Home Item 28,Home & Kitchen,BoldEdge,202.88,121.73,0.19,True,2020-07-09
+PROD0029,PureForm Home Item 29,Home & Kitchen,StyleCo,196.46,117.88,4.0,True,2020-10-26
+PROD0030,FunZone Beauty Item 30,Beauty & Health,HomePro,110.92,44.37,5.59,True,2019-12-30
+PROD0031,ZenLife Clothing Item 31,Clothing,ActiveGear,69.18,31.13,8.2,True,2021-05-22
+PROD0032,ReadMore Beauty Item 32,Beauty & Health,PrimeLine,67.22,26.89,6.57,True,2020-12-06
+PROD0033,ActiveGear Books Item 33,Books,NovaTech,45.65,29.67,0.24,True,2021-08-30
+PROD0034,ClearView Toys Item 34,Toys & Games,FunZone,125.61,62.8,6.44,True,2019-08-18
+PROD0035,ClearView Books Item 35,Books,FunZone,21.27,13.83,5.28,True,2021-01-15
+PROD0036,NovaTech Clothing Item 36,Clothing,StyleCo,24.2,10.89,6.53,True,2021-07-19
+PROD0037,PureForm Beauty Item 37,Beauty & Health,ZenLife,44.8,17.92,8.83,True,2021-05-11
+PROD0038,CoreBrand Clothing Item 38,Clothing,PrimeLine,201.99,90.9,6.66,True,2020-04-03
+PROD0039,PrimeLine Toys Item 39,Toys & Games,ReadMore,63.19,31.59,1.86,True,2019-06-06
+PROD0040,PrimeLine Electronics Item 40,Electronics,ActiveGear,423.78,317.83,5.87,False,2019-04-30
+PROD0041,NexGen Books Item 41,Books,FunZone,56.06,36.44,4.18,True,2020-08-01
+PROD0042,NexGen Electronics Item 42,Electronics,BoldEdge,1007.85,755.89,4.43,True,2020-06-03
+PROD0043,ClearView Clothing Item 43,Clothing,ActiveGear,162.13,72.96,9.81,True,2021-11-14
+PROD0044,GlowUp Home Item 44,Home & Kitchen,StyleCo,392.8,235.68,3.37,True,2019-08-06
+PROD0045,GlowUp Electronics Item 45,Electronics,HomePro,69.02,51.77,8.44,True,2019-05-30
+PROD0046,PureForm Toys Item 46,Toys & Games,CoreBrand,116.75,58.38,7.58,True,2020-04-16
+PROD0047,CoreBrand Sports Item 47,Sports & Outdoors,FunZone,449.77,247.37,9.47,True,2021-12-19
+PROD0048,FunZone Beauty Item 48,Beauty & Health,GlowUp,118.37,47.35,3.49,True,2019-09-07
+PROD0049,ReadMore Toys Item 49,Toys & Games,ClearView,22.25,11.12,9.96,True,2021-10-06
+PROD0050,ReadMore Books Item 50,Books,HomePro,50.42,32.77,5.72,True,2019-09-16
+PROD0051,PrimeLine Clothing Item 51,Clothing,StyleCo,32.83,14.77,5.66,True,2019-06-01
+PROD0052,BoldEdge Sports Item 52,Sports & Outdoors,HomePro,94.19,51.8,9.26,True,2021-12-25
+PROD0053,CoreBrand Home Item 53,Home & Kitchen,BoldEdge,360.07,216.04,1.72,True,2020-04-09
+PROD0054,FunZone Clothing Item 54,Clothing,ReadMore,210.66,94.8,9.68,True,2020-01-22
+PROD0055,ZenLife Clothing Item 55,Clothing,StyleCo,188.93,85.02,9.11,True,2019-07-23
+PROD0056,GlowUp Books Item 56,Books,BoldEdge,33.75,21.94,3.96,True,2021-03-05
+PROD0057,FunZone Clothing Item 57,Clothing,GlowUp,147.37,66.32,5.15,True,2021-07-29
+PROD0058,ActiveGear Clothing Item 58,Clothing,GlowUp,263.7,118.66,2.01,True,2019-08-06
+PROD0059,BoldEdge Clothing Item 59,Clothing,FunZone,210.97,94.94,4.73,True,2019-07-27
+PROD0060,NovaTech Clothing Item 60,Clothing,BoldEdge,103.39,46.53,7.78,True,2019-11-30
+PROD0061,HomePro Beauty Item 61,Beauty & Health,ZenLife,163.89,65.56,1.06,True,2019-07-16
+PROD0062,StyleCo Books Item 62,Books,BoldEdge,49.66,32.28,7.6,True,2021-01-16
+PROD0063,BoldEdge Clothing Item 63,Clothing,ActiveGear,290.55,130.75,4.79,True,2020-04-08
+PROD0064,HomePro Toys Item 64,Toys & Games,GlowUp,78.11,39.05,6.82,True,2020-01-02
+PROD0065,FunZone Clothing Item 65,Clothing,HomePro,278.08,125.14,0.76,True,2021-06-11
+PROD0066,ZenLife Home Item 66,Home & Kitchen,ReadMore,216.28,129.77,5.49,True,2019-05-17
+PROD0067,NovaTech Home Item 67,Home & Kitchen,ClearView,65.7,39.42,0.25,True,2021-07-15
+PROD0068,PureForm Electronics Item 68,Electronics,BoldEdge,208.49,156.37,7.88,True,2020-01-08
+PROD0069,NexGen Clothing Item 69,Clothing,StyleCo,165.68,74.56,4.14,True,2019-07-17
+PROD0070,ZenLife Electronics Item 70,Electronics,ActiveGear,431.73,323.8,6.26,True,2019-04-10
+PROD0071,NovaTech Electronics Item 71,Electronics,PrimeLine,192.58,144.44,4.41,True,2019-08-19
+PROD0072,ClearView Sports Item 72,Sports & Outdoors,GlowUp,418.27,230.05,3.29,True,2019-07-28
+PROD0073,HomePro Clothing Item 73,Clothing,ReadMore,67.51,30.38,5.13,True,2021-07-25
+PROD0074,FunZone Electronics Item 74,Electronics,PrimeLine,1130.42,847.82,7.46,False,2019-12-03
+PROD0075,ReadMore Sports Item 75,Sports & Outdoors,HomePro,355.54,195.55,4.25,True,2020-06-11
+PROD0076,BoldEdge Sports Item 76,Sports & Outdoors,BoldEdge,462.43,254.34,4.68,True,2019-09-25
+PROD0077,ReadMore Home Item 77,Home & Kitchen,BoldEdge,316.34,189.8,5.65,True,2021-07-23
+PROD0078,StyleCo Beauty Item 78,Beauty & Health,FunZone,160.58,64.23,1.22,True,2019-10-08
+PROD0079,PrimeLine Beauty Item 79,Beauty & Health,NovaTech,12.39,4.96,3.53,True,2021-01-15
+PROD0080,GlowUp Home Item 80,Home & Kitchen,HomePro,93.07,55.84,2.15,True,2021-03-19
+PROD0081,CoreBrand Sports Item 81,Sports & Outdoors,ZenLife,402.64,221.45,5.29,True,2021-01-11
+PROD0082,CoreBrand Clothing Item 82,Clothing,HomePro,17.57,7.91,1.06,True,2020-01-21
+PROD0083,HomePro Books Item 83,Books,ClearView,54.19,35.22,2.25,True,2019-12-23
+PROD0084,ClearView Toys Item 84,Toys & Games,NovaTech,92.75,46.38,6.4,True,2020-03-28
+PROD0085,GlowUp Sports Item 85,Sports & Outdoors,NovaTech,267.82,147.3,5.59,True,2019-10-20
+PROD0086,ActiveGear Clothing Item 86,Clothing,HomePro,49.64,22.34,0.2,True,2020-03-07
+PROD0087,NexGen Toys Item 87,Toys & Games,GlowUp,56.9,28.45,5.45,True,2019-12-26
+PROD0088,HomePro Beauty Item 88,Beauty & Health,NexGen,86.89,34.76,5.78,True,2021-05-04
+PROD0089,PrimeLine Electronics Item 89,Electronics,PureForm,1130.95,848.21,2.24,True,2019-10-08
+PROD0090,NexGen Sports Item 90,Sports & Outdoors,FunZone,141.71,77.94,3.29,True,2021-10-11
+PROD0091,StyleCo Toys Item 91,Toys & Games,StyleCo,117.94,58.97,8.16,True,2020-12-08
+PROD0092,FunZone Clothing Item 92,Clothing,ClearView,123.11,55.4,9.27,True,2021-03-04
+PROD0093,ReadMore Clothing Item 93,Clothing,ClearView,177.9,80.05,7.89,True,2019-12-19
+PROD0094,NexGen Books Item 94,Books,ClearView,12.23,7.95,8.31,True,2019-08-25
+PROD0095,ClearView Electronics Item 95,Electronics,PureForm,1020.49,765.37,1.52,True,2020-11-18
+PROD0096,FunZone Books Item 96,Books,NexGen,55.68,36.19,2.05,True,2019-11-05
+PROD0097,HomePro Clothing Item 97,Clothing,GlowUp,238.54,107.34,4.74,True,2020-12-01
+PROD0098,BoldEdge Home Item 98,Home & Kitchen,FunZone,108.06,64.84,4.46,True,2019-04-19
+PROD0099,CoreBrand Beauty Item 99,Beauty & Health,StyleCo,166.0,66.4,0.12,True,2020-08-27
+PROD0100,BoldEdge Sports Item 100,Sports & Outdoors,CoreBrand,458.57,252.21,7.63,True,2020-12-31
+PROD0101,ZenLife Electronics Item 101,Electronics,PureForm,493.94,370.45,4.58,True,2019-08-25
+PROD0102,NovaTech Sports Item 102,Sports & Outdoors,GlowUp,99.59,54.77,4.21,True,2021-10-30
+PROD0103,GlowUp Clothing Item 103,Clothing,PrimeLine,265.07,119.28,4.44,True,2019-12-16
+PROD0104,ClearView Toys Item 104,Toys & Games,StyleCo,29.79,14.89,5.68,True,2021-09-15
+PROD0105,FunZone Clothing Item 105,Clothing,ReadMore,224.51,101.03,7.07,True,2021-10-09
+PROD0106,PureForm Home Item 106,Home & Kitchen,StyleCo,276.38,165.83,3.54,True,2020-09-19
+PROD0107,NexGen Clothing Item 107,Clothing,FunZone,291.18,131.03,3.6,True,2021-09-01
+PROD0108,CoreBrand Home Item 108,Home & Kitchen,PrimeLine,173.23,103.94,7.41,True,2020-05-26
+PROD0109,BoldEdge Clothing Item 109,Clothing,PrimeLine,78.57,35.36,0.9,True,2020-08-03
+PROD0110,PureForm Beauty Item 110,Beauty & Health,ReadMore,103.11,41.24,2.25,True,2021-03-27
+PROD0111,ActiveGear Books Item 111,Books,PrimeLine,15.13,9.83,9.66,True,2021-11-19
+PROD0112,BoldEdge Toys Item 112,Toys & Games,FunZone,23.16,11.58,8.34,False,2019-11-14
+PROD0113,BoldEdge Books Item 113,Books,HomePro,58.71,38.16,7.73,True,2020-08-15
+PROD0114,PrimeLine Electronics Item 114,Electronics,BoldEdge,963.89,722.92,7.12,False,2020-06-05
+PROD0115,GlowUp Electronics Item 115,Electronics,StyleCo,685.06,513.79,1.39,False,2020-10-15
+PROD0116,NexGen Clothing Item 116,Clothing,PureForm,268.04,120.62,2.4,True,2021-02-08
+PROD0117,ZenLife Toys Item 117,Toys & Games,NovaTech,14.86,7.43,2.87,True,2019-10-05
+PROD0118,PrimeLine Beauty Item 118,Beauty & Health,ClearView,164.51,65.8,1.55,True,2020-08-29
+PROD0119,BoldEdge Beauty Item 119,Beauty & Health,StyleCo,192.64,77.06,8.38,True,2021-04-18
+PROD0120,PureForm Home Item 120,Home & Kitchen,BoldEdge,108.94,65.36,0.6,True,2020-08-31
+PROD0121,ZenLife Electronics Item 121,Electronics,ZenLife,413.88,310.41,9.5,True,2020-09-14
+PROD0122,NexGen Electronics Item 122,Electronics,ClearView,654.1,490.58,0.22,True,2021-12-23
+PROD0123,ClearView Beauty Item 123,Beauty & Health,ClearView,40.96,16.38,2.92,True,2019-06-23
+PROD0124,FunZone Electronics Item 124,Electronics,PureForm,1166.48,874.86,5.06,True,2021-06-14
+PROD0125,CoreBrand Electronics Item 125,Electronics,NexGen,670.1,502.58,5.41,True,2021-12-20
+PROD0126,HomePro Sports Item 126,Sports & Outdoors,ClearView,416.46,229.05,4.25,True,2020-09-21
+PROD0127,FunZone Electronics Item 127,Electronics,NexGen,575.46,431.6,9.53,True,2020-01-13
+PROD0128,GlowUp Sports Item 128,Sports & Outdoors,NexGen,475.64,261.6,3.08,True,2021-05-19
+PROD0129,PureForm Electronics Item 129,Electronics,FunZone,512.84,384.63,4.12,True,2020-12-25
+PROD0130,BoldEdge Clothing Item 130,Clothing,GlowUp,108.31,48.74,4.34,True,2020-03-10
+PROD0131,ActiveGear Electronics Item 131,Electronics,FunZone,215.79,161.84,8.96,True,2021-10-18
+PROD0132,BoldEdge Sports Item 132,Sports & Outdoors,GlowUp,239.23,131.58,3.13,True,2020-01-29
+PROD0133,FunZone Home Item 133,Home & Kitchen,GlowUp,151.77,91.06,4.79,True,2019-12-18
+PROD0134,PrimeLine Electronics Item 134,Electronics,ReadMore,771.23,578.42,5.28,True,2021-01-14
+PROD0135,ActiveGear Electronics Item 135,Electronics,NovaTech,454.09,340.57,9.86,True,2020-07-12
+PROD0136,ClearView Toys Item 136,Toys & Games,BoldEdge,105.57,52.78,8.11,True,2021-07-03
+PROD0137,NexGen Sports Item 137,Sports & Outdoors,PrimeLine,369.28,203.1,4.45,True,2021-10-08
+PROD0138,CoreBrand Books Item 138,Books,CoreBrand,49.08,31.9,0.36,True,2021-03-14
+PROD0139,ReadMore Home Item 139,Home & Kitchen,FunZone,270.91,162.55,1.2,True,2021-10-06
+PROD0140,ZenLife Clothing Item 140,Clothing,CoreBrand,170.3,76.63,7.41,False,2019-06-06
+PROD0141,GlowUp Sports Item 141,Sports & Outdoors,ReadMore,340.92,187.51,3.58,True,2021-05-04
+PROD0142,HomePro Beauty Item 142,Beauty & Health,NovaTech,77.39,30.96,9.71,True,2019-07-15
+PROD0143,StyleCo Electronics Item 143,Electronics,PureForm,1185.68,889.26,8.86,True,2020-12-02
+PROD0144,GlowUp Beauty Item 144,Beauty & Health,FunZone,103.98,41.59,6.07,True,2020-09-22
+PROD0145,ActiveGear Sports Item 145,Sports & Outdoors,PureForm,338.79,186.33,6.54,True,2019-08-22
+PROD0146,HomePro Home Item 146,Home & Kitchen,ActiveGear,311.29,186.77,1.91,True,2020-09-27
+PROD0147,FunZone Home Item 147,Home & Kitchen,ActiveGear,231.3,138.78,4.58,True,2019-11-04
+PROD0148,ClearView Beauty Item 148,Beauty & Health,BoldEdge,36.03,14.41,1.0,True,2021-01-30
+PROD0149,FunZone Sports Item 149,Sports & Outdoors,BoldEdge,269.0,147.95,6.09,True,2019-08-13
+PROD0150,PureForm Electronics Item 150,Electronics,ReadMore,794.12,595.59,0.84,True,2020-03-25
+PROD0151,BoldEdge Home Item 151,Home & Kitchen,FunZone,54.77,32.86,0.14,True,2020-01-07
+PROD0152,FunZone Toys Item 152,Toys & Games,ZenLife,107.84,53.92,0.14,True,2021-12-14
+PROD0153,GlowUp Sports Item 153,Sports & Outdoors,GlowUp,296.73,163.2,2.14,True,2021-08-06
+PROD0154,PureForm Toys Item 154,Toys & Games,FunZone,135.98,67.99,7.78,True,2019-04-26
+PROD0155,ActiveGear Sports Item 155,Sports & Outdoors,FunZone,94.83,52.16,5.97,True,2021-08-13
+PROD0156,NovaTech Home Item 156,Home & Kitchen,FunZone,255.69,153.41,0.13,True,2021-08-22
+PROD0157,BoldEdge Books Item 157,Books,CoreBrand,27.03,17.57,1.71,False,2019-11-29
+PROD0158,StyleCo Sports Item 158,Sports & Outdoors,StyleCo,128.52,70.69,6.81,True,2020-04-01
+PROD0159,CoreBrand Sports Item 159,Sports & Outdoors,NexGen,72.04,39.62,4.31,True,2021-08-29
+PROD0160,StyleCo Sports Item 160,Sports & Outdoors,ZenLife,446.81,245.75,7.45,True,2019-12-28
+PROD0161,ClearView Toys Item 161,Toys & Games,ZenLife,147.34,73.67,1.0,True,2021-12-05
+PROD0162,ActiveGear Clothing Item 162,Clothing,NexGen,104.86,47.19,4.69,True,2021-07-28
+PROD0163,PrimeLine Beauty Item 163,Beauty & Health,PureForm,171.14,68.46,5.39,True,2019-10-02
+PROD0164,ReadMore Home Item 164,Home & Kitchen,NovaTech,233.25,139.95,3.48,True,2019-10-19
+PROD0165,GlowUp Beauty Item 165,Beauty & Health,CoreBrand,120.54,48.22,2.48,True,2021-02-04
+PROD0166,HomePro Books Item 166,Books,BoldEdge,59.49,38.67,6.83,False,2021-12-03
+PROD0167,BoldEdge Toys Item 167,Toys & Games,PureForm,47.25,23.62,7.35,True,2021-08-17
+PROD0168,StyleCo Clothing Item 168,Clothing,StyleCo,298.17,134.18,2.0,True,2020-03-01
+PROD0169,HomePro Electronics Item 169,Electronics,PrimeLine,1144.28,858.21,8.19,True,2019-10-25
+PROD0170,CoreBrand Books Item 170,Books,HomePro,9.03,5.87,8.21,False,2021-01-18
+PROD0171,GlowUp Sports Item 171,Sports & Outdoors,NexGen,492.76,271.02,1.53,True,2019-05-09
+PROD0172,HomePro Books Item 172,Books,BoldEdge,17.2,11.18,3.97,True,2019-04-22
+PROD0173,HomePro Sports Item 173,Sports & Outdoors,ZenLife,405.49,223.02,9.05,True,2019-09-02
+PROD0174,ActiveGear Electronics Item 174,Electronics,PrimeLine,1128.17,846.13,6.72,True,2019-11-21
+PROD0175,StyleCo Toys Item 175,Toys & Games,FunZone,116.98,58.49,3.6,True,2019-09-18
+PROD0176,PrimeLine Clothing Item 176,Clothing,GlowUp,222.64,100.19,2.24,True,2021-07-14
+PROD0177,BoldEdge Clothing Item 177,Clothing,NexGen,253.78,114.2,0.19,True,2020-02-16
+PROD0178,ReadMore Clothing Item 178,Clothing,StyleCo,147.26,66.27,3.21,True,2019-09-14
+PROD0179,ClearView Beauty Item 179,Beauty & Health,FunZone,143.09,57.24,0.96,True,2019-10-05
+PROD0180,ClearView Sports Item 180,Sports & Outdoors,PureForm,22.39,12.31,3.08,True,2020-03-30
+PROD0181,NovaTech Books Item 181,Books,ActiveGear,28.85,18.75,3.03,True,2020-12-12
+PROD0182,ReadMore Electronics Item 182,Electronics,ClearView,767.09,575.32,2.58,True,2020-07-23
+PROD0183,ZenLife Clothing Item 183,Clothing,ZenLife,51.47,23.16,7.43,True,2020-01-20
+PROD0184,ZenLife Home Item 184,Home & Kitchen,NovaTech,227.32,136.39,1.98,True,2021-08-11
+PROD0185,PureForm Electronics Item 185,Electronics,NexGen,638.25,478.69,2.0,True,2020-10-23
+PROD0186,BoldEdge Home Item 186,Home & Kitchen,FunZone,206.46,123.88,3.32,False,2021-02-18
+PROD0187,ClearView Clothing Item 187,Clothing,NexGen,232.93,104.82,8.94,True,2020-03-13
+PROD0188,ClearView Beauty Item 188,Beauty & Health,BoldEdge,121.04,48.42,0.87,True,2020-07-01
+PROD0189,GlowUp Beauty Item 189,Beauty & Health,NovaTech,25.97,10.39,8.3,True,2021-09-15
+PROD0190,PrimeLine Home Item 190,Home & Kitchen,GlowUp,294.45,176.67,0.86,True,2021-07-16
+PROD0191,ActiveGear Clothing Item 191,Clothing,GlowUp,175.03,78.76,2.77,True,2021-09-21
+PROD0192,NexGen Electronics Item 192,Electronics,PrimeLine,939.77,704.83,2.01,True,2021-08-21
+PROD0193,CoreBrand Books Item 193,Books,BoldEdge,53.45,34.74,5.88,True,2020-02-25
+PROD0194,ZenLife Sports Item 194,Sports & Outdoors,NovaTech,470.77,258.92,0.87,True,2019-08-31
+PROD0195,GlowUp Sports Item 195,Sports & Outdoors,GlowUp,83.69,46.03,8.84,True,2020-01-09
+PROD0196,NovaTech Home Item 196,Home & Kitchen,PrimeLine,198.6,119.16,1.11,True,2020-05-09
+PROD0197,StyleCo Electronics Item 197,Electronics,BoldEdge,761.18,570.88,7.97,True,2019-11-03
+PROD0198,PrimeLine Electronics Item 198,Electronics,FunZone,436.0,327.0,4.38,True,2019-11-18
+PROD0199,NexGen Electronics Item 199,Electronics,CoreBrand,847.33,635.5,5.94,False,2021-01-04
+PROD0200,CoreBrand Clothing Item 200,Clothing,ActiveGear,220.12,99.05,2.54,True,2021-10-02
+PROD0201,ActiveGear Electronics Item 201,Electronics,ClearView,151.38,113.53,1.77,True,2021-10-19
+PROD0202,FunZone Electronics Item 202,Electronics,PrimeLine,123.93,92.95,5.64,True,2021-03-26
+PROD0203,ActiveGear Books Item 203,Books,BoldEdge,20.16,13.1,3.57,True,2019-11-21
+PROD0204,ZenLife Electronics Item 204,Electronics,BoldEdge,1087.22,815.41,2.75,True,2021-10-08
+PROD0205,StyleCo Books Item 205,Books,ClearView,58.28,37.88,1.09,True,2020-04-21
+PROD0206,HomePro Clothing Item 206,Clothing,NovaTech,287.63,129.43,3.1,False,2021-08-21
+PROD0207,BoldEdge Sports Item 207,Sports & Outdoors,PureForm,427.1,234.91,8.14,True,2020-07-20
+PROD0208,ReadMore Electronics Item 208,Electronics,NovaTech,714.95,536.21,7.39,True,2021-05-11
+PROD0209,ReadMore Electronics Item 209,Electronics,ReadMore,774.3,580.72,1.71,True,2020-09-16
+PROD0210,NovaTech Electronics Item 210,Electronics,CoreBrand,124.51,93.38,3.05,True,2019-10-04
+PROD0211,PureForm Toys Item 211,Toys & Games,ReadMore,48.46,24.23,7.79,True,2021-07-01
+PROD0212,HomePro Home Item 212,Home & Kitchen,NovaTech,61.65,36.99,4.28,True,2021-02-12
+PROD0213,FunZone Books Item 213,Books,PureForm,22.58,14.68,6.02,True,2020-06-16
+PROD0214,BoldEdge Toys Item 214,Toys & Games,PrimeLine,49.38,24.69,1.41,True,2021-03-06
+PROD0215,ActiveGear Sports Item 215,Sports & Outdoors,StyleCo,245.04,134.77,2.5,True,2020-07-02
+PROD0216,CoreBrand Electronics Item 216,Electronics,ReadMore,1191.59,893.69,4.09,True,2020-06-21
+PROD0217,ActiveGear Clothing Item 217,Clothing,ActiveGear,189.76,85.39,6.53,True,2019-06-03
+PROD0218,ActiveGear Beauty Item 218,Beauty & Health,PrimeLine,96.97,38.79,9.04,True,2020-04-27
+PROD0219,ClearView Books Item 219,Books,ClearView,25.16,16.35,1.92,True,2021-01-12
+PROD0220,GlowUp Clothing Item 220,Clothing,CoreBrand,167.14,75.21,0.3,True,2020-05-02
+PROD0221,PureForm Sports Item 221,Sports & Outdoors,HomePro,307.87,169.33,7.61,True,2020-03-31
+PROD0222,CoreBrand Home Item 222,Home & Kitchen,BoldEdge,89.22,53.53,4.33,True,2019-09-06
+PROD0223,ReadMore Sports Item 223,Sports & Outdoors,FunZone,326.16,179.39,1.66,False,2019-05-02
+PROD0224,GlowUp Books Item 224,Books,NovaTech,46.31,30.1,1.3,True,2021-12-28
+PROD0225,PrimeLine Home Item 225,Home & Kitchen,NexGen,318.21,190.93,1.71,True,2019-09-27
+PROD0226,StyleCo Sports Item 226,Sports & Outdoors,ActiveGear,176.34,96.99,0.12,True,2020-03-29
+PROD0227,BoldEdge Beauty Item 227,Beauty & Health,StyleCo,98.22,39.29,0.33,True,2021-11-15
+PROD0228,ZenLife Home Item 228,Home & Kitchen,FunZone,56.94,34.16,2.88,True,2020-03-01
+PROD0229,HomePro Electronics Item 229,Electronics,BoldEdge,1159.1,869.32,4.03,True,2020-12-26
+PROD0230,GlowUp Home Item 230,Home & Kitchen,PrimeLine,21.66,13.0,2.68,True,2022-01-01
+PROD0231,StyleCo Electronics Item 231,Electronics,ReadMore,93.0,69.75,9.86,True,2019-05-15
+PROD0232,NexGen Clothing Item 232,Clothing,ActiveGear,131.95,59.38,3.36,True,2019-06-22
+PROD0233,ClearView Home Item 233,Home & Kitchen,NexGen,42.67,25.6,5.02,True,2019-09-09
+PROD0234,GlowUp Clothing Item 234,Clothing,PrimeLine,121.42,54.64,0.54,True,2020-05-31
+PROD0235,NovaTech Clothing Item 235,Clothing,BoldEdge,203.53,91.59,3.42,True,2020-12-09
+PROD0236,StyleCo Electronics Item 236,Electronics,FunZone,535.18,401.38,0.95,True,2021-02-26
+PROD0237,HomePro Clothing Item 237,Clothing,HomePro,231.3,104.08,6.7,True,2020-07-26
+PROD0238,PureForm Clothing Item 238,Clothing,CoreBrand,142.2,63.99,9.47,True,2019-08-31
+PROD0239,CoreBrand Clothing Item 239,Clothing,PureForm,58.83,26.47,5.08,True,2020-11-08
+PROD0240,PureForm Books Item 240,Books,ZenLife,50.11,32.57,0.18,True,2020-12-29
+PROD0241,PureForm Books Item 241,Books,HomePro,51.22,33.29,5.8,True,2021-03-09
+PROD0242,ZenLife Sports Item 242,Sports & Outdoors,HomePro,434.28,238.85,6.61,True,2020-02-24
+PROD0243,StyleCo Electronics Item 243,Electronics,HomePro,1021.84,766.38,3.24,True,2021-11-26
+PROD0244,BoldEdge Books Item 244,Books,ClearView,36.15,23.5,4.69,True,2019-07-11
+PROD0245,PrimeLine Clothing Item 245,Clothing,ReadMore,189.73,85.38,8.7,True,2020-07-29
+PROD0246,GlowUp Clothing Item 246,Clothing,PrimeLine,160.68,72.31,7.76,True,2019-10-11
+PROD0247,ZenLife Home Item 247,Home & Kitchen,BoldEdge,312.21,187.33,3.1,True,2019-04-09
+PROD0248,ActiveGear Home Item 248,Home & Kitchen,GlowUp,131.83,79.1,9.24,True,2021-09-08
+PROD0249,HomePro Books Item 249,Books,ReadMore,34.2,22.23,9.29,True,2020-11-29
+PROD0250,ClearView Home Item 250,Home & Kitchen,NovaTech,292.14,175.28,4.66,True,2021-06-25
+PROD0251,GlowUp Books Item 251,Books,ClearView,58.96,38.32,6.39,True,2020-02-26
+PROD0252,BoldEdge Toys Item 252,Toys & Games,NexGen,109.38,54.69,4.26,True,2021-01-18
+PROD0253,BoldEdge Sports Item 253,Sports & Outdoors,CoreBrand,249.76,137.37,4.17,False,2021-12-07
+PROD0254,NovaTech Clothing Item 254,Clothing,PureForm,203.34,91.5,4.43,True,2020-05-10
+PROD0255,BoldEdge Home Item 255,Home & Kitchen,GlowUp,209.36,125.62,5.68,True,2020-07-23
+PROD0256,GlowUp Clothing Item 256,Clothing,PrimeLine,96.59,43.47,0.86,True,2020-12-06
+PROD0257,NovaTech Home Item 257,Home & Kitchen,GlowUp,145.99,87.59,0.9,False,2021-05-03
+PROD0258,NexGen Sports Item 258,Sports & Outdoors,ClearView,387.65,213.21,0.88,True,2020-11-16
+PROD0259,CoreBrand Electronics Item 259,Electronics,NovaTech,629.02,471.76,5.4,True,2019-06-15
+PROD0260,NovaTech Electronics Item 260,Electronics,PureForm,471.01,353.26,7.93,True,2019-10-18
+PROD0261,ZenLife Electronics Item 261,Electronics,NovaTech,602.49,451.87,0.97,True,2019-11-01
+PROD0262,FunZone Clothing Item 262,Clothing,ZenLife,211.03,94.96,4.54,True,2021-12-14
+PROD0263,PureForm Sports Item 263,Sports & Outdoors,ActiveGear,389.13,214.02,5.2,True,2019-06-01
+PROD0264,ActiveGear Clothing Item 264,Clothing,NexGen,229.44,103.25,1.06,True,2019-07-24
+PROD0265,HomePro Home Item 265,Home & Kitchen,FunZone,239.17,143.5,5.52,True,2019-09-19
+PROD0266,StyleCo Home Item 266,Home & Kitchen,FunZone,238.94,143.36,4.73,True,2021-05-31
+PROD0267,FunZone Electronics Item 267,Electronics,HomePro,792.46,594.35,0.26,True,2019-12-07
+PROD0268,NexGen Electronics Item 268,Electronics,PrimeLine,61.48,46.11,7.18,True,2021-04-07
+PROD0269,StyleCo Beauty Item 269,Beauty & Health,BoldEdge,88.9,35.56,2.4,True,2021-12-04
+PROD0270,ActiveGear Home Item 270,Home & Kitchen,NovaTech,126.46,75.88,9.29,True,2020-01-10
+PROD0271,PureForm Clothing Item 271,Clothing,FunZone,71.22,32.05,1.66,True,2020-08-23
+PROD0272,FunZone Sports Item 272,Sports & Outdoors,ReadMore,43.53,23.94,8.44,False,2019-10-12
+PROD0273,GlowUp Electronics Item 273,Electronics,NovaTech,1013.15,759.86,3.97,True,2019-08-28
+PROD0274,ZenLife Beauty Item 274,Beauty & Health,BoldEdge,150.38,60.15,1.54,False,2020-01-11
+PROD0275,ClearView Books Item 275,Books,ReadMore,14.62,9.5,5.23,True,2021-01-02
+PROD0276,ClearView Electronics Item 276,Electronics,HomePro,790.5,592.88,7.78,True,2021-07-07
+PROD0277,CoreBrand Electronics Item 277,Electronics,HomePro,303.37,227.53,8.33,True,2021-06-09
+PROD0278,ZenLife Electronics Item 278,Electronics,HomePro,193.98,145.48,2.42,True,2019-04-30
+PROD0279,ZenLife Clothing Item 279,Clothing,CoreBrand,208.21,93.69,1.45,True,2021-12-12
+PROD0280,ReadMore Clothing Item 280,Clothing,GlowUp,285.83,128.62,3.56,True,2020-12-19
+PROD0281,PureForm Electronics Item 281,Electronics,ReadMore,874.51,655.88,1.58,True,2021-08-27
+PROD0282,ActiveGear Clothing Item 282,Clothing,ActiveGear,254.3,114.43,8.91,True,2021-11-06
+PROD0283,FunZone Home Item 283,Home & Kitchen,HomePro,160.22,96.13,9.69,True,2020-09-13
+PROD0284,HomePro Electronics Item 284,Electronics,BoldEdge,636.38,477.28,2.47,True,2019-09-06
+PROD0285,ZenLife Clothing Item 285,Clothing,ZenLife,253.9,114.25,8.49,True,2020-07-14
+PROD0286,GlowUp Home Item 286,Home & Kitchen,NexGen,135.76,81.46,3.96,True,2021-09-12
+PROD0287,BoldEdge Sports Item 287,Sports & Outdoors,ClearView,128.2,70.51,7.32,True,2021-05-12
+PROD0288,CoreBrand Toys Item 288,Toys & Games,FunZone,136.04,68.02,5.56,True,2021-03-10
+PROD0289,ZenLife Home Item 289,Home & Kitchen,ActiveGear,233.35,140.01,6.23,True,2021-08-02
+PROD0290,BoldEdge Electronics Item 290,Electronics,CoreBrand,877.15,657.86,8.14,False,2021-05-04
+PROD0291,CoreBrand Home Item 291,Home & Kitchen,ReadMore,226.81,136.09,5.84,True,2020-02-26
+PROD0292,ZenLife Toys Item 292,Toys & Games,HomePro,43.6,21.8,6.59,True,2021-11-15
+PROD0293,NovaTech Beauty Item 293,Beauty & Health,StyleCo,92.89,37.16,6.05,True,2021-10-14
+PROD0294,PureForm Sports Item 294,Sports & Outdoors,ReadMore,192.41,105.83,9.22,True,2020-07-24
+PROD0295,ActiveGear Sports Item 295,Sports & Outdoors,CoreBrand,352.32,193.78,7.98,True,2020-06-06
+PROD0296,HomePro Sports Item 296,Sports & Outdoors,PureForm,405.2,222.86,9.28,False,2020-05-17
+PROD0297,NovaTech Electronics Item 297,Electronics,PureForm,692.89,519.67,2.58,True,2019-08-13
+PROD0298,PureForm Home Item 298,Home & Kitchen,ReadMore,115.73,69.44,0.81,True,2019-04-19
+PROD0299,GlowUp Books Item 299,Books,CoreBrand,49.34,32.07,1.24,True,2020-03-05
+PROD0300,ClearView Electronics Item 300,Electronics,CoreBrand,308.37,231.28,2.32,True,2020-05-17
+PROD0301,FunZone Beauty Item 301,Beauty & Health,BoldEdge,168.97,67.59,1.51,True,2021-02-11
+PROD0302,PrimeLine Electronics Item 302,Electronics,ZenLife,868.03,651.02,9.93,True,2020-08-04
+PROD0303,GlowUp Electronics Item 303,Electronics,BoldEdge,727.4,545.55,5.57,False,2021-05-08
+PROD0304,FunZone Electronics Item 304,Electronics,ActiveGear,408.58,306.44,5.09,True,2021-07-25
+PROD0305,ActiveGear Clothing Item 305,Clothing,ActiveGear,129.27,58.17,3.06,True,2019-05-26
+PROD0306,ReadMore Home Item 306,Home & Kitchen,HomePro,191.73,115.04,2.23,True,2020-10-22
+PROD0307,GlowUp Electronics Item 307,Electronics,ActiveGear,1069.65,802.24,6.22,True,2020-11-01
+PROD0308,NexGen Sports Item 308,Sports & Outdoors,ZenLife,379.41,208.68,1.33,True,2019-05-28
+PROD0309,NovaTech Clothing Item 309,Clothing,GlowUp,231.03,103.96,2.7,True,2021-04-05
+PROD0310,PrimeLine Home Item 310,Home & Kitchen,NovaTech,151.9,91.14,7.85,True,2020-06-12
+PROD0311,PrimeLine Home Item 311,Home & Kitchen,ClearView,226.6,135.96,8.83,True,2020-03-20
+PROD0312,ZenLife Beauty Item 312,Beauty & Health,PrimeLine,67.97,27.19,0.24,True,2020-10-11
+PROD0313,NexGen Beauty Item 313,Beauty & Health,NexGen,161.79,64.72,2.14,True,2021-11-04
+PROD0314,GlowUp Clothing Item 314,Clothing,FunZone,247.76,111.49,3.4,True,2021-01-19
+PROD0315,StyleCo Home Item 315,Home & Kitchen,PrimeLine,16.23,9.74,3.14,True,2020-10-26
+PROD0316,ZenLife Toys Item 316,Toys & Games,PureForm,36.67,18.34,0.95,True,2020-01-01
+PROD0317,BoldEdge Clothing Item 317,Clothing,ZenLife,233.18,104.93,0.84,True,2019-05-19
+PROD0318,StyleCo Electronics Item 318,Electronics,BoldEdge,1149.67,862.25,1.71,True,2019-06-06
+PROD0319,ActiveGear Sports Item 319,Sports & Outdoors,NexGen,403.46,221.9,8.12,True,2021-12-19
+PROD0320,BoldEdge Home Item 320,Home & Kitchen,ReadMore,267.2,160.32,2.76,False,2019-10-01
+PROD0321,StyleCo Toys Item 321,Toys & Games,PrimeLine,55.81,27.91,7.96,True,2019-12-13
+PROD0322,FunZone Home Item 322,Home & Kitchen,CoreBrand,290.81,174.49,4.12,False,2021-09-24
+PROD0323,ActiveGear Home Item 323,Home & Kitchen,FunZone,250.94,150.56,6.59,True,2020-06-04
+PROD0324,ClearView Beauty Item 324,Beauty & Health,ReadMore,119.48,47.79,1.4,True,2021-12-31
+PROD0325,ReadMore Clothing Item 325,Clothing,NovaTech,147.96,66.58,7.56,True,2020-07-03
+PROD0326,ReadMore Home Item 326,Home & Kitchen,NexGen,190.07,114.04,5.58,True,2019-11-24
+PROD0327,ClearView Beauty Item 327,Beauty & Health,PureForm,185.98,74.39,8.31,True,2019-05-14
+PROD0328,StyleCo Home Item 328,Home & Kitchen,ReadMore,145.84,87.5,4.61,True,2020-02-01
+PROD0329,NovaTech Clothing Item 329,Clothing,PureForm,99.31,44.69,9.45,False,2021-03-31
+PROD0330,GlowUp Home Item 330,Home & Kitchen,PrimeLine,21.81,13.09,7.01,True,2020-11-17
+PROD0331,NexGen Clothing Item 331,Clothing,ClearView,123.32,55.49,7.66,True,2020-11-12
+PROD0332,NovaTech Toys Item 332,Toys & Games,ActiveGear,93.95,46.98,0.69,False,2021-05-22
+PROD0333,PrimeLine Electronics Item 333,Electronics,GlowUp,1132.51,849.38,3.57,True,2019-06-01
+PROD0334,HomePro Sports Item 334,Sports & Outdoors,BoldEdge,261.12,143.62,6.29,True,2021-11-06
+PROD0335,BoldEdge Electronics Item 335,Electronics,PureForm,119.64,89.73,9.7,True,2020-09-02
+PROD0336,PrimeLine Books Item 336,Books,PrimeLine,52.69,34.25,9.45,True,2020-04-22
+PROD0337,StyleCo Clothing Item 337,Clothing,GlowUp,230.86,103.89,6.59,True,2021-08-27
+PROD0338,NexGen Beauty Item 338,Beauty & Health,NovaTech,139.3,55.72,6.86,True,2019-08-10
+PROD0339,NovaTech Home Item 339,Home & Kitchen,BoldEdge,308.79,185.27,4.0,True,2021-05-19
+PROD0340,ClearView Beauty Item 340,Beauty & Health,PrimeLine,121.87,48.75,9.95,True,2021-07-12
+PROD0341,FunZone Books Item 341,Books,FunZone,8.06,5.24,8.36,True,2020-02-22
+PROD0342,ActiveGear Clothing Item 342,Clothing,ClearView,234.25,105.41,5.4,True,2020-01-27
+PROD0343,CoreBrand Clothing Item 343,Clothing,StyleCo,233.52,105.08,5.21,True,2020-10-02
+PROD0344,PureForm Electronics Item 344,Electronics,PrimeLine,1080.15,810.11,8.51,True,2019-07-16
+PROD0345,ClearView Electronics Item 345,Electronics,StyleCo,237.72,178.29,1.85,True,2020-12-16
+PROD0346,GlowUp Electronics Item 346,Electronics,NovaTech,232.52,174.39,7.79,True,2020-03-20
+PROD0347,HomePro Clothing Item 347,Clothing,StyleCo,266.22,119.8,6.62,True,2021-11-05
+PROD0348,ReadMore Home Item 348,Home & Kitchen,NovaTech,390.98,234.59,7.72,True,2020-09-06
+PROD0349,BoldEdge Toys Item 349,Toys & Games,NovaTech,126.68,63.34,1.54,True,2019-04-12
+PROD0350,BoldEdge Sports Item 350,Sports & Outdoors,ClearView,460.98,253.54,9.49,True,2021-08-01
+PROD0351,PrimeLine Electronics Item 351,Electronics,StyleCo,87.67,65.75,6.96,True,2020-06-23
+PROD0352,PrimeLine Books Item 352,Books,ClearView,19.94,12.96,2.15,True,2019-10-23
+PROD0353,ActiveGear Home Item 353,Home & Kitchen,NovaTech,202.21,121.33,8.05,True,2019-11-27
+PROD0354,ActiveGear Books Item 354,Books,BoldEdge,39.54,25.7,9.4,True,2019-10-15
+PROD0355,NovaTech Books Item 355,Books,HomePro,43.67,28.39,0.3,True,2019-08-01
+PROD0356,NexGen Electronics Item 356,Electronics,FunZone,455.31,341.48,5.21,True,2021-07-28
+PROD0357,GlowUp Beauty Item 357,Beauty & Health,ActiveGear,94.11,37.64,4.55,True,2020-01-18
+PROD0358,ZenLife Home Item 358,Home & Kitchen,StyleCo,139.99,83.99,7.77,True,2020-08-30
+PROD0359,PrimeLine Sports Item 359,Sports & Outdoors,BoldEdge,63.01,34.66,9.88,True,2019-07-04
+PROD0360,ActiveGear Clothing Item 360,Clothing,CoreBrand,184.07,82.83,2.33,True,2020-05-08
+PROD0361,GlowUp Electronics Item 361,Electronics,ZenLife,929.05,696.79,4.47,True,2019-11-16
+PROD0362,StyleCo Books Item 362,Books,ActiveGear,24.52,15.94,3.3,True,2021-03-30
+PROD0363,ClearView Toys Item 363,Toys & Games,NovaTech,130.44,65.22,1.39,True,2021-11-30
+PROD0364,StyleCo Home Item 364,Home & Kitchen,PureForm,83.65,50.19,0.21,True,2019-12-13
+PROD0365,BoldEdge Electronics Item 365,Electronics,NovaTech,683.9,512.92,3.48,True,2020-02-25
+PROD0366,PureForm Books Item 366,Books,BoldEdge,20.85,13.55,7.82,True,2021-04-10
+PROD0367,ZenLife Clothing Item 367,Clothing,NexGen,111.94,50.37,8.84,True,2021-03-16
+PROD0368,BoldEdge Clothing Item 368,Clothing,ReadMore,252.3,113.53,0.3,True,2021-07-10
+PROD0369,ClearView Beauty Item 369,Beauty & Health,PureForm,75.96,30.38,1.13,True,2019-07-11
+PROD0370,GlowUp Sports Item 370,Sports & Outdoors,CoreBrand,415.33,228.43,2.24,True,2020-11-08
+PROD0371,CoreBrand Home Item 371,Home & Kitchen,PrimeLine,189.14,113.48,7.04,True,2019-08-14
+PROD0372,ActiveGear Clothing Item 372,Clothing,NovaTech,80.41,36.18,8.34,True,2021-10-12
+PROD0373,ClearView Clothing Item 373,Clothing,ZenLife,65.09,29.29,3.93,True,2021-12-25
+PROD0374,NexGen Clothing Item 374,Clothing,NexGen,280.52,126.23,0.82,False,2020-08-06
+PROD0375,BoldEdge Home Item 375,Home & Kitchen,BoldEdge,172.29,103.37,2.33,True,2020-03-13
+PROD0376,PrimeLine Electronics Item 376,Electronics,NovaTech,202.85,152.14,2.78,True,2019-11-29
+PROD0377,StyleCo Clothing Item 377,Clothing,ReadMore,251.66,113.25,4.94,True,2020-12-26
+PROD0378,ReadMore Home Item 378,Home & Kitchen,ReadMore,96.77,58.06,7.5,True,2019-04-15
+PROD0379,BoldEdge Books Item 379,Books,ActiveGear,10.35,6.73,1.41,True,2019-05-18
+PROD0380,CoreBrand Sports Item 380,Sports & Outdoors,GlowUp,105.53,58.04,3.22,True,2021-01-07
+PROD0381,CoreBrand Electronics Item 381,Electronics,GlowUp,266.23,199.67,3.93,True,2020-11-24
+PROD0382,StyleCo Clothing Item 382,Clothing,BoldEdge,20.21,9.09,6.75,True,2019-05-28
+PROD0383,CoreBrand Clothing Item 383,Clothing,HomePro,165.84,74.63,0.33,True,2021-04-18
+PROD0384,GlowUp Home Item 384,Home & Kitchen,NovaTech,342.03,205.22,3.24,True,2019-08-31
+PROD0385,HomePro Home Item 385,Home & Kitchen,NexGen,136.22,81.73,3.44,True,2021-11-15
+PROD0386,CoreBrand Electronics Item 386,Electronics,NovaTech,92.83,69.62,2.25,True,2020-01-22
+PROD0387,PureForm Sports Item 387,Sports & Outdoors,PrimeLine,50.06,27.53,1.34,True,2021-03-06
+PROD0388,FunZone Books Item 388,Books,NexGen,29.81,19.38,0.44,True,2021-05-18
+PROD0389,NexGen Beauty Item 389,Beauty & Health,StyleCo,74.95,29.98,8.13,True,2019-10-26
+PROD0390,NexGen Electronics Item 390,Electronics,NovaTech,794.91,596.18,1.67,True,2021-04-07
+PROD0391,HomePro Home Item 391,Home & Kitchen,ReadMore,268.9,161.34,4.33,True,2020-04-30
+PROD0392,ReadMore Books Item 392,Books,ReadMore,15.36,9.98,8.12,True,2021-07-19
+PROD0393,HomePro Electronics Item 393,Electronics,ReadMore,617.04,462.78,1.34,True,2019-09-20
+PROD0394,ActiveGear Toys Item 394,Toys & Games,ActiveGear,116.1,58.05,8.55,True,2021-11-16
+PROD0395,BoldEdge Sports Item 395,Sports & Outdoors,PureForm,234.46,128.95,8.22,False,2019-12-14
+PROD0396,PureForm Clothing Item 396,Clothing,ZenLife,35.05,15.77,2.94,True,2020-11-19
+PROD0397,ClearView Books Item 397,Books,NexGen,48.18,31.32,7.52,True,2020-09-14
+PROD0398,PureForm Electronics Item 398,Electronics,BoldEdge,1104.52,828.39,4.54,True,2019-06-27
+PROD0399,GlowUp Beauty Item 399,Beauty & Health,ActiveGear,190.06,76.02,0.33,True,2021-05-19
+PROD0400,FunZone Electronics Item 400,Electronics,HomePro,367.07,275.3,0.23,True,2019-12-09
+PROD0401,ZenLife Beauty Item 401,Beauty & Health,BoldEdge,44.52,17.81,8.5,True,2021-12-10
+PROD0402,CoreBrand Beauty Item 402,Beauty & Health,FunZone,18.75,7.5,1.31,True,2019-04-29
+PROD0403,PrimeLine Home Item 403,Home & Kitchen,NexGen,27.48,16.49,3.69,True,2021-11-15
+PROD0404,GlowUp Books Item 404,Books,PureForm,10.96,7.12,4.44,True,2021-02-16
+PROD0405,CoreBrand Clothing Item 405,Clothing,ZenLife,180.34,81.15,5.97,True,2020-04-30
+PROD0406,GlowUp Clothing Item 406,Clothing,HomePro,21.17,9.53,7.8,True,2019-08-28
+PROD0407,GlowUp Clothing Item 407,Clothing,ClearView,267.51,120.38,4.98,True,2020-06-10
+PROD0408,ZenLife Home Item 408,Home & Kitchen,ReadMore,34.33,20.6,0.77,True,2020-09-27
+PROD0409,ClearView Clothing Item 409,Clothing,HomePro,253.6,114.12,5.95,True,2021-03-05
+PROD0410,ZenLife Clothing Item 410,Clothing,CoreBrand,148.68,66.91,7.1,True,2019-07-08
+PROD0411,StyleCo Clothing Item 411,Clothing,PureForm,176.37,79.37,7.49,True,2020-05-18
+PROD0412,GlowUp Beauty Item 412,Beauty & Health,PureForm,192.06,76.82,8.09,True,2019-12-27
+PROD0413,ActiveGear Home Item 413,Home & Kitchen,PrimeLine,15.76,9.46,7.56,True,2020-07-14
+PROD0414,CoreBrand Sports Item 414,Sports & Outdoors,ClearView,498.65,274.26,7.01,True,2021-08-21
+PROD0415,HomePro Beauty Item 415,Beauty & Health,CoreBrand,185.33,74.13,5.89,False,2020-09-23
+PROD0416,NovaTech Clothing Item 416,Clothing,ActiveGear,143.63,64.63,2.44,True,2020-07-27
+PROD0417,PureForm Sports Item 417,Sports & Outdoors,HomePro,33.05,18.18,4.29,True,2021-02-13
+PROD0418,NexGen Books Item 418,Books,PrimeLine,14.98,9.74,5.82,True,2019-05-28
+PROD0419,NovaTech Home Item 419,Home & Kitchen,FunZone,236.27,141.76,3.42,True,2020-07-16
+PROD0420,ReadMore Electronics Item 420,Electronics,CoreBrand,972.38,729.28,5.83,True,2019-09-29
+PROD0421,ClearView Home Item 421,Home & Kitchen,ReadMore,323.39,194.03,1.85,True,2021-06-23
+PROD0422,ReadMore Electronics Item 422,Electronics,CoreBrand,836.33,627.25,6.66,True,2020-07-14
+PROD0423,BoldEdge Sports Item 423,Sports & Outdoors,NexGen,383.7,211.03,7.85,False,2020-07-13
+PROD0424,GlowUp Toys Item 424,Toys & Games,FunZone,137.69,68.84,6.98,True,2019-07-03
+PROD0425,ZenLife Home Item 425,Home & Kitchen,FunZone,87.66,52.6,7.11,True,2019-11-01
+PROD0426,StyleCo Clothing Item 426,Clothing,CoreBrand,253.57,114.11,1.52,True,2019-11-18
+PROD0427,HomePro Home Item 427,Home & Kitchen,CoreBrand,126.94,76.16,7.76,True,2020-04-28
+PROD0428,NovaTech Electronics Item 428,Electronics,ZenLife,111.14,83.36,0.37,True,2019-11-12
+PROD0429,FunZone Clothing Item 429,Clothing,NovaTech,121.23,54.55,7.08,True,2020-03-06
+PROD0430,NovaTech Toys Item 430,Toys & Games,PureForm,89.52,44.76,7.72,True,2020-10-21
+PROD0431,StyleCo Clothing Item 431,Clothing,StyleCo,197.23,88.75,7.83,True,2019-08-13
+PROD0432,ReadMore Home Item 432,Home & Kitchen,ActiveGear,68.56,41.14,5.07,True,2019-12-19
+PROD0433,FunZone Books Item 433,Books,BoldEdge,42.44,27.59,4.82,True,2021-08-30
+PROD0434,BoldEdge Beauty Item 434,Beauty & Health,PrimeLine,42.57,17.03,4.21,True,2020-09-18
+PROD0435,FunZone Clothing Item 435,Clothing,StyleCo,268.54,120.84,3.89,True,2021-08-23
+PROD0436,ZenLife Beauty Item 436,Beauty & Health,GlowUp,70.22,28.09,5.74,True,2021-01-12
+PROD0437,ActiveGear Clothing Item 437,Clothing,HomePro,183.5,82.57,1.88,False,2021-12-29
+PROD0438,ActiveGear Toys Item 438,Toys & Games,NovaTech,64.88,32.44,0.59,True,2021-02-10
+PROD0439,BoldEdge Clothing Item 439,Clothing,ReadMore,42.11,18.95,2.88,True,2019-10-13
+PROD0440,PureForm Electronics Item 440,Electronics,StyleCo,188.53,141.4,4.72,True,2021-04-22
+PROD0441,PrimeLine Electronics Item 441,Electronics,GlowUp,884.17,663.13,4.05,True,2021-06-29
+PROD0442,PureForm Toys Item 442,Toys & Games,ClearView,125.64,62.82,8.91,True,2020-09-26
+PROD0443,CoreBrand Electronics Item 443,Electronics,NovaTech,260.68,195.51,9.83,True,2021-09-02
+PROD0444,GlowUp Home Item 444,Home & Kitchen,NovaTech,380.93,228.56,5.03,True,2019-05-31
+PROD0445,BoldEdge Home Item 445,Home & Kitchen,ActiveGear,134.86,80.92,9.38,True,2019-09-29
+PROD0446,FunZone Clothing Item 446,Clothing,NexGen,32.93,14.82,6.61,True,2020-08-06
+PROD0447,ClearView Clothing Item 447,Clothing,GlowUp,50.77,22.85,4.68,True,2021-10-19
+PROD0448,CoreBrand Home Item 448,Home & Kitchen,HomePro,17.19,10.31,4.62,True,2019-12-17
+PROD0449,ClearView Electronics Item 449,Electronics,StyleCo,200.53,150.4,4.25,True,2020-03-12
+PROD0450,NovaTech Sports Item 450,Sports & Outdoors,BoldEdge,355.57,195.56,5.48,True,2021-09-19
+PROD0451,BoldEdge Clothing Item 451,Clothing,NovaTech,110.09,49.54,6.33,True,2021-12-05
+PROD0452,FunZone Clothing Item 452,Clothing,CoreBrand,109.58,49.31,7.52,True,2021-08-13
+PROD0453,ZenLife Clothing Item 453,Clothing,FunZone,245.87,110.64,8.98,True,2020-07-09
+PROD0454,ZenLife Books Item 454,Books,PrimeLine,32.31,21.0,6.37,True,2019-08-16
+PROD0455,StyleCo Sports Item 455,Sports & Outdoors,ZenLife,450.68,247.87,3.33,True,2019-11-18
+PROD0456,PureForm Electronics Item 456,Electronics,ReadMore,284.38,213.28,5.02,True,2021-04-22
+PROD0457,NovaTech Home Item 457,Home & Kitchen,BoldEdge,231.47,138.88,8.49,True,2020-06-01
+PROD0458,GlowUp Clothing Item 458,Clothing,PureForm,127.97,57.59,4.29,True,2021-04-10
+PROD0459,ReadMore Beauty Item 459,Beauty & Health,BoldEdge,85.8,34.32,3.09,True,2019-10-22
+PROD0460,ActiveGear Toys Item 460,Toys & Games,PrimeLine,40.19,20.09,5.82,True,2020-12-23
+PROD0461,ActiveGear Books Item 461,Books,NovaTech,30.6,19.89,7.26,True,2020-02-17
+PROD0462,HomePro Home Item 462,Home & Kitchen,PrimeLine,12.53,7.52,1.62,True,2021-12-30
+PROD0463,NexGen Sports Item 463,Sports & Outdoors,ReadMore,424.76,233.62,6.69,True,2019-06-10
+PROD0464,FunZone Home Item 464,Home & Kitchen,NovaTech,341.87,205.12,2.19,True,2020-09-20
+PROD0465,HomePro Electronics Item 465,Electronics,CoreBrand,825.72,619.29,2.78,True,2020-05-14
+PROD0466,PureForm Sports Item 466,Sports & Outdoors,ReadMore,364.26,200.34,1.05,True,2021-10-06
+PROD0467,FunZone Home Item 467,Home & Kitchen,FunZone,320.26,192.16,2.27,True,2021-02-16
+PROD0468,FunZone Electronics Item 468,Electronics,StyleCo,1163.22,872.41,2.69,True,2020-10-08
+PROD0469,ClearView Clothing Item 469,Clothing,ActiveGear,217.93,98.07,6.1,True,2020-11-29
+PROD0470,GlowUp Clothing Item 470,Clothing,GlowUp,282.15,126.97,3.29,True,2020-07-16
+PROD0471,ZenLife Sports Item 471,Sports & Outdoors,NovaTech,160.06,88.03,3.6,True,2019-05-25
+PROD0472,NovaTech Home Item 472,Home & Kitchen,PrimeLine,201.63,120.98,1.35,True,2020-08-08
+PROD0473,ClearView Electronics Item 473,Electronics,FunZone,751.1,563.33,4.57,True,2021-02-02
+PROD0474,NovaTech Beauty Item 474,Beauty & Health,BoldEdge,173.64,69.46,0.39,True,2020-01-29
+PROD0475,ActiveGear Books Item 475,Books,ReadMore,50.48,32.81,9.72,False,2021-07-14
+PROD0476,HomePro Sports Item 476,Sports & Outdoors,ReadMore,89.39,49.16,3.89,True,2019-06-17
+PROD0477,NexGen Toys Item 477,Toys & Games,HomePro,112.46,56.23,3.89,True,2021-04-16
+PROD0478,ActiveGear Clothing Item 478,Clothing,PrimeLine,81.95,36.88,0.61,True,2019-09-22
+PROD0479,NexGen Home Item 479,Home & Kitchen,HomePro,108.45,65.07,6.92,True,2019-10-09
+PROD0480,PureForm Sports Item 480,Sports & Outdoors,HomePro,475.71,261.64,0.18,True,2020-04-29
+PROD0481,ActiveGear Home Item 481,Home & Kitchen,PureForm,132.63,79.58,5.06,True,2021-02-07
+PROD0482,ActiveGear Home Item 482,Home & Kitchen,NexGen,328.63,197.18,1.5,True,2020-02-08
+PROD0483,ZenLife Toys Item 483,Toys & Games,HomePro,115.22,57.61,2.75,True,2021-11-20
+PROD0484,FunZone Clothing Item 484,Clothing,BoldEdge,127.09,57.19,6.79,True,2021-05-27
+PROD0485,NovaTech Books Item 485,Books,StyleCo,38.29,24.89,3.87,True,2019-09-28
+PROD0486,ReadMore Toys Item 486,Toys & Games,PrimeLine,63.21,31.61,8.75,True,2021-07-02
+PROD0487,NovaTech Clothing Item 487,Clothing,ZenLife,76.4,34.38,4.53,False,2021-02-15
+PROD0488,BoldEdge Home Item 488,Home & Kitchen,ClearView,254.45,152.67,9.68,True,2019-10-16
+PROD0489,StyleCo Toys Item 489,Toys & Games,ActiveGear,17.06,8.53,7.55,True,2021-11-25
+PROD0490,NexGen Electronics Item 490,Electronics,HomePro,1039.96,779.97,0.38,True,2021-08-25
+PROD0491,ClearView Books Item 491,Books,ActiveGear,13.08,8.5,9.05,True,2020-02-07
+PROD0492,PureForm Clothing Item 492,Clothing,NexGen,43.39,19.53,8.28,True,2020-05-29
+PROD0493,PureForm Sports Item 493,Sports & Outdoors,ActiveGear,267.24,146.98,9.81,True,2020-10-19
+PROD0494,NexGen Clothing Item 494,Clothing,GlowUp,221.36,99.61,9.57,True,2021-07-05
+PROD0495,NexGen Clothing Item 495,Clothing,HomePro,182.07,81.93,8.18,True,2020-11-06
+PROD0496,PureForm Home Item 496,Home & Kitchen,GlowUp,193.95,116.37,5.95,True,2020-05-18
+PROD0497,NexGen Clothing Item 497,Clothing,ActiveGear,164.04,73.82,9.1,True,2021-08-09
+PROD0498,ZenLife Clothing Item 498,Clothing,FunZone,70.83,31.87,2.31,True,2019-07-31
+PROD0499,BoldEdge Clothing Item 499,Clothing,PrimeLine,37.65,16.94,6.26,True,2021-12-18
+PROD0500,FunZone Beauty Item 500,Beauty & Health,NovaTech,56.37,22.55,1.82,False,2019-12-31
