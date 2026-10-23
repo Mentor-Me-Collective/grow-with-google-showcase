@@ -15,6 +15,8 @@ Welcome to the official project showcase for **Mentor Me Collective's Grow with 
 
 Think of it less like a submission dropbox and more like a **living library of what MMC Scholars can do** with the skills, tools, and certifications from Grow with Google. 🌱✨
 
+[Access Capstone Guidelines →](https://docs.google.com/document/d/1InNWpho03JfFCXKAuMmXqKNMXpoGoRerdZamuqvCQ2M/edit?tab=t.0)
+
 ---
 
 ## 🎯 Why it exists
