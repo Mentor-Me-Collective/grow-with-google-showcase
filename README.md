@@ -1,12 +1,5 @@
 <div align="center">
 
-# 🌱 MMC × Grow with Google
-### *A Scholar-Built, Open-Source Showcase*
-
-**Built by Scholars. Shared for the world. Extended by whoever's next.** 🚀
-
-</div>
-
 ---
 
 ## 👋 What is this?
@@ -21,12 +14,12 @@ Think of it less like a submission dropbox and more like a **living library of w
 
 ## 🎯 Why it exists
 
-| Goal | What it means |
-|---|---|
-| 📚 **Knowledge base** | Every project is a teaching artifact — not just a grade |
-| 🌱 **Growth over time** | See how Scholar skills evolve, cohort after cohort |
-| 🔁 **Build, don't restart** | Future Scholars can fork, extend, or remix past work |
-| 📣 **Proof of impact** | A public artifact MMC can point to with pride — for Google, partners, and future Scholars |
+| Goal                              | What it means                                                                              |
+| --------------------------------- | ------------------------------------------------------------------------------------------ |
+| 📚 **Knowledge base**       | Every project is a teaching artifact — not just a grade                                   |
+| 🌱 **Growth over time**     | See how Scholar skills evolve, cohort after cohort                                         |
+| 🔁 **Build, don't restart** | Future Scholars can fork, extend, or remix past work                                       |
+| 📣 **Proof of impact**      | A public artifact MMC can point to with pride — for Google, partners, and future Scholars |
 
 ---
 
@@ -64,6 +57,7 @@ Think of it less like a submission dropbox and more like a **living library of w
 Before you spin up a brand new project — **browse this repo.** 🔍
 
 You might find:
+
 - A project idea worth extending instead of duplicating
 - Real examples of how past Scholars applied their Grow with Google learning
 - Proof that yes, someone in your shoes already shipped something amazing
@@ -73,9 +67,3 @@ Standing on the shoulders of Scholars before you isn't cheating — **it's the w
 ---
 
 <div align="center">
-
-### Built with 🌱, 💛, and a lot of `git push`
-
-**Mentor Me Collective** — *engineering the pipeline to one million future leaders.*
-
-</div>

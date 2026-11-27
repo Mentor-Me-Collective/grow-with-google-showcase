@@ -1,0 +1,8 @@
+{
+  "name": "ShiftBridge API",
+  "description": "ShiftBridge authentication and shift management backend API service with interactive explorer.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
