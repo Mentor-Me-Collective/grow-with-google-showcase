@@ -15,7 +15,7 @@ class UserResponse(BaseModel):
     email: EmailStr
     name: Optional[str] = None
     is_manager: bool = False
-
+    avatar: Optional[str] = None
     model_config = ConfigDict(from_attributes=True)
 
 class Token(BaseModel):
