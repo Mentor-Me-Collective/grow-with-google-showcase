@@ -472,7 +472,18 @@ gcloud run services update-traffic shiftbridge-api \
 
 ---
 
-## 9. Future Ideas
+## 9. ScreenShots
+
+![alt text](docs/login.png)
+
+
+![alt text](docs/chat-1.png)
+
+![alt text](docs/chat-2.png)
+
+![alt text](docs/chat-3.png)
+
+## 10. Future Ideas
 
 The current implementation is intentionally scoped to a single-project, weekly-roster demo. The following enhancements would move ShiftBridge toward a production-ready workforce management platform:
 
