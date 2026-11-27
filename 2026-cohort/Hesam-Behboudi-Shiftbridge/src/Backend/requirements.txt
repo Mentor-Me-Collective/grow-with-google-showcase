@@ -1,0 +1,26 @@
+# Core Framework & Server
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+
+# Database & ORM
+sqlalchemy>=2.0.0
+
+# Validation & Settings
+pydantic>=2.7.0
+pydantic[email]>=2.7.0
+pydantic-settings>=2.2.0
+
+# Authentication & Security
+passlib[bcrypt]>=1.7.4
+bcrypt>=4.0.1,<4.1.0
+pyjwt>=2.8.0
+
+# Utilities
+python-dateutil>=2.9.0
+httpx>=0.27.0
+
+# Local AI / LLM Integration (OpenAI API Compatible)
+openai>=1.0.0
+
+# Testing
+pytest>=7.4.0
